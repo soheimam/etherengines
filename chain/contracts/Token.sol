@@ -4,45 +4,53 @@ pragma solidity ^0.8.17;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract FantasyOneToken is ERC20, Ownable {
-    mapping (address => mapping(uint256 => uint256)) public claimableTokens;
-    mapping (address => uint256) public mintedTokens;
+contract Token is ERC20, Ownable {
+    mapping (uint256 => mapping(uint256 => uint256)) public claimableTokens;
+    mapping (address => mapping(uint256 => uint256)) public addressToSeasonMintedMapping;
+    uint256 public currentSeason;
+    uint256 public maxMintAmount = 30 ether;
 
-    constructor() ERC20("FantasyOneToken", "FAN") {}
-
-    function mint(address to, uint256 amount) public {
-        mintedTokens[to] += amount;
-        _mint(to, amount);
+    constructor() ERC20("EtherEngines", "EE") {
+        setSeason(1); // Default to starting the first season
     }
 
-    function getPendingTokensForRace(uint256 raceNumber) public view returns (uint256) {
-        return claimableTokens[msg.sender][raceNumber];
+    function mint(uint256 _amount) public {
+        require(_amount <= maxMintAmount, "Amount is over max amount allowed");
+        require(addressToSeasonMintedMapping[msg.sender][currentSeason] <= maxMintAmount, "Sender already at max mint amount for season");
+        addressToSeasonMintedMapping[msg.sender][currentSeason] += _amount;
+        _mint(msg.sender, _amount);
     }
 
-    function getPendingTokensForAllRaces(uint256 totalRaces) public view returns (uint256[] memory) {
-        uint256[] memory pendingTokens = new uint256[](totalRaces);
+    function getPendingTokensForRace(uint256 _raceNumber, uint256 _tokenId) public view returns (uint256) {
+        return claimableTokens[_tokenId][_raceNumber];
+    }
+
+    function getPendingTokensForAllRaces(uint256 _totalRaces, uint256 _tokenId) public view returns (uint256[] memory) {
+        uint256[] memory pendingTokens = new uint256[](_totalRaces);
         
-        for(uint256 i = 0; i < totalRaces; i++) {
-            pendingTokens[i] = claimableTokens[msg.sender][i];
+        for(uint256 i = 0; i < _totalRaces; i++) {
+            pendingTokens[i] = claimableTokens[_tokenId][i];
         }
         
         return pendingTokens;
     }
 
-    function claimTokens(uint256 raceNumber) public {
-        uint256 amount = claimableTokens[msg.sender][raceNumber];
+    function claimTokens(uint256 _raceNumber, uint256 _tokenId) public {
+        uint256 amount = claimableTokens[_tokenId][_raceNumber];
         require(amount > 0, "No tokens available to claim");
-        claimableTokens[msg.sender][raceNumber] = 0;
+        claimableTokens[_tokenId][_raceNumber] = 0;
         _mint(msg.sender, amount);
     }
 
-    function setClaimableTokens(address user, uint256 raceNumber, uint256 amount) public onlyOwner {
-        claimableTokens[user][raceNumber] = amount;
+    function setClaimableTokens(uint256 _raceNumber, uint256 _amount, uint256 _tokenId) public onlyOwner {
+        claimableTokens[_tokenId][_raceNumber] = _amount;
     }
 
-    function transfer(address recipient, uint256 amount) public override returns (bool) {
-        require(recipient == address(this), "Transfers are only allowed to this contract");
-        return super.transfer(recipient, amount);
+    function setSeason(uint256 _season) public onlyOwner {
+        currentSeason = _season;
     }
+
+
+    // TODO later, disallow any sort of transfer of tokens
 
 }

@@ -19,7 +19,7 @@ interface IOracle {
     function getTrackData(uint8 raceNumber) external view returns (TrackData memory);
 }
 
-contract FantasyOne is ERC721A, Ownable {
+contract Canvas is ERC721A, Ownable {
     using Strings for uint256;
     mapping(uint256 => uint24) public tokenIdToDriverMapping;
 
@@ -29,7 +29,7 @@ contract FantasyOne is ERC721A, Ownable {
     string public baseURI;
     string public URISuffix = ".json";
 
-    constructor(address _oracle, address _token, string memory _baseURI) ERC721A("FantasyOne", "FAN") {
+    constructor(address _oracle, address _token, string memory _baseURI) ERC721A("Canvas", "CANVAS") {
         oracle = IOracle(_oracle);
         token = IERC20(_token);
         setBaseURI(_baseURI);
@@ -40,21 +40,14 @@ contract FantasyOne is ERC721A, Ownable {
     }
 
     function mint(uint8 _driverMain, uint8 _driverSecondary, uint8 _teamNumber) external {
-        require(_driverMain > 0 && _driverMain <= 20, "Main driver number out of range");
-        require(_driverSecondary > 0 && _driverSecondary <= 20, "Secondary driver number out of range");
-        require(_teamNumber > 0 && _teamNumber <= 10, "Team number out of range");
-
-        uint256 driverMainCost = oracle.getDriverCost(_driverMain);
-        uint256 driverSecondaryCost = oracle.getDriverCost(_driverSecondary);
-        uint256 teamCost = oracle.getTeamCost(_teamNumber);
-        uint256 totalCost = driverMainCost + driverSecondaryCost + teamCost;
+        uint256 totalCost = getMintCost(_driverMain, _driverSecondary, _teamNumber);
 
         require(token.balanceOf(msg.sender) >= totalCost, "Not enough token balance.");
         require(token.allowance(msg.sender, address(this)) >= totalCost, "Check the token allowance");
+        // TODO require the user cannot mint more than 1 canvas
 
         token.transferFrom(msg.sender, address(this), totalCost);
-        uint256 _nextTokenId = totalSupply() + 1;
-        _safeMint(msg.sender, _nextTokenId);
+        _safeMint(msg.sender, 1);
     }
 
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
@@ -76,6 +69,18 @@ contract FantasyOne is ERC721A, Ownable {
 
     function updateToken(address _token) external onlyOwner {
         token = IERC20(_token);
+    }
+
+    function getMintCost(uint8 _driverMain, uint8 _driverSecondary, uint8 _teamNumber) public view returns (uint256) {
+        require(_driverMain > 0 && _driverMain <= 20, "Main driver number out of range");
+        require(_driverSecondary > 0 && _driverSecondary <= 20, "Secondary driver number out of range");
+        require(_teamNumber > 0 && _teamNumber <= 10, "Team number out of range");
+
+        uint256 driverMainCost = oracle.getDriverCost(_driverMain);
+        uint256 driverSecondaryCost = oracle.getDriverCost(_driverSecondary);
+        uint256 teamCost = oracle.getTeamCost(_teamNumber);
+        uint256 totalCost = driverMainCost + driverSecondaryCost + teamCost;
+        return totalCost;
     }
 
     function getDriverRating(uint8 driverNumber) public view returns (uint8) {
