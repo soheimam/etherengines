@@ -32,20 +32,20 @@ const wagmiConfig = createConfig({
 export default function Home() {
   return (
     <>
-      <main
-        className={`flex w-full justify-evenly flex-col overflow-hidden min-h-screen px-20`}
-      >
-        <div className="flex w-full justify-end">
-          <WagmiConfig config={wagmiConfig}>
-            <RainbowKitProvider chains={chains}>
+      <WagmiConfig config={wagmiConfig}>
+        <RainbowKitProvider chains={chains}>
+          <main
+            className={`flex w-full justify-evenly flex-col overflow-hidden min-h-screen px-20`}
+          >
+            <div className="flex w-full justify-end">
               <Homeview />
-            </RainbowKitProvider>
-          </WagmiConfig>
-        </div>
-          <Dashboard />
-          {/*<Gameview />
+            </div>
+            <Dashboard />
+            {/*<Gameview />
         <Teamcreator />*/}
-      </main>
+          </main>
+        </RainbowKitProvider>
+      </WagmiConfig>
     </>
   );
 }

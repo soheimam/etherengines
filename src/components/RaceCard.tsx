@@ -5,7 +5,7 @@ const RaceCard = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-row w-full justify-between">
-        <div className="flex flex-col text-left text-2xl p-6 pt-6">
+        <div className="flex flex-col text-left text-2xl pl-6 pt-6">
           <h1>Race Over</h1>
           <h1>Position: 1st</h1>
           <h1>Points: 25</h1>

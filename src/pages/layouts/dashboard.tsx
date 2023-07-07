@@ -2,8 +2,10 @@ import React from "react";
 import Grid from "@/components/Layout/Grid";
 import RaceCard from "@/components/RaceCard";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
+import { useCanvasData } from "@/hooks/useCanvasData";
 
 const Dashboard = () => {
+  const { activeRace } = useCanvasData();
   const isPlaying = true;
 
   const StartButton = () => {
@@ -39,6 +41,7 @@ const Dashboard = () => {
               <p className="text-3xl">Total Wins</p>
             </div>
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
+              {`Active: ${activeRace}`}
               <RaceCard />
             </div>
             <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
