@@ -15,16 +15,16 @@ module.exports = {
       daisyui: {
         themes: [
           {
-            luxury: {
+            pitstop: {
               primary: "#d6d6d6",
               "primary-focus": "#e6e6e6",
               "primary-content": "#000000",
 
-              secondary: "#165668",
-              "secondary-focus": "#142e39",
+              secondary: "#2D8FB9",
+              "secondary-focus": "#1a617f",
               "secondary-content": "#ffffff",
 
-              accent: "#2D8FB9",
+              accent: "#503447",
               "accent-focus": "#32202c",
               "accent-content": "#ffffff",
 
