@@ -3,7 +3,7 @@ import React from "react";
 
 function LargeDriver() {
   return (
-    <article className="pose  col-span-4">
+    <article className="pose  col-span-5">
       <div className="w-full h-96 bg-accent"></div>
       <div className="w-full py-4">
         <h3 className="text-secondary"> cost</h3>

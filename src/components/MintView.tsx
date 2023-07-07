@@ -12,15 +12,27 @@ function MintView() {
         <h3 className="text-primary"> Total Spent</h3>
       </div>
       <LargeDriver />
-      {/* <section className="col-start-1 col-span-5 flex flex-wrap">
+      <section className="col-start-1 col-span-3 grid grid-cols-4">
         <SmallDriver />
         <SmallDriver />
 
         <SmallDriver />
 
         <SmallDriver />
-      </section> */}
-      <div className="col-start-4 col-span-4 h-96 carousel carousel-vertical rounded-box">
+        <SmallDriver />
+        <SmallDriver />
+
+        <SmallDriver />
+
+        <SmallDriver />
+        <SmallDriver />
+        <SmallDriver />
+
+        <SmallDriver />
+
+        <SmallDriver />
+      </section>
+      <div className="col-start-5 col-span-4 h-96 carousel carousel-vertical rounded-box">
         <div className="carousel-item h-full w-full">
           <span className="bg-primary p-12 w-full"></span>
         </div>
@@ -43,6 +55,26 @@ function MintView() {
           <span className="bg-primary p-12 w-full"></span>
         </div>
       </div>
+      <section className="col-start-10 col-span-3 grid grid-cols-4">
+        <SmallDriver />
+        <SmallDriver />
+
+        <SmallDriver />
+
+        <SmallDriver />
+        <SmallDriver />
+        <SmallDriver />
+
+        <SmallDriver />
+
+        <SmallDriver />
+        <SmallDriver />
+        <SmallDriver />
+
+        <SmallDriver />
+
+        <SmallDriver />
+      </section>
     </Grid>
   );
 }
