@@ -41,24 +41,4 @@ describe("Token", function () {
       ethers.utils.parseEther("3")
     );
   });
-
-  // it("should transfer tokens to the contract", async function () {
-  //   await token.connect(owner).mint(ethers.utils.parseEther("2"));
-  //   await token
-  //     .connect(addr1)
-  //     .approve(token.address, ethers.utils.parseEther("2"));
-  //   await token
-  //     .connect(addr1)
-  //     .transfer(token.address, ethers.utils.parseEther("2"));
-  //   expect(await token.balanceOf(token.address)).to.equal(
-  //     ethers.utils.parseEther("2")
-  //   );
-  // });
-
-  // it("should fail to transfer tokens to other than the contract", async function () {
-  //   await token.connect(owner).mint(ethers.utils.parseEther("2"));
-  //   await expect(
-  //     token.connect(addr1).transfer(owner.address, ethers.utils.parseEther("2"))
-  //   ).to.be.rejectedWith("Transfers are only allowed to this contract");
-  // });
 });

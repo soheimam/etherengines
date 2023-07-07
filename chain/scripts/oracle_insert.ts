@@ -3,10 +3,8 @@ const ethers = hre.ethers;
 
 async function main() {
   // Deploy the Oracle contract
-  const Oracle = await hre.ethers.getContractFactory("Oracle");
-  const oracle = await Oracle.deploy();
-  await oracle.deployed();
-  console.log("Oracle deployed to:", oracle.address);
+  const MyContract = await ethers.getContractFactory("Oracle");
+  const oracle = await MyContract.attach("0xAddress");
 
   // Connect to the contract with the owner account
   const owner = (await ethers.getSigners())[0];
@@ -46,7 +44,7 @@ async function main() {
     "Haas",
     "Williams",
     "Alfa Romeo",
-    "AlphaTauri",
+    "Alpha Tauri",
   ];
 
   // Insert driver costs
