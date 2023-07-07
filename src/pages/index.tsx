@@ -32,18 +32,20 @@ const wagmiConfig = createConfig({
 export default function Home() {
   return (
     <>
-      <div className="flex min-w-screen justify-end p-24">
+    <div>
+      <div className="flex min-w-full justify-end p-24">
         <WagmiConfig config={wagmiConfig}>
           <RainbowKitProvider chains={chains}>
             <Homeview />
           </RainbowKitProvider>
         </WagmiConfig>
       </div>
-      <main className={`flex min-h-screen flex-col p-24 ${inter.className}`}>
+      <main className={`flex min-h-screen max-w-[1080px] flex-col p-24 ${inter.className}`}>
         <Dashboard />
         {/*<Gameview />
         <Teamcreator />*/}
       </main>
+      </div>
     </>
   );
 }
