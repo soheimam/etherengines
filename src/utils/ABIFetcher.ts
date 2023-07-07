@@ -7,6 +7,6 @@ ABIMap.set("tokenABI", tokenABI);
 ABIMap.set("oracleABI", oracleABI);
 ABIMap.set("canvasABI", canvasABI);
 
-const abiFetcher = (abiName: "Canvas" | "Oracle" | "Token") => {
+export const abiFetcher = (abiName: "Canvas" | "Oracle" | "Token") => {
   return ABIMap.get(abiName);
 };

@@ -11,9 +11,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: [
-      "api.metafuse.me",
-    ],
+    domains: ["api.metafuse.me"],
   },
 };
 

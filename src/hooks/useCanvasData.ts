@@ -1,3 +1,4 @@
+import { abiFetcher } from "@/utils/ABIFetcher";
 import {
   useContractRead,
   useContractWrite,
@@ -11,12 +12,12 @@ import {
 } from "wagmi";
 
 export function useCanvasData(
-  canvasContractAddress: `0x${string}`,
-  trackNumber: number,
-  driverMain: number,
-  driverSecondary: number,
-  teamNumber: number
+  trackNumber?: number,
+  driverMain?: number,
+  driverSecondary?: number,
+  teamNumber?: number
 ) {
+  const canvasContractAddress = process.env.CANVAS_ADDRESS as `0x${string}`;
   const abi = abiFetcher("Canvas");
 
   const writeProps: Partial<UsePrepareContractWriteConfig> = {
@@ -57,6 +58,7 @@ export function useCanvasData(
   const { refetch: refrechTrackData, data: trackData } = useContractRead({
     ...readProps,
     functionName: "getTrackData",
+    enabled: Boolean(trackNumber),
     args: [trackNumber],
   });
 

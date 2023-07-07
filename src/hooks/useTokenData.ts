@@ -10,15 +10,20 @@ import {
 import { MaxUint256 } from "ethers";
 
 import { useState } from "react";
+import { abiFetcher } from "@/utils/ABIFetcher";
 
 const NUM_RACES_PER_SEASON = 11;
 
 export function useTokenData(
-  tokenContractAddress: `0x${string}`,
-  canvasContractAddress: `0x${string}`,
   usersWalletAddress: `0x${string}`,
   tokenId: number
 ) {
+  const canvasContractAddress = process.env
+    .CANVAS_CONTRACT_ADDRESS as `0x${string}`;
+
+  const tokenContractAddress = process.env
+    .TOKEN_CONTRACT_ADDRESS as `0x${string}`;
+
   const [tokenBalanceOf, setTokenBalanceOf] = useState<number>(0);
   const [canvasSpendAllowance, setCanvasSpendAllowance] = useState<number>(0);
 
