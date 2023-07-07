@@ -10,6 +10,11 @@ const nextConfig = {
     config.resolve.fallback = { fs: false, net: false, tls: false };
     return config;
   },
+  images: {
+    domains: [
+      "api.metafuse.me",
+    ],
+  },
 };
 
 module.exports = nextConfig;
