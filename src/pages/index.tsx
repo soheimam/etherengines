@@ -9,6 +9,7 @@ import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { mainnet, polygon, optimism, arbitrum, zora } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import Homeview from "./layouts/homeview";
+import MintView from "@/components/MintView";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,19 +33,20 @@ const wagmiConfig = createConfig({
 export default function Home() {
   return (
     <>
-    <div>
-      <div className="flex min-w-full justify-end p-24">
-        <WagmiConfig config={wagmiConfig}>
-          <RainbowKitProvider chains={chains}>
-            <Homeview />
-          </RainbowKitProvider>
-        </WagmiConfig>
-      </div>
-      <main className={`flex min-h-screen max-w-[1080px] flex-col p-24 ${inter.className}`}>
-        <Dashboard />
-        {/*<Gameview />
+      <div>
+        <div className="flex min-w-full justify-end p-24">
+          <WagmiConfig config={wagmiConfig}>
+            <RainbowKitProvider chains={chains}>
+              <Homeview />
+            </RainbowKitProvider>
+          </WagmiConfig>
+        </div>
+        <main className="flex w-full flex-1 flex-col justify-center  overflow-hidden  min-h-screen  p-24 ">
+          {/* <Dashboard /> */}
+          {/*<Gameview />
         <Teamcreator />*/}
-      </main>
+          <MintView />
+        </main>
       </div>
     </>
   );
