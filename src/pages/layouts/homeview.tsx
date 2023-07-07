@@ -3,7 +3,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Homeview = () => {
     return (
-        <div>
+        <div className="">
             {<ConnectButton />}
         </div>
     )
