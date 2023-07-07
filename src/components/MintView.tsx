@@ -3,6 +3,29 @@ import Grid from "./Layout/Grid";
 import LargeDriver from "./LargeDriver";
 import SmallDriver from "./SmallDriver";
 
+const drivers = [
+  "Verstappen",
+  "Checo",
+  "Hamilton",
+  "Russel",
+  "Leclerc",
+  "Sainz",
+  "Alsonso",
+  "Stroll",
+  "Tsunoda",
+  "Devries",
+  "Sargent",
+  "Albon",
+  "Bottas",
+  "Zhou",
+  "Piastri",
+  "Norris",
+  "Gasly",
+  "Ocon",
+  "Hulkenberg",
+  "Magnussen",
+];
+
 function MintView() {
   return (
     <Grid>
@@ -13,24 +36,9 @@ function MintView() {
       </div>
       <LargeDriver />
       <section className="col-start-1 col-span-3 grid grid-cols-4">
-        <SmallDriver />
-        <SmallDriver />
-
-        <SmallDriver />
-
-        <SmallDriver />
-        <SmallDriver />
-        <SmallDriver />
-
-        <SmallDriver />
-
-        <SmallDriver />
-        <SmallDriver />
-        <SmallDriver />
-
-        <SmallDriver />
-
-        <SmallDriver />
+        {drivers.map((driver) => (
+          <SmallDriver img={driver} key={driver} />
+        ))}
       </section>
       <div className="col-start-5 col-span-4 h-96 carousel carousel-vertical rounded-box">
         <div className="carousel-item h-full w-full">
