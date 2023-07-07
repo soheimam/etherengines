@@ -64,24 +64,9 @@ function MintView() {
         </div>
       </div>
       <section className="col-start-10 col-span-3 grid grid-cols-4">
-        <SmallDriver />
-        <SmallDriver />
-
-        <SmallDriver />
-
-        <SmallDriver />
-        <SmallDriver />
-        <SmallDriver />
-
-        <SmallDriver />
-
-        <SmallDriver />
-        <SmallDriver />
-        <SmallDriver />
-
-        <SmallDriver />
-
-        <SmallDriver />
+        {drivers.map((driver) => (
+          <SmallDriver img={driver} key={driver} />
+        ))}
       </section>
     </Grid>
   );

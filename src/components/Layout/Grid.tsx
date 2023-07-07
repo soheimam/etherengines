@@ -5,7 +5,7 @@ interface IGrid {
 }
 function Grid({ children }: IGrid) {
   return (
-    <section className="grid grid-cols-12 grid-rows-12  gap-4">
+    <section className="grid grid-cols-12 w-full max-w-[1280px] gap-4">
       {children}
     </section>
   );
