@@ -118,6 +118,10 @@ export function useCanvasData(
     args: [usersWalletAddress],
     onSuccess: async (data) => {
       const _tokens = data as number[];
+      if (_tokens.length === 0) {
+        setCanvasData(null);
+        return;
+      }
       const lastToken = _tokens[_tokens.length - 1];
       const _fetch = await fetch(toTokenUri(lastToken));
       if (_fetch.ok) {
