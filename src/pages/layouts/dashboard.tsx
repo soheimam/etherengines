@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useMemo } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Grid from "@/components/Layout/Grid";
 import RaceCard from "@/components/RaceCard";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
@@ -47,7 +47,12 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
     claimAllTokens,
     mintWrite,
     tokenBalanceOf,
-  } = useTokenData(address as `0x${string}`, isConnected);
+  } = useTokenData(
+    address as `0x${string}`,
+    isConnected,
+    activeRace,
+    canvasData
+  );
 
   console.log("Canvas", canvasData);
 
@@ -81,7 +86,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
                         priority={true}
                         width={200}
                         height={200}
-                        src={canvasData?.find((h) => h)?.image as any}
+                        src={canvasData?.image as string | StaticImageData}
                       />
                     </div>
                   );

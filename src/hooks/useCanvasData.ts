@@ -45,7 +45,7 @@ export function useCanvasData(
 ) {
   const [activeRace, setActiveRace] = useState<number>(1);
   const [tokensOfOwner, setTokensOfOwner] = useState<number[]>([]);
-  const [canvasData, setCanvasData] = useState<(null | CanvasData)[]>();
+  const [canvasData, setCanvasData] = useState<null | CanvasData>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const canvasContractAddress = process.env.CANVAS_ADDRESS as `0x${string}`;
   const abi = abiFetcher("Canvas");
@@ -66,7 +66,7 @@ export function useCanvasData(
     functionName: "activeRace",
     enabled: isConnected,
     onSuccess(data) {
-      setActiveRace(10); //data as number);
+      setActiveRace(data as number);
       setIsLoading(false); // Move this to be global over all state in here
     },
     onError(err) {
@@ -119,16 +119,10 @@ export function useCanvasData(
     onSuccess: async (data) => {
       const _tokens = data as number[];
       const lastToken = _tokens[_tokens.length - 1];
-      //setTokensOfOwner(data as number[]);
-      const canvasData = [];
-      for (const _token of [lastToken]) {
-        const _fetch = await fetch(toTokenUri(_token));
-        console.log(_fetch);
-        if (_fetch.ok) {
-          canvasData.push(await _fetch.json());
-        }
+      const _fetch = await fetch(toTokenUri(lastToken));
+      if (_fetch.ok) {
+        setCanvasData(await _fetch.json());
       }
-      setCanvasData(canvasData);
     },
     onError(err) {
       console.log(err);
@@ -190,7 +184,6 @@ export function useCanvasData(
   };
 }
 function generateMintArgs(selectedDrivers: string[], team: string): any {
-  console.log(selectedDrivers);
   const [firstDriver, secondDriver] = selectedDrivers;
   return [
     driverArray().indexOf(firstDriver),
