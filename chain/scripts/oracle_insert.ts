@@ -3,8 +3,8 @@ const ethers = hre.ethers;
 
 async function main() {
   // Deploy the Oracle contract
-  const MyContract = await ethers.getContractFactory("Oracle");
-  const oracle = await MyContract.attach("0xAddress");
+  const contract = await ethers.getContractFactory("Oracle");
+  const oracle = await contract.attach("0xAddress");
 
   // Connect to the contract with the owner account
   const owner = (await ethers.getSigners())[0];

@@ -16,12 +16,13 @@ const NUM_RACES_PER_SEASON = 11;
 
 export function useTokenData(
   usersWalletAddress: `0x${string}`,
-  tokenId: number
+  raceNumber?: number,
+  tokenId?: number
 ) {
   const canvasContractAddress = process.env.CANVAS_ADDRESS as `0x${string}`;
   const tokenContractAddress = process.env.TOKEN_ADDRESS as `0x${string}`;
-  console.log(canvasContractAddress, tokenContractAddress);
 
+  const [currentPendingTokenAmount, setCurrentPendingTokenAmount] = useState(0);
   const [tokenBalanceOf, setTokenBalanceOf] = useState<number>(0);
   const [canvasSpendAllowance, setCanvasSpendAllowance] = useState<number>(0);
 
@@ -55,6 +56,26 @@ export function useTokenData(
     ],
   });
 
+  const { config: prepareClaim } = usePrepareContractWrite({
+    abi,
+    address: tokenContractAddress,
+    functionName: "claimTokens",
+    enabled: Boolean(currentPendingTokenAmount > 0 && raceNumber && tokenId),
+    args: [raceNumber, tokenId], // The race you are claiming from and your canvas id
+  });
+
+  const { data: prepareClaimData, write: claimAllTokens } =
+    useContractWrite(prepareClaim);
+
+  const { isLoading: claimTransactionPending } = useWaitForTransaction({
+    hash: prepareClaimData?.hash,
+    enabled: true,
+    onSuccess: async (data: any) => {
+      await refetchContractReads();
+      setCurrentPendingTokenAmount(0);
+    },
+  });
+
   const { config: prepareApproveOfPaymentToken } = usePrepareContractWrite({
     abi: erc20ABI,
     address: tokenContractAddress,
@@ -77,20 +98,22 @@ export function useTokenData(
       },
     });
 
-  const {
-    refetch: refetchGetPendingTokensForAllRaces,
-    data: getPendingTokensForAllRaces,
-  } = useContractRead({
+  const { refetch: refetchGetPendingTokensForAllRaces } = useContractRead({
+    onSuccess(data) {
+      setCurrentPendingTokenAmount(data as number);
+    },
     ...props,
     functionName: "getPendingTokensForAllRaces",
-    enabled: true,
+    enabled: Boolean(tokenId),
     args: [NUM_RACES_PER_SEASON, tokenId],
   });
 
   return {
     approveCanvasContractPaymentTokenSpend,
     refetchGetPendingTokensForAllRaces,
-    getPendingTokensForAllRaces,
+    claimAllTokens,
+    claimTransactionPending,
+    currentPendingTokenAmount,
     approveCanvasContractPaymentTokenSpendLoading,
     canvasSpendAllowance,
     tokenBalanceOf,

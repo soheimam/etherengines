@@ -13,12 +13,15 @@ import {
 } from "wagmi";
 
 export function useCanvasData(
+  usersWalletAddress: `0x${string}`,
   trackNumber?: number,
   driverMain?: number,
   driverSecondary?: number,
   teamNumber?: number
 ) {
-  const [activeRace, setActiveRace] = useState(0);
+  const [activeRace, setActiveRace] = useState<number>(1);
+  const [tokensOfOwner, setTokensOfOwner] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const canvasContractAddress = process.env.CANVAS_ADDRESS as `0x${string}`;
   const abi = abiFetcher("Canvas");
 
@@ -32,6 +35,19 @@ export function useCanvasData(
     address: canvasContractAddress,
     abi,
   };
+
+  const { refetch: refrechActiveRace } = useContractRead({
+    ...readProps,
+    functionName: "activeRace",
+    enabled: true,
+    onSuccess(data) {
+      setActiveRace(data as number);
+      setIsLoading(false); // Move this to be global over all state in here
+    },
+    onError(err) {
+      console.log(err);
+    },
+  });
 
   const { config: prepareMint, refetch: refetchMintPrep } =
     usePrepareContractWrite({
@@ -51,12 +67,13 @@ export function useCanvasData(
     },
   });
 
-  const { refetch: refrechActiveRace } = useContractRead({
+  const { refetch: refrechTokensOfOwner } = useContractRead({
     ...readProps,
-    functionName: "activeRace",
-    enabled: true,
+    functionName: "tokensOfOwner",
+    enabled: Boolean(usersWalletAddress),
+    args: [usersWalletAddress],
     onSuccess(data) {
-      setActiveRace(data as number);
+      setTokensOfOwner(data as number[]);
     },
     onError(err) {
       console.log(err);
@@ -90,6 +107,9 @@ export function useCanvasData(
     refreshCanvasValue,
     refreshCanvasRating,
     refrechActiveRace,
+    isLoading,
+    refrechTokensOfOwner,
+    tokensOfOwner,
     refetchMintPrep,
     mintTransaction,
     activeRace,
