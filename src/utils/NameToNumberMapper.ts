@@ -15,6 +15,18 @@ TrackMap.set(9, { name: "Spain", country: "ES", filename: "track_9" });
 TrackMap.set(10, { name: "Silverstone", country: "GB", filename: "track_10" });
 TrackMap.set(11, { name: "Azerbaijan", country: "XX", filename: "track_11" });
 
+interface APIPayload {
+  tokenId: string;
+  visibility: string;
+  projectId: string;
+  traits: Trait[];
+}
+
+interface Trait {
+  trait_type: string;
+  value: string;
+}
+
 export const trackFetcher = (trackNumber: number) => {
   return TrackMap.get(trackNumber);
 };
@@ -62,6 +74,16 @@ export const teamArray = () => {
   return cars;
 };
 
+export const getDriverNameFromNumber = (driverNumber: number) => {
+  const drivers = driverArray();
+  return drivers[driverNumber];
+};
+
+export const getTeamNameFromNumber = (teamNumber: number) => {
+  const teams = teamArray();
+  return teams[teamNumber];
+};
+
 export const toMetafuseUrl = (id: string) => {
   const url = `https://api.metafuse.me/assets/metafuse/${id}.png`;
   return url;
@@ -79,9 +101,10 @@ interface MetafuseCreatePayload {
   team: string;
 }
 
-export const createDigitalAsset = async (payload: MetafuseCreatePayload) => {
+export const createDigitalAsset = async (payload: APIPayload) => {
   let metafuseHeaders = new Headers({
     Authorization: process.env.METAFUSE_API_KEY as string,
+    "Access-Control-Allow-Origin": "*",
   });
   const res = await fetch(process.env.METAFUSE_ITEMS_GATEWAY as string, {
     method: "POST",
@@ -98,11 +121,11 @@ export const createMetafuseCreatePayload = ({
   mainDriver,
   secondaryDriver,
   team,
-}: MetafuseCreatePayload) => {
+}: MetafuseCreatePayload): APIPayload => {
   return {
-    tokenId: tokenId,
+    tokenId: tokenId.toString(),
     visibility: "PUBLIC",
-    projectId: process.env.METAFUSE_PROJECT_ID,
+    projectId: process.env.METAFUSE_PROJECT_ID as string,
     traits: [
       {
         trait_type: "Main Driver",

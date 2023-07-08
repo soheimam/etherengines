@@ -54,7 +54,7 @@ export function useTokenData(
       {
         ...props,
         functionName: "allowance",
-        args: [usersWalletAddress, tokenContractAddress],
+        args: [usersWalletAddress, canvasContractAddress],
       },
     ],
   });

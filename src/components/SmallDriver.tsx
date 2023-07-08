@@ -38,6 +38,7 @@ function SmallDriver({
           alt={img}
           src={`https://api.metafuse.me/assets/metafuse/${img}.png`}
           layout="fill"
+          priority={true}
           objectFit="cover"
           objectPosition="center"
         />

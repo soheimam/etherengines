@@ -1,5 +1,14 @@
 import { abiFetcher } from "@/utils/ABIFetcher";
-import { toMetafuseUrl, toTokenUri } from "@/utils/NameToNumberMapper";
+import {
+  createDigitalAsset,
+  createMetafuseCreatePayload,
+  driverArray,
+  getDriverNameFromNumber,
+  getTeamNameFromNumber,
+  teamArray,
+  toMetafuseUrl,
+  toTokenUri,
+} from "@/utils/NameToNumberMapper";
 import { useState } from "react";
 import {
   useContractRead,
@@ -31,9 +40,8 @@ export function useCanvasData(
   usersWalletAddress: `0x${string}`,
   isConnected: boolean,
   //trackNumber?: number,
-  driverMain?: number,
-  driverSecondary?: number,
-  teamNumber?: number
+  selectedDrivers?: string[],
+  teamName?: string
 ) {
   const [activeRace, setActiveRace] = useState<number>(1);
   const [tokensOfOwner, setTokensOfOwner] = useState<number[]>([]);
@@ -70,10 +78,13 @@ export function useCanvasData(
     usePrepareContractWrite({
       ...writeProps,
       functionName: "mint",
+      enabled: Boolean(selectedDrivers?.length && teamName),
       onSuccess(data) {
         console.log(data);
       },
-      args: [driverMain, driverSecondary, teamNumber], // User can only ever mint 1
+      args: selectedDrivers?.length
+        ? generateMintArgs(selectedDrivers!, teamName!)
+        : [], // User can only ever mint 1
     });
 
   const { data: mintData, write: mintTransaction } =
@@ -82,28 +93,40 @@ export function useCanvasData(
   const { isLoading: mintTransactionPending } = useWaitForTransaction({
     hash: mintData?.hash,
     enabled: true,
-    onSuccess(data: any) {
-      console.log(data);
-      // Do something here on success
+    onSuccess: async (data: any) => {
+      const h = await refetchTokensOfOwner();
+      if (Array.isArray(selectedDrivers)) {
+        console.log(selectedDrivers);
+        const [firstDriver, secondDriver] = selectedDrivers;
+        const tokenId = (h.data as any[])[(h.data as any[]).length - 1];
+        const _payload = createMetafuseCreatePayload({
+          tokenId: tokenId.toString(),
+          mainDriver: firstDriver,
+          secondaryDriver: secondDriver,
+          team: teamName ? teamName : "",
+        });
+        console.log(_payload);
+        await createDigitalAsset(_payload);
+      }
     },
   });
 
-  const { refetch: refrechTokensOfOwner } = useContractRead({
+  const { refetch: refetchTokensOfOwner } = useContractRead({
     ...readProps,
     functionName: "tokensOfOwner",
     enabled: Boolean(isConnected && usersWalletAddress),
     args: [usersWalletAddress],
     onSuccess: async (data) => {
       const _tokens = data as number[];
-      setTokensOfOwner(data as number[]);
+      //setTokensOfOwner(data as number[]);
       const canvasData = [];
       for (const _token of _tokens) {
-        const _fetch = await fetch(toTokenUri(_token));
-        if (_fetch.ok) {
-          canvasData.push(await _fetch.json());
-        }
+        // const _fetch = await fetch(toTokenUri(_token));
+        // if (_fetch.ok) {
+        //   canvasData.push(await _fetch.json());
+        // }
       }
-      setCanvasData(canvasData);
+      // setCanvasData(canvasData);
     },
     onError(err) {
       console.log(err);
@@ -126,41 +149,50 @@ export function useCanvasData(
       args: [activeRace - 1],
     });
 
-  const { refetch: refreshCanvasRating, data: canvasRating } = useContractRead({
-    ...readProps,
-    functionName: "getCanvasRating",
-    enabled: Boolean(
-      isConnected && driverMain && driverSecondary && teamNumber
-    ),
-    args: [driverMain, driverSecondary, teamNumber],
-  });
+  // const { refetch: refreshCanvasRating, data: canvasRating } = useContractRead({
+  //   ...readProps,
+  //   functionName: "getCanvasRating",
+  //   enabled: Boolean(
+  //     isConnected && driverMain && driverSecondary && teamNumber
+  //   ),
+  //   args: [driverMain, driverSecondary, teamNumber],
+  // });
 
-  const { refetch: refreshCanvasValue, data: canvasValue } = useContractRead({
-    ...readProps,
-    functionName: "getCanvasValue",
-    enabled: Boolean(
-      isConnected && driverMain && driverSecondary && teamNumber
-    ),
-    args: [driverMain, driverSecondary, teamNumber],
-  });
+  // const { refetch: refreshCanvasValue, data: canvasValue } = useContractRead({
+  //   ...readProps,
+  //   functionName: "getCanvasValue",
+  //   enabled: Boolean(
+  //     isConnected && driverMain && driverSecondary && teamNumber
+  //   ),
+  //   args: [driverMain, driverSecondary, teamNumber],
+  // });
 
   return {
     trackDataActive,
     trackDataPrevious,
     refreshTrackDataActive,
     refreshTrackDataPrevious,
-    refreshCanvasValue,
-    refreshCanvasRating,
+    // refreshCanvasValue,
+    // refreshCanvasRating,
     refreshActiveRace,
     isLoading,
-    refrechTokensOfOwner,
+    refetchTokensOfOwner,
     tokensOfOwner,
     canvasData,
     refetchMintPrep,
     mintTransaction,
     activeRace,
-    canvasValue,
-    canvasRating,
+    // canvasValue,
+    // canvasRating,
     mintTransactionPending,
   };
+}
+function generateMintArgs(selectedDrivers: string[], team: string): any {
+  console.log(selectedDrivers);
+  const [firstDriver, secondDriver] = selectedDrivers;
+  return [
+    driverArray().indexOf(firstDriver),
+    driverArray().indexOf(secondDriver),
+    teamArray().indexOf(team),
+  ];
 }
