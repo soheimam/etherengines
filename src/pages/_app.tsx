@@ -3,12 +3,19 @@ import type { AppProps } from "next/app";
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, useAccount, WagmiConfig } from "wagmi";
-import { xdc, xdcTestnet } from "wagmi/chains";
+import {
+  gnosis,
+  gnosisChiado,
+  scrollTestnet,
+  xdc,
+  xdcTestnet,
+} from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { chains, publicClient } = configureChains(
-    [xdc, xdcTestnet],
+    [xdc, xdcTestnet, scrollTestnet, gnosis, gnosisChiado],
     [publicProvider()]
   );
 

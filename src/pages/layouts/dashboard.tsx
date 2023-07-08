@@ -61,7 +61,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
     return <h1>Loading..</h1>;
   }
 
-  const _tokensOfOwner = ["Win", "Loss", "Loss", "Win"];
+  const _tokensOfOwner = ["Win"]; //, "Loss", "Loss", "Win"];
 
   return (
     <>
@@ -73,10 +73,10 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
           <>
             <div className="col-span-8 flex justify-between bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1>Welcome!</h1>
-              <div className="carousel rounded-box w-3/4">
+              <div className="carousel rounded-box">
                 {_tokensOfOwner.map((token, idx) => {
                   return (
-                    <div className="carousel-item flex flex-col">
+                    <div className="carousel-item">
                       <Image
                         alt="nft"
                         className="rounded-3xl"
@@ -86,7 +86,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
                           idx + 1
                         }.png`}
                       />
-                      <div className="w-full text-center">{token}</div>
+                      {/*<div className="w-full text-center">{token}</div>*/}
                     </div>
                   );
                 })}
