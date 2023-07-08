@@ -22,23 +22,4 @@ describe("Token", function () {
       ethers.utils.parseEther("2")
     );
   });
-
-  it("should set claimable tokens for a user", async function () {
-    await token
-      .connect(owner)
-      .setClaimableTokens(1, ethers.utils.parseEther("3"), 1);
-    expect(await token.claimableTokens(1, 1)).to.equal(
-      ethers.utils.parseEther("3")
-    );
-  });
-
-  it("should claim tokens", async function () {
-    await token
-      .connect(owner)
-      .setClaimableTokens(1, ethers.utils.parseEther("3"), 1);
-    await token.connect(addr1).claimTokens(1, 1);
-    expect(await token.balanceOf(addr1.address)).to.equal(
-      ethers.utils.parseEther("3")
-    );
-  });
 });

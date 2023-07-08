@@ -1,9 +1,19 @@
 import React from "react";
+import Image from "next/image";
 import Grid from "@/components/Layout/Grid";
 import RaceCard from "@/components/RaceCard";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
+import { useCanvasData } from "@/hooks/useCanvasData";
+import { useTokenData } from "@/hooks/useTokenData";
+import {
+  driverArray,
+  teamArray,
+  toMetafuseUrl,
+} from "@/utils/NameToNumberMapper";
 
 const Dashboard = () => {
+  const { activeRace } = useCanvasData();
+  //const {} = useTokenData()
   const isPlaying = true;
 
   const StartButton = () => {
@@ -23,15 +33,22 @@ const Dashboard = () => {
         </div>
         {isPlaying ? (
           <>
-            <div className="col-span-8 h-96 bg-accent/70 border border-secondary rounded-3xl p-4">
+            <div className="col-span-8 flex justify-between bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1>Welcome Sohei</h1>
+              <Image
+                className="rounded-3xl"
+                alt="nft"
+                width="200"
+                height="200"
+                src={toMetafuseUrl("Verstappen")}
+              />
             </div>
             <div className="col-span-4 bg-accent/70 border border-secondary rounded-3xl">
               <div className="text-center p-2">Top 10</div>
-              <div className="flex flex-col pl-4 pb-2">
-                <div>1.</div>
-                <div>2.</div>
-                <div>3.</div>
+              <div className="flex flex-col w-full pl-12">
+                <div>1. Max Verstappen</div>
+                <div>2. Lando Norris</div>
+                <div>3. Fernando Alonso</div>
               </div>
             </div>
             <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
@@ -39,7 +56,8 @@ const Dashboard = () => {
               <p className="text-3xl">Total Wins</p>
             </div>
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-              <RaceCard />
+              {`Active: ${activeRace}`}
+              <RaceCard track={activeRace} />
             </div>
             <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1 className=" text-7xl pb-8">25</h1>
@@ -53,7 +71,7 @@ const Dashboard = () => {
           <h1>Previous Games</h1>
         </div>
         <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-          <RaceCard />
+          <RaceCard track={activeRace} />
         </div>
       </Grid>
     </>

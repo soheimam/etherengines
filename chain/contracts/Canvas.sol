@@ -21,13 +21,14 @@ interface IOracle {
 
 contract Canvas is ERC721A, Ownable {
     using Strings for uint256;
-    mapping(uint256 => uint24) public tokenIdToDriverMapping;
 
     IOracle public oracle;
     IERC20 public token;
     uint8 public activeRace;
     string public baseURI;
     string public URISuffix = ".json";
+
+    mapping(uint256 => uint24) public tokenIdToDriverMapping;
 
     constructor(address _oracle, address _token, string memory _baseURI) ERC721A("Canvas", "CANVAS") {
         oracle = IOracle(_oracle);
@@ -83,8 +84,12 @@ contract Canvas is ERC721A, Ownable {
         return totalCost;
     }
 
-    function getDriverRating(uint8 driverNumber) public view returns (uint8) {
-        return oracle.getDriverRating(driverNumber);
+    function getCanvasRating(uint8 _driverMain, uint8 _driverSecondary, uint8 _teamNumber) public view returns (uint8) {
+        return oracle.getDriverRating(_driverMain) + oracle.getDriverRating(_driverSecondary) + oracle.getTeamRating(_teamNumber);
+    }
+
+    function getCanvasValue(uint8 _driverMain, uint8 _driverSecondary, uint8 _teamNumber) public view returns (uint8) {
+        return oracle.getDriverCost(_driverMain) + oracle.getDriverCost(_driverSecondary) + oracle.getTeamCost(_teamNumber);
     }
 
     function getTeamRating(uint8 teamNumber) public view returns (uint8) {
