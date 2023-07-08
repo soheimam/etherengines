@@ -44,7 +44,7 @@ export default function Home() {
       >
         <div className="flex w-full justify-end max-w-[1280px] pt-20 pb-6">
           <div className="">{<ConnectButton />}</div>
-          {currentPage === Pages.DASHBOARD ? (
+          {currentPage === Pages.DASHBOARD && (
             <button
               className="btn w-40"
               onClick={() => setCurrentPage(Pages.TEAMSELECT)}
@@ -53,7 +53,8 @@ export default function Home() {
               <br />
               Balance: {tokenBalanceOf}
             </button>
-          ) : (
+          )}
+          {currentPage === Pages.TEAMSELECT && (
             <button
               className="btn w-40"
               onClick={() => setCurrentPage(Pages.DASHBOARD)}
