@@ -38,8 +38,7 @@ export function useTokenData(
   const { refetch: refetchContractReads } = useContractReads({
     onSuccess: async (data: any) => {
       const [balanceOf, allowance] = data;
-      console.log(balanceOf, allowance);
-      setTokenBalanceOf(balanceOf); // Do converting here if we need to
+      setTokenBalanceOf(balanceOf.result); // Do converting here if we need to
       setCanvasSpendAllowance(allowance);
     },
     enabled: true,
@@ -103,7 +102,10 @@ export function useTokenData(
     abi,
     address: tokenContractAddress,
     functionName: "mint",
-    enabled: true,
+    onSuccess: async (data: any) => {
+      await refetchContractReads();
+    },
+    enabled: tokenBalanceOf > 0,
     args: [parseUnits("30", "ether")],
   });
 
