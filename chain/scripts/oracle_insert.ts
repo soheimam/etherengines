@@ -4,7 +4,9 @@ const ethers = hre.ethers;
 async function main() {
   // Deploy the Oracle contract
   const contract = await ethers.getContractFactory("Oracle");
-  const oracle = await contract.attach("0xAddress");
+  const oracle = await contract.attach(
+    "0xc21A904117530E34D44cca524496EfDf41022B22"
+  );
 
   // Connect to the contract with the owner account
   const owner = (await ethers.getSigners())[0];
@@ -47,12 +49,17 @@ async function main() {
     "Alpha Tauri",
   ];
 
+  function sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   // Insert driver costs
   for (let i = 0; i < drivers.length; i++) {
     const driverNumber = i + 1;
     const driverCost = ethers.utils.parseEther((drivers.length - i).toString());
     console.log(`Inserting Driver: ${drivers[i].name} - Value: ${driverCost}`);
     await oracleWithOwner.setDriverCost(driverNumber, driverCost);
+    await sleep(1000);
   }
   console.log("Inserted driver costs");
 
