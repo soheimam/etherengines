@@ -30,7 +30,7 @@ interface Attribute {
 export function useCanvasData(
   usersWalletAddress: `0x${string}`,
   isConnected: boolean,
-  trackNumber?: number,
+  //trackNumber?: number,
   driverMain?: number,
   driverSecondary?: number,
   teamNumber?: number
@@ -53,7 +53,7 @@ export function useCanvasData(
     abi,
   };
 
-  const { refetch: refrechActiveRace } = useContractRead({
+  const { refetch: refreshActiveRace } = useContractRead({
     ...readProps,
     functionName: "activeRace",
     enabled: isConnected,
@@ -111,12 +111,21 @@ export function useCanvasData(
     },
   });
 
-  const { refetch: refrechTrackData, data: trackData } = useContractRead({
-    ...readProps,
-    functionName: "getTrackData",
-    enabled: Boolean(isConnected && trackNumber),
-    args: [trackNumber],
-  });
+  const { refetch: refreshTrackDataActive, data: trackDataActive } =
+    useContractRead({
+      ...readProps,
+      functionName: "getTrackData",
+      enabled: Boolean(isConnected && activeRace),
+      args: [activeRace],
+    });
+
+  const { refetch: refreshTrackDataPrevious, data: trackDataPrevious } =
+    useContractRead({
+      ...readProps,
+      functionName: "getTrackData",
+      enabled: Boolean(isConnected && activeRace),
+      args: [activeRace - 1],
+    });
 
   const { refetch: refreshCanvasRating, data: canvasRating } = useContractRead({
     ...readProps,
@@ -137,11 +146,13 @@ export function useCanvasData(
   });
 
   return {
-    trackData,
-    refrechTrackData,
+    trackDataActive,
+    trackDataPrevious,
+    refreshTrackDataActive,
+    refreshTrackDataPrevious,
     refreshCanvasValue,
     refreshCanvasRating,
-    refrechActiveRace,
+    refreshActiveRace,
     isLoading,
     refrechTokensOfOwner,
     tokensOfOwner,

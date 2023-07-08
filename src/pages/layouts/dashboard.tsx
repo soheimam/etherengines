@@ -20,16 +20,23 @@ interface IDashboard {
 
 const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
   const { address, isConnected } = useAccount();
-  const { activeRace, isLoading, tokensOfOwner } = useCanvasData(
-    address as `0x${string}`,
-    isConnected
-  );
-  const { currentPendingTokenAmount, claimAllTokens, mintWrite, tokenBalanceOf } = useTokenData(
-    address as `0x${string}`,
-    isConnected
-  );
+  const {
+    activeRace,
+    isLoading,
+    tokensOfOwner,
+    trackDataActive,
+    trackDataPrevious,
+  } = useCanvasData(address as `0x${string}`, isConnected);
+
+  const {
+    currentPendingTokenAmount,
+    claimAllTokens,
+    mintWrite,
+    tokenBalanceOf,
+  } = useTokenData(address as `0x${string}`, isConnected);
 
   console.log(`Your Tokens: `, tokensOfOwner);
+
   const isPlaying = true;
 
   if (isLoading) {
@@ -66,7 +73,13 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               <p className="text-3xl">Total Wins</p>
             </div>
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-              {activeRace && <RaceCard track={activeRace} active={true} />}
+              {activeRace && (
+                <RaceCard
+                  track={activeRace}
+                  trackData={trackDataActive as any}
+                  active={true}
+                />
+              )}
             </div>
             <div className="col-span-3 flex items-center flex-col gap-6 justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1 className=" text-7xl pb-8">{currentPendingTokenAmount}</h1>
@@ -84,8 +97,8 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
           <button
             className="btn col-span-12 h-72 flex justify-center items-center flex-row border border-secondary rounded-3xl bg-accent/70"
             onClick={() => {
-              mintWrite!()
-              setCurrentPage(Pages.TEAMSELECT)
+              mintWrite!();
+              setCurrentPage(Pages.TEAMSELECT);
             }}
           >
             <PlusCircleIcon className="h-16 w-16 text-accent pr-5" />
@@ -98,7 +111,13 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               <h1>Previous Games</h1>
             </div>
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-              {activeRace && <RaceCard track={activeRace - 1} active={false} />}
+              {activeRace && (
+                <RaceCard
+                  track={activeRace - 1}
+                  trackData={trackDataPrevious as any}
+                  active={false}
+                />
+              )}
             </div>
           </>
         ) : null}
