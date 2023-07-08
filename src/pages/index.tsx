@@ -44,6 +44,7 @@ export default function Home() {
 
   if (mintTokensPending) return <h1>LOADING!</h1>;
 
+  console.log(tokensOfOwner);
   return (
     <>
       <main

@@ -75,6 +75,42 @@ export function useCanvasData(
     },
   });
 
+  // const { config: prepareSell } = usePrepareContractWrite({
+  //   ...writeProps,
+  //   functionName: "mint",
+  //   enabled: Boolean(selectedDrivers?.length && teamName),
+  //   onSuccess(data) {
+  //     console.log(data);
+  //   },
+  //   args: selectedDrivers?.length
+  //     ? generateMintArgs(selectedDrivers!, teamName!)
+  //     : [], // User can only ever mint 1
+  // });
+
+  // const { data: mintData, write: mintTransaction } =
+  //   useContractWrite(prepareMint);
+
+  // const { isLoading: mintTransactionPending } = useWaitForTransaction({
+  //   hash: mintData?.hash,
+  //   enabled: true,
+  //   onSuccess: async (data: any) => {
+  //     const h = await refetchTokensOfOwner();
+  //     console.log(`refetchTokensOfOwner data`, h.data);
+  //     if (Array.isArray(selectedDrivers)) {
+  //       const [firstDriver, secondDriver] = selectedDrivers;
+  //       const tokenId = (h.data as any[])[(h.data as any[]).length - 1];
+  //       const _payload = createMetafuseCreatePayload({
+  //         tokenId: tokenId.toString(),
+  //         mainDriver: firstDriver,
+  //         secondaryDriver: secondDriver,
+  //         team: teamName ? teamName : "",
+  //       });
+  //       console.log(_payload);
+  //       await createDigitalAsset(_payload);
+  //     }
+  //   },
+  // });
+
   const { config: prepareMint, refetch: refetchMintPrep } =
     usePrepareContractWrite({
       ...writeProps,
@@ -119,16 +155,21 @@ export function useCanvasData(
     args: [usersWalletAddress],
     onSuccess: async (data) => {
       const _tokens = data as number[];
+      setTokensOfOwner(_tokens);
       if (_tokens.length === 0) {
         setCanvasData(null);
         return;
       }
       const lastToken = _tokens[_tokens.length - 1];
       if (lastToken) {
-        console.log(`Fetching with token ${lastToken}`);
-        const _fetch = await fetch(toTokenUri(lastToken));
-        if (_fetch.ok) {
-          setCanvasData(await _fetch.json());
+        try {
+          console.log(`Fetching with token ${lastToken}`);
+          const _fetch = await fetch(toTokenUri(lastToken));
+          if (_fetch.ok) {
+            setCanvasData(await _fetch.json());
+          }
+        } catch (error) {
+          console.log(error);
         }
       }
     },

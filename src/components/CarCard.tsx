@@ -13,7 +13,9 @@ function CarCard({ carImg, selectedTeam, setSelectedTeam }: ICarCard) {
       className={`carousel-item h-full w-full relative ${
         selectedTeam === carImg ? "border border-red-500 rounded-2xl" : ""
       }`}
-      onClick={() => setSelectedTeam(carImg)}
+      onClick={() =>
+        selectedTeam.length ? setSelectedTeam("") : setSelectedTeam(carImg)
+      }
     >
       <div className="absolute top-10 right-10 badge badge-neutral z-10 font-bold drop-shadow-sm">
         18 Tokens
