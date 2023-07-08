@@ -29,6 +29,7 @@ interface Attribute {
 
 export function useCanvasData(
   usersWalletAddress: `0x${string}`,
+  isConnected: boolean,
   trackNumber?: number,
   driverMain?: number,
   driverSecondary?: number,
@@ -44,7 +45,7 @@ export function useCanvasData(
   const writeProps: Partial<UsePrepareContractWriteConfig> = {
     address: canvasContractAddress,
     abi,
-    enabled: true,
+    enabled: isConnected,
   };
 
   const readProps: Partial<UseContractReadConfig> = {
@@ -55,9 +56,9 @@ export function useCanvasData(
   const { refetch: refrechActiveRace } = useContractRead({
     ...readProps,
     functionName: "activeRace",
-    enabled: true,
+    enabled: isConnected,
     onSuccess(data) {
-      setActiveRace(10);//data as number);
+      setActiveRace(10); //data as number);
       setIsLoading(false); // Move this to be global over all state in here
     },
     onError(err) {
@@ -77,7 +78,7 @@ export function useCanvasData(
 
   const { isLoading: mintTransactionPending } = useWaitForTransaction({
     hash: mintData?.hash,
-    enabled: true,
+    enabled: isConnected,
     onSuccess(data: any) {
       // Do something here on success
     },
@@ -86,7 +87,7 @@ export function useCanvasData(
   const { refetch: refrechTokensOfOwner } = useContractRead({
     ...readProps,
     functionName: "tokensOfOwner",
-    enabled: Boolean(usersWalletAddress),
+    enabled: Boolean(isConnected && usersWalletAddress),
     args: [usersWalletAddress],
     onSuccess: async (data) => {
       const _tokens = data as number[];
@@ -108,21 +109,25 @@ export function useCanvasData(
   const { refetch: refrechTrackData, data: trackData } = useContractRead({
     ...readProps,
     functionName: "getTrackData",
-    enabled: Boolean(trackNumber),
+    enabled: Boolean(isConnected && trackNumber),
     args: [trackNumber],
   });
 
   const { refetch: refreshCanvasRating, data: canvasRating } = useContractRead({
     ...readProps,
     functionName: "getCanvasRating",
-    enabled: Boolean(driverMain && driverSecondary && teamNumber),
+    enabled: Boolean(
+      isConnected && driverMain && driverSecondary && teamNumber
+    ),
     args: [driverMain, driverSecondary, teamNumber],
   });
 
   const { refetch: refreshCanvasValue, data: canvasValue } = useContractRead({
     ...readProps,
     functionName: "getCanvasValue",
-    enabled: Boolean(driverMain && driverSecondary && teamNumber),
+    enabled: Boolean(
+      isConnected && driverMain && driverSecondary && teamNumber
+    ),
     args: [driverMain, driverSecondary, teamNumber],
   });
 

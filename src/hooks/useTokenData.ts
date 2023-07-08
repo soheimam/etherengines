@@ -16,6 +16,7 @@ const NUM_RACES_PER_SEASON = 11;
 
 export function useTokenData(
   usersWalletAddress: `0x${string}`,
+  isConnected: boolean,
   raceNumber?: number,
   tokenId?: number
 ) {
@@ -31,7 +32,7 @@ export function useTokenData(
   const props: Partial<UseContractReadConfig> = {
     address: tokenContractAddress,
     abi,
-    enabled: true,
+    enabled: isConnected,
   };
 
   // Token Contract Reads
@@ -41,7 +42,7 @@ export function useTokenData(
       setTokenBalanceOf(formatUnits(balanceOf.result, "ether")); // Do converting here if we need to
       setCanvasSpendAllowance(allowance);
     },
-    enabled: true,
+    enabled: isConnected,
     contracts: [
       {
         ...props,
@@ -60,7 +61,9 @@ export function useTokenData(
     abi,
     address: tokenContractAddress,
     functionName: "claimTokens",
-    enabled: Boolean(currentPendingTokenAmount > 0 && raceNumber && tokenId),
+    enabled: Boolean(
+      isConnected && currentPendingTokenAmount > 0 && raceNumber && tokenId
+    ),
     args: [raceNumber, tokenId], // The race you are claiming from and your canvas id
   });
 
@@ -69,7 +72,7 @@ export function useTokenData(
 
   const { isLoading: claimTransactionPending } = useWaitForTransaction({
     hash: prepareClaimData?.hash,
-    enabled: true,
+    enabled: isConnected,
     onSuccess: async (data: any) => {
       await refetchContractReads();
       setCurrentPendingTokenAmount(0);
@@ -92,7 +95,7 @@ export function useTokenData(
   const { isLoading: approveCanvasContractPaymentTokenSpendLoading } =
     useWaitForTransaction({
       hash: approvePaymentTokenSpendData?.hash,
-      enabled: true,
+      enabled: isConnected,
       onSuccess: async (data: any) => {
         await refetchContractReads();
       },
@@ -105,7 +108,7 @@ export function useTokenData(
     onSuccess: async (data: any) => {
       await refetchContractReads();
     },
-    enabled: tokenBalanceOf > 0,
+    enabled: isConnected && +tokenBalanceOf > 0,
     args: [parseUnits("30", "ether")],
   });
 
@@ -113,7 +116,7 @@ export function useTokenData(
 
   const { isLoading: mintTokensPending } = useWaitForTransaction({
     hash: mintData?.hash,
-    enabled: true,
+    enabled: isConnected,
     onSuccess: async (data: any) => {
       await refetchContractReads();
     },
@@ -125,7 +128,7 @@ export function useTokenData(
     },
     ...props,
     functionName: "getPendingTokensForAllRaces",
-    enabled: Boolean(tokenId),
+    enabled: Boolean(isConnected && tokenId),
     args: [NUM_RACES_PER_SEASON, tokenId],
   });
 
