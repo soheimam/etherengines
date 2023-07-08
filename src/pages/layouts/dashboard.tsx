@@ -105,7 +105,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               </div>
             </div>
             <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
-              <h1 className=" text-7xl pb-8">999</h1>
+              <h1 className=" text-7xl pb-8">17</h1>
               <p className="text-3xl">Total Wins</p>
             </div>
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">

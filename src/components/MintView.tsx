@@ -84,9 +84,11 @@ function MintView({ walletAddress, isConnected }: any) {
 
   return (
     <Grid>
-      {selectedDrivers.map((driver, index) => (
+      <LargeDriver driverImg={selectedDrivers[0]} key={"1"} />
+      <LargeDriver driverImg={selectedDrivers[1]} key={"2"} />
+      {/*selectedDrivers.map((driver, index) => (
         <LargeDriver driverImg={driver} key={index} />
-      ))}
+      ))*/}
       <div className="col-start-6 col-span-2 place-self-center">
         <h3 className="text-primary"> Total Spent</h3>
         <button
