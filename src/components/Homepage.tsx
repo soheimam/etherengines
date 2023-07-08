@@ -6,7 +6,7 @@ import { useAccount } from "wagmi";
 function Homepage() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const { address, isConnected } = useAccount();
-  const { mintWrite, mintLoading } = useTokenData(
+  const { mintWrite, mintLoading, mintTokensPending } = useTokenData(
     address as `0x${string}`,
     isConnected
   );
@@ -45,7 +45,7 @@ function Homepage() {
             onClick={() => mintWrite!()}
             className="btn btn-outline btn-primary btn-wide mx-4 text-2xl"
           >
-            {!mintLoading ? (
+            {!mintLoading && !mintTokensPending ? (
               "Get Season Tokens"
             ) : (
               <span className="loading loading-ring loading-lg"></span>
