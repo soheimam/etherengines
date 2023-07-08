@@ -38,7 +38,21 @@ export default function Home() {
       >
         <div className="flex w-full justify-end">
           <div className="">{<ConnectButton />}</div>
-          <div>Balance: {tokenBalanceOf}</div>
+          {currentPage === Pages.DASHBOARD ? (
+            <button
+              className="btn"
+              onClick={() => setCurrentPage(Pages.TEAMSELECT)}
+            >
+              Shop / Balance: ${tokenBalanceOf}
+            </button>
+          ) : (
+            <button
+              className="btn"
+              onClick={() => setCurrentPage(Pages.DASHBOARD)}
+            >
+              Back
+            </button>
+          )}
         </div>
 
         {(() => {
