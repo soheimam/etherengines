@@ -40,13 +40,13 @@ export default function Home() {
   return (
     <>
       <main
-        className={`flex w-full justify-evenly flex-col overflow-hidden min-h-screen px-20`}
+        className={`flex w-full pt-20 justify-end flex-col overflow-hidden min-h-screen px-20`}
       >
-        <div className="flex w-full justify-end">
+        <div className="flex w-full justify-end max-w-[1280px]">
           <div className="">{<ConnectButton />}</div>
           {currentPage === Pages.DASHBOARD ? (
             <button
-              className="btn"
+              className="btn w-40"
               onClick={() => setCurrentPage(Pages.TEAMSELECT)}
             >
               Shop
@@ -55,7 +55,7 @@ export default function Home() {
             </button>
           ) : (
             <button
-              className="btn"
+              className="btn w-40"
               onClick={() => setCurrentPage(Pages.DASHBOARD)}
             >
               Back

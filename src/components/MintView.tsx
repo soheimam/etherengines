@@ -46,6 +46,9 @@ function MintView({ walletAddress, isConnected }: any) {
 
   return (
     <Grid>
+      <div className="col-span-12 text-base-content">
+        <h1>TEAM BUILDER</h1>
+      </div>
       <LargeDriver
         driverImg={selectedDrivers[0]}
         price={getDriverCost(selectedDrivers[0]).toString()}
