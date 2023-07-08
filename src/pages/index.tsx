@@ -20,7 +20,10 @@ export enum Pages {
 export default function Home() {
   const [currentPage, setCurrentPage] = useState<Pages>(Pages.START);
   const { address, isConnected } = useAccount();
-  const { mintTokensPending, tokenBalanceOf } = useTokenData(address as `0x${string}`);
+  const { mintTokensPending, tokenBalanceOf } = useTokenData(
+    address as `0x${string}`,
+    isConnected
+  );
 
   if (mintTokensPending) return <h1>LOADING"</h1>;
 
