@@ -17,30 +17,30 @@ export const trackFetcher = (trackNumber: number) => {
 
 export const driverArray = () => {
   const drivers = [
-    'Verstappen',
-    'Checo',
-    'Hamilton',
-    'Russel',
-    'Leclerc',
-    'Sainz',
-    'Alsonso',
-    'Stroll',
-    'Tsunoda',
-    'Devries',
-    'Sargent',
-    'Albon',
-    'Bottas',
-    'Zhou',
-    'Piastri',
-    'Norris',
-    'Gasly',
-    'Ocon',
-    'Hulkenberg',
-    'Magnussen' 
-  ]
+    "Verstappen",
+    "Checo",
+    "Hamilton",
+    "Russel",
+    "Leclerc",
+    "Sainz",
+    "Alsonso",
+    "Stroll",
+    "Tsunoda",
+    "Devries",
+    "Sargent",
+    "Albon",
+    "Bottas",
+    "Zhou",
+    "Piastri",
+    "Norris",
+    "Gasly",
+    "Ocon",
+    "Hulkenberg",
+    "Magnussen",
+  ];
 
-  return drivers
-}
+  return drivers;
+};
 
 export const teamArray = () => {
   const cars = [
@@ -53,12 +53,12 @@ export const teamArray = () => {
     "Alfa Romeo",
     "Aston Martin",
     "Alpine",
-    "Haas"
-  ]
-  return cars
-}
+    "Haas",
+  ];
+  return cars;
+};
 
 export const toMetafuseUrl = (id: string) => {
-  const url = `https://api.metafuse.me/assets/metafuse/${id}.png`
-  return url
-}
+  const url = `https://api.metafuse.me/assets/metafuse/${id}.png`;
+  return url;
+};

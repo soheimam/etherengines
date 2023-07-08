@@ -1,4 +1,5 @@
 import { abiFetcher } from "@/utils/ABIFetcher";
+import { useState } from "react";
 import {
   useContractRead,
   useContractWrite,
@@ -17,6 +18,7 @@ export function useCanvasData(
   driverSecondary?: number,
   teamNumber?: number
 ) {
+  const [activeRace, setActiveRace] = useState(0);
   const canvasContractAddress = process.env.CANVAS_ADDRESS as `0x${string}`;
   const abi = abiFetcher("Canvas");
 
@@ -49,10 +51,16 @@ export function useCanvasData(
     },
   });
 
-  const { refetch: refrechActiveRace, data: activeRace } = useContractRead({
+  const { refetch: refrechActiveRace } = useContractRead({
     ...readProps,
     functionName: "activeRace",
-    args: [],
+    enabled: true,
+    onSuccess(data) {
+      setActiveRace(data as number);
+    },
+    onError(err) {
+      console.log(err);
+    },
   });
 
   const { refetch: refrechTrackData, data: trackData } = useContractRead({

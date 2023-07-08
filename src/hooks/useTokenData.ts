@@ -19,8 +19,8 @@ export function useTokenData(
   tokenId: number
 ) {
   const canvasContractAddress = process.env.CANVAS_ADDRESS as `0x${string}`;
-
   const tokenContractAddress = process.env.TOKEN_ADDRESS as `0x${string}`;
+  console.log(canvasContractAddress, tokenContractAddress);
 
   const [tokenBalanceOf, setTokenBalanceOf] = useState<number>(0);
   const [canvasSpendAllowance, setCanvasSpendAllowance] = useState<number>(0);
