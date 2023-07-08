@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "./Layout/Grid";
 import LargeDriver from "./LargeDriver";
 import SmallDriver from "./SmallDriver";
 import CarCard from "./CarCard";
 import { useCanvasData } from "@/hooks/useCanvasData";
 import { createMetafuseCreatePayload } from "@/utils/NameToNumberMapper";
+import { useTokenData } from "@/hooks/useTokenData";
 
 const drivers = [
   "Verstappen",
@@ -45,21 +46,34 @@ const cars = [
 function MintView({ walletAddress, isConnected }: any) {
   const [selectedDrivers, setSelectedDrivers] = useState<string[]>([]);
   const [selectedTeam, setSelectedTeam] = useState("Red Bull");
+  const [selectedFirstDriver, setSelectedFirstDriver] = useState(0);
+  const [selectedSecondDriver, setSelectedSecondDriver] = useState(0);
 
+  const { approveCanvasContractPaymentTokenSpend, canvasSpendAllowance } =
+    useTokenData(walletAddress, isConnected);
+  console.log(canvasSpendAllowance);
   const {
     mintTransaction,
-    refetchMintPrep,
     refrechTokensOfOwner,
     tokensOfOwner,
+    refetchMintPrep,
   } = useCanvasData(
     walletAddress,
     isConnected,
-    drivers.indexOf(selectedDrivers[0]),
-    drivers.indexOf(selectedDrivers[1], cars.indexOf(selectedTeam))
+    selectedFirstDriver,
+    selectedSecondDriver,
+    cars.indexOf(selectedTeam) + 1
   );
 
+  useEffect(() => {
+    setSelectedFirstDriver(drivers.indexOf(selectedDrivers[0]) + 1);
+    setSelectedSecondDriver(drivers.indexOf(selectedDrivers[1]) + 1);
+    if (selectedDrivers.length === 2) {
+      refetchMintPrep();
+    }
+  }, [selectedDrivers]);
+
   const handleDriverSelect = (id: string) => {
-    console.log(selectedDrivers);
     if (selectedDrivers.includes(id)) {
       setSelectedDrivers(selectedDrivers.filter((driver) => driver !== id));
     } else if (selectedDrivers.length < 2) {
@@ -76,6 +90,11 @@ function MintView({ walletAddress, isConnected }: any) {
         <h3 className="text-primary"> Total Spent</h3>
         <button
           onClick={async () => {
+            console.log(canvasSpendAllowance);
+            if (canvasSpendAllowance == 0) {
+              approveCanvasContractPaymentTokenSpend!();
+              return;
+            }
             await refetchMintPrep();
             // mintTransaction();
             console.log(mintTransaction);
@@ -90,7 +109,7 @@ function MintView({ walletAddress, isConnected }: any) {
           }}
           className="btn btn-primary"
         >
-          Mint
+          {canvasSpendAllowance == 0 ? "Approve" : "Mint"}
         </button>
       </div>
       <section className="col-start-1 col-span-6 grid grid-cols-5 bg-neutral rounded-box">

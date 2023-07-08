@@ -42,7 +42,7 @@ export function useTokenData(
       setTokenBalanceOf(
         isConnected ? formatUnits(balanceOf.result, "ether") : "0"
       ); // Do converting here if we need to
-      setCanvasSpendAllowance(allowance);
+      setCanvasSpendAllowance(allowance.result);
     },
     enabled: isConnected,
     contracts: [
