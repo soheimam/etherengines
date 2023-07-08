@@ -15,6 +15,7 @@ function MintView({ walletAddress, isConnected }: any) {
   const {
     mintTransaction,
     mintLoading,
+    mintTransactionPending,
     refetchMintPrep,
     activeRace,
     canvasData,
@@ -97,7 +98,8 @@ function MintView({ walletAddress, isConnected }: any) {
             >
               {!mintLoading &&
               !approveCanvasContractPaymentTokenSpendLoading &&
-              !approveLoading ? (
+              !approveLoading &&
+              !mintTransactionPending ? (
                 (canvasSpendAllowance as unknown as bigint) == 0n ? (
                   "Approve"
                 ) : (
