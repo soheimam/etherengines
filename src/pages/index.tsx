@@ -72,7 +72,9 @@ export default function Home() {
                 />
               );
             case Pages.TEAMSELECT:
-              return <MintView />;
+              return (
+                <MintView walletAddress={address} isConnected={isConnected} />
+              );
             default:
               return null; // or some default component
           }

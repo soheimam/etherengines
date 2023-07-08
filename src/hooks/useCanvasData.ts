@@ -45,7 +45,7 @@ export function useCanvasData(
   const writeProps: Partial<UsePrepareContractWriteConfig> = {
     address: canvasContractAddress,
     abi,
-    enabled: isConnected,
+    enabled: true,
   };
 
   const readProps: Partial<UseContractReadConfig> = {
@@ -58,7 +58,7 @@ export function useCanvasData(
     functionName: "activeRace",
     enabled: isConnected,
     onSuccess(data) {
-      setActiveRace(10); //data as number);
+      setActiveRace(1); //data as number);
       setIsLoading(false); // Move this to be global over all state in here
     },
     onError(err) {
@@ -70,7 +70,10 @@ export function useCanvasData(
     usePrepareContractWrite({
       ...writeProps,
       functionName: "mint",
-      args: [1n], // User can only ever mint 1
+      onSuccess(data) {
+        console.log(data);
+      },
+      args: [driverMain, driverSecondary, teamNumber], // User can only ever mint 1
     });
 
   const { data: mintData, write: mintTransaction } =
@@ -78,8 +81,9 @@ export function useCanvasData(
 
   const { isLoading: mintTransactionPending } = useWaitForTransaction({
     hash: mintData?.hash,
-    enabled: isConnected,
+    enabled: true,
     onSuccess(data: any) {
+      console.log(data);
       // Do something here on success
     },
   });
