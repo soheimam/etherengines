@@ -98,6 +98,24 @@ export function useTokenData(
       },
     });
 
+  const { config: prepareMint } = usePrepareContractWrite({
+    abi,
+    address: tokenContractAddress,
+    functionName: "mint",
+    enabled: true,
+    args: [30],
+  });
+
+  const { data: mintData, write: mintWrite } = useContractWrite(prepareMint);
+
+  const { isLoading: mintTokensPending } = useWaitForTransaction({
+    hash: mintData?.hash,
+    enabled: true,
+    onSuccess: async (data: any) => {
+      await refetchContractReads();
+    },
+  });
+
   const { refetch: refetchGetPendingTokensForAllRaces } = useContractRead({
     onSuccess(data) {
       setCurrentPendingTokenAmount(data as number);
@@ -112,6 +130,8 @@ export function useTokenData(
     approveCanvasContractPaymentTokenSpend,
     refetchGetPendingTokensForAllRaces,
     claimAllTokens,
+    mintWrite,
+    mintTokensPending,
     claimTransactionPending,
     currentPendingTokenAmount,
     approveCanvasContractPaymentTokenSpendLoading,

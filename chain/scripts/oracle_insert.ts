@@ -1,3 +1,5 @@
+import createLock from "./lock";
+
 const hre = require("hardhat");
 const ethers = hre.ethers;
 
@@ -53,24 +55,29 @@ async function main() {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  // Insert driver costs
-  for (let i = 0; i < drivers.length; i++) {
-    const driverNumber = i + 1;
-    const driverCost = ethers.utils.parseEther((drivers.length - i).toString());
-    console.log(`Inserting Driver: ${drivers[i].name} - Value: ${driverCost}`);
-    await oracleWithOwner.setDriverCost(driverNumber, driverCost);
-    await sleep(1000);
-  }
-  console.log("Inserted driver costs");
+  let nonce = 0;
 
-  // Insert team costs
-  for (let i = 0; i < teams.length; i++) {
-    const teamNumber = i + 1;
-    const teamCost = ethers.utils.parseEther((teams.length - i).toString());
-    console.log(`Inserting Team: ${teams[i]} - Value: ${teamCost}`);
-    await oracleWithOwner.setTeamCost(teamNumber, teamCost);
-  }
-  console.log("Inserted team costs");
+  // const lock = createLock("send");
+
+  // Insert driver costs
+  // for (let i = 0; i < drivers.length; i++) {
+  //   const driverNumber = i + 1;
+  //   const driverCost = ethers.utils.parseEther((drivers.length - i).toString());
+  //   console.log(`Inserting Driver: ${drivers[i].name} - Value: ${driverCost}`);
+  //   await oracleWithOwner.setDriverCost(driverNumber, driverCost);
+  //   await sleep(10000);
+  // }
+  // console.log("Inserted driver costs");
+
+  // // Insert team costs
+  // for (let i = 0; i < teams.length; i++) {
+  //   const teamNumber = i + 1;
+  //   const teamCost = ethers.utils.parseEther((teams.length - i).toString());
+  //   console.log(`Inserting Team: ${teams[i]} - Value: ${teamCost}`);
+  //   await oracleWithOwner.setTeamCost(teamNumber, teamCost);
+  //   await sleep(10000);
+  // }
+  // console.log("Inserted team costs");
 
   // Insert driver ratings
   let minRating = Number.MAX_SAFE_INTEGER;
@@ -102,6 +109,7 @@ async function main() {
       `Inserting Driver Rating: ${drivers[i].name} - Value: ${normalizedRating}`
     );
     await oracleWithOwner.setDriverRating(driverNumber, normalizedRating);
+    await sleep(10000);
   }
 
   console.log("Inserted driver ratings");
@@ -122,6 +130,7 @@ async function main() {
       temperatureData[raceNumber],
       conditionData[raceNumber]
     );
+    await sleep(10000);
     console.log(
       `Inserted track data for race ${raceNumber + 1}: Temperature - ${
         temperatureData[raceNumber]
