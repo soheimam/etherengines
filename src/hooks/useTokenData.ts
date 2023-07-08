@@ -108,7 +108,7 @@ export function useTokenData(
     onSuccess: async (data: any) => {
       await refetchContractReads();
     },
-    enabled: isConnected && +tokenBalanceOf === 0,
+    enabled: isConnected && +tokenBalanceOf === "0",
     args: [parseUnits("30", "ether")],
   });
 
