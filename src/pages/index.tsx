@@ -17,12 +17,9 @@ import {
 import { publicProvider } from "wagmi/providers/public";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import Homeview from "./layouts/homeview";
-<<<<<<< HEAD
 import { useState } from "react";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
-=======
 import MintView from "@/components/MintView";
->>>>>>> b0e455d0 (added carousel)
 
 const inter = Inter({ subsets: ["latin"] });
 
