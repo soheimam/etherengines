@@ -38,7 +38,9 @@ function MintView({ walletAddress, isConnected }: any) {
               return;
             }
             await refetchMintPrep();
-            mintTransaction!();
+            if (mintTransaction) {
+              mintTransaction();
+            }
           }}
           className="btn btn-primary"
         >
