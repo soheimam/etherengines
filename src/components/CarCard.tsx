@@ -18,7 +18,7 @@ function CarCard({ carImg, selectedTeam, setSelectedTeam }: ICarCard) {
       }
     >
       <div
-        className={`absolute bottom-10  left-1/2 -translate-x-1/2 z-10 text-5xl font-bold ${
+        className={`absolute top-10  left-1/2 -translate-x-1/2 z-10 text-5xl font-bold ${
           selectedTeam.length ? "text-red-500" : ""
         }`}
       >
