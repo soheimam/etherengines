@@ -10,10 +10,13 @@ import {
   teamArray,
   toMetafuseUrl,
 } from "@/utils/NameToNumberMapper";
+import { useAccount } from "wagmi";
 
 const Dashboard = () => {
+  const { address, isConnected } = useAccount();
   const { activeRace } = useCanvasData();
-  //const {} = useTokenData()
+  const { currentPendingTokenAmount } = useTokenData(address as `0x${string}`);
+
   const isPlaying = true;
 
   const StartButton = () => {
@@ -59,8 +62,11 @@ const Dashboard = () => {
               <RaceCard />
             </div>
             <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
-              <h1 className=" text-7xl pb-8">25</h1>
+              <h1 className=" text-7xl pb-8">{currentPendingTokenAmount}</h1>
               <p className="text-3xl">Available to Claim</p>
+              <button className="btn btn-primary" onClick={() => {}}>
+                Claim
+              </button>
             </div>
           </>
         ) : (

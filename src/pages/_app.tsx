@@ -25,7 +25,8 @@ const { connectors } = getDefaultWallets({
   projectId: "4db57738dc22465254c5f04725062408",
   chains,
 });
-const wagmiConfig = createConfig({
+
+createConfig({
   autoConnect: true,
   connectors,
   publicClient,

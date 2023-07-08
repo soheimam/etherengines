@@ -19,7 +19,7 @@ interface IOracle {
     function getTrackData(uint8 raceNumber) external view returns (TrackData memory);
 }
 
-contract Canvas is ERC721A, Ownable {
+contract Canvas is ERC721A, ERC721AQueryable, Ownable {
     using Strings for uint256;
 
     IOracle public oracle;
@@ -34,6 +34,7 @@ contract Canvas is ERC721A, Ownable {
         oracle = IOracle(_oracle);
         token = IERC20(_token);
         setBaseURI(_baseURI);
+        setActiveRace(1);
     }
 
     function setBaseURI(string memory _baseURI) public onlyOwner {
@@ -51,16 +52,16 @@ contract Canvas is ERC721A, Ownable {
         _safeMint(msg.sender, 1);
     }
 
-    function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
+    function tokenURI(uint256 _tokenId) public view virtual override(IERC721A, ERC721A) returns (string memory) {
         if (!_exists(_tokenId)) revert URIQueryForNonexistentToken();
         return bytes(baseURI).length != 0 ? string(abi.encodePacked(baseURI, _tokenId.toString(), URISuffix)) : '';
     }
 
-    function _startTokenId() internal view virtual override returns (uint256) {
+    function _startTokenId() internal view virtual override(ERC721A) returns (uint256) {
         return 1;
     }
 
-    function setActiveRace(uint8 raceNumber) external onlyOwner {
+    function setActiveRace(uint8 raceNumber) public onlyOwner {
         activeRace = raceNumber;
     }
 
@@ -84,11 +85,11 @@ contract Canvas is ERC721A, Ownable {
         return totalCost;
     }
 
-    function getCanvasRating(uint8 _driverMain, uint8 _driverSecondary, uint8 _teamNumber) public view returns (uint8) {
+    function getCanvasRating(uint8 _driverMain, uint8 _driverSecondary, uint8 _teamNumber) public view returns (uint256) {
         return oracle.getDriverRating(_driverMain) + oracle.getDriverRating(_driverSecondary) + oracle.getTeamRating(_teamNumber);
     }
 
-    function getCanvasValue(uint8 _driverMain, uint8 _driverSecondary, uint8 _teamNumber) public view returns (uint8) {
+    function getCanvasValue(uint8 _driverMain, uint8 _driverSecondary, uint8 _teamNumber) public view returns (uint256) {
         return oracle.getDriverCost(_driverMain) + oracle.getDriverCost(_driverSecondary) + oracle.getTeamCost(_teamNumber);
     }
 

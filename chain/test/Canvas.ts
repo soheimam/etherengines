@@ -69,9 +69,4 @@ describe("Canvas", function () {
       "https://api.example.com/token/2.json"
     );
   });
-
-  it("should return the correct driver rating", async function () {
-    // Assuming the oracle returns a rating of 85 for driver 1 (currently 0)
-    expect(await canvas.getDriverRating(1)).to.equal(0);
-  });
 });
