@@ -19,7 +19,7 @@ export enum Pages {
 
 export default function Home() {
   const { address, isConnected } = useAccount();
-  const { mintTokensPending, tokenBalanceOf } = useTokenData(address as `0x${string}`);
+  const { mintTokensPending, tokenBalanceOf } = useTokenData(address as `0x${string}`, isConnected);
   const [currentPage, setCurrentPage] = useState<Pages>(!tokenBalanceOf ? Pages.START : Pages.DASHBOARD);
 
   console.log(tokenBalanceOf)
@@ -33,10 +33,10 @@ export default function Home() {
       >
         <div className="flex w-full justify-end">
           <div className="">{<ConnectButton />}</div>
-          <div>Balance: {tokenBalanceOf}</div>
+          { isConnected ? <div>Balance: {tokenBalanceOf}</div> : null }
         </div>
 
-        {(() => {
+        {isConnected && (() => {
           switch (currentPage) {
             case Pages.START:
               return (
