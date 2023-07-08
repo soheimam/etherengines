@@ -32,7 +32,11 @@ export default function Home() {
   useEffect(() => {
     console.log("TOKEN BALANCE", tokenBalanceOf);
     if (tokenBalanceOf !== "0.0") {
-      setCurrentPage(Pages.DASHBOARD);
+      if (tokensOfOwner.length) {
+        setCurrentPage(Pages.DASHBOARD);
+      } else {
+        setCurrentPage(Pages.TEAMSELECT);
+      }
     } else {
       setCurrentPage(Pages.START);
     }
@@ -57,7 +61,7 @@ export default function Home() {
               Balance: {tokenBalanceOf}
             </button>
           )}
-          {currentPage === Pages.TEAMSELECT && (
+          {currentPage === Pages.TEAMSELECT && tokensOfOwner.length !== 0 && (
             <button
               className="btn w-40"
               onClick={() => setCurrentPage(Pages.DASHBOARD)}
