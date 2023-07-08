@@ -5,11 +5,15 @@ TrackMap.set(3, { name: "Austria", country: "XX", filename: "track_3" });
 TrackMap.set(4, { name: "Miami", country: "US", filename: "track_4" });
 TrackMap.set(5, { name: "Abu Dhabi", country: "XX", filename: "track_5" });
 TrackMap.set(6, { name: "Canada", country: "CA", filename: "track_6" });
-TrackMap.set(7, { name: "The Netherlands", country: "NL", filename: "track_7" });
+TrackMap.set(7, {
+  name: "The Netherlands",
+  country: "NL",
+  filename: "track_7",
+});
 TrackMap.set(8, { name: "France", country: "FR", filename: "track_8" });
 TrackMap.set(9, { name: "Spain", country: "ES", filename: "track_9" });
-TrackMap.set(10,{ name:  "Silverstone", country: "GB", filename: "track_10" });
-TrackMap.set(11,{ name:  "Azerbaijan", country: "XX", filename: "track_11" });
+TrackMap.set(10, { name: "Silverstone", country: "GB", filename: "track_10" });
+TrackMap.set(11, { name: "Azerbaijan", country: "XX", filename: "track_11" });
 
 export const trackFetcher = (trackNumber: number) => {
   return TrackMap.get(trackNumber);
@@ -122,4 +126,9 @@ export const createMetafuseCreatePayload = ({
       },
     ],
   };
+};
+
+export const weatherArray = () => {
+  const weather = ["Cloudy", "Sunny", "Rain", "Storm"];
+  return weather;
 };

@@ -20,16 +20,13 @@ interface IDashboard {
 
 const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
   const { address, isConnected } = useAccount();
-  const { activeRace, isLoading, tokensOfOwner } = useCanvasData(
-    address as `0x${string}`,
-    isConnected
-  );
-
-  const { trackData } = useCanvasData(
-    address as `0x${string}`,
-    isConnected,
-    activeRace
-  );
+  const {
+    activeRace,
+    isLoading,
+    tokensOfOwner,
+    trackDataActive,
+    trackDataPrevious,
+  } = useCanvasData(address as `0x${string}`, isConnected);
 
   const {
     currentPendingTokenAmount,
@@ -79,7 +76,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               {activeRace && (
                 <RaceCard
                   track={activeRace}
-                  trackData={trackData as any}
+                  trackData={trackDataActive as any}
                   active={true}
                 />
               )}
@@ -114,7 +111,13 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               <h1>Previous Games</h1>
             </div>
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-              {activeRace && <RaceCard track={activeRace - 1} active={false} />}
+              {activeRace && (
+                <RaceCard
+                  track={activeRace - 1}
+                  trackData={trackDataPrevious as any}
+                  active={false}
+                />
+              )}
             </div>
           </>
         ) : null}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { toMetafuseUrl, trackFetcher } from "@/utils/NameToNumberMapper";
 import CountdownTimer from "./CountdownTimer";
+import { weatherArray } from "@/utils/NameToNumberMapper";
 
 export interface IRaceCard {
   track: number;
@@ -30,7 +31,7 @@ const RaceCard = ({ track, trackData, active }: IRaceCard) => {
         <div className="flex flex-col text-right pr-4 pt-2">
           {trackData ? (
             <h1>
-              {trackData.conditions}, {trackData.temperature}℃
+              {weatherArray()[trackData.conditions]}, {trackData.temperature}℃
             </h1>
           ) : null}
           <h1>
