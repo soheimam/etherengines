@@ -11,6 +11,7 @@ import { MaxUint256, parseUnits, formatUnits } from "ethers";
 
 import { useState } from "react";
 import { abiFetcher } from "@/utils/ABIFetcher";
+import { driverArray, teamArray } from "@/utils/NameToNumberMapper";
 
 const NUM_RACES_PER_SEASON = 11;
 
@@ -18,7 +19,8 @@ export function useTokenData(
   usersWalletAddress: `0x${string}`,
   isConnected: boolean,
   raceNumber?: number,
-  canvasData?: any
+  canvasData?: any,
+  selectedSellDriver?: string
 ) {
   const canvasContractAddress = process.env.CANVAS_ADDRESS as `0x${string}`;
   const tokenContractAddress = process.env.TOKEN_ADDRESS as `0x${string}`;
@@ -33,6 +35,18 @@ export function useTokenData(
     address: tokenContractAddress,
     abi,
     enabled: isConnected,
+  };
+
+  // _driverNumber, uint8 _tokenId, uint8 _driverSecondary, uint8 _teamNumber
+  const createSellInput = (canvas: any, sellingDriverName: string) => {
+    const result = [
+      driverArray().indexOf(sellingDriverName),
+      +canvas?.edition,
+      driverArray().indexOf(canvas?.attributes[1].value),
+      teamArray().indexOf(canvas?.attributes[2].value),
+    ];
+    console.log(`Result! `, result);
+    return result;
   };
 
   // Token Contract Reads
@@ -135,6 +149,27 @@ export function useTokenData(
     },
   });
 
+  // uint8 _driverNumber, uint8 _tokenId, uint8 _driverSecondary, uint8 _teamNumber
+  const { config: prepareSell, refetch: prepareSellRefetch } =
+    usePrepareContractWrite({
+      abi,
+      address: tokenContractAddress,
+      functionName: "sell",
+      enabled: true,
+      onSuccess(data) {
+        console.log(data);
+      },
+      args: createSellInput(canvasData, selectedSellDriver!),
+    });
+
+  const { data: sellData, write: sellTransaction } =
+    useContractWrite(prepareSell);
+
+  useWaitForTransaction({
+    hash: sellData?.hash,
+    enabled: true,
+  });
+
   console.log(`Canvas data `, canvasData);
   console.log(canvasData?.edition);
   const { refetch: refetchGetPendingTokensForAllRaces } = useContractRead({
@@ -160,6 +195,8 @@ export function useTokenData(
     mintWrite,
     mintLoading,
     mintTokensPending,
+    sellTransaction,
+    prepareSellRefetch,
     claimTransactionPending,
     currentPendingTokenAmount,
     approveCanvasContractPaymentTokenSpendLoading,

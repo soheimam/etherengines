@@ -75,42 +75,6 @@ export function useCanvasData(
     },
   });
 
-  // const { config: prepareSell } = usePrepareContractWrite({
-  //   ...writeProps,
-  //   functionName: "mint",
-  //   enabled: Boolean(selectedDrivers?.length && teamName),
-  //   onSuccess(data) {
-  //     console.log(data);
-  //   },
-  //   args: selectedDrivers?.length
-  //     ? generateMintArgs(selectedDrivers!, teamName!)
-  //     : [], // User can only ever mint 1
-  // });
-
-  // const { data: mintData, write: mintTransaction } =
-  //   useContractWrite(prepareMint);
-
-  // const { isLoading: mintTransactionPending } = useWaitForTransaction({
-  //   hash: mintData?.hash,
-  //   enabled: true,
-  //   onSuccess: async (data: any) => {
-  //     const h = await refetchTokensOfOwner();
-  //     console.log(`refetchTokensOfOwner data`, h.data);
-  //     if (Array.isArray(selectedDrivers)) {
-  //       const [firstDriver, secondDriver] = selectedDrivers;
-  //       const tokenId = (h.data as any[])[(h.data as any[]).length - 1];
-  //       const _payload = createMetafuseCreatePayload({
-  //         tokenId: tokenId.toString(),
-  //         mainDriver: firstDriver,
-  //         secondaryDriver: secondDriver,
-  //         team: teamName ? teamName : "",
-  //       });
-  //       console.log(_payload);
-  //       await createDigitalAsset(_payload);
-  //     }
-  //   },
-  // });
-
   const { config: prepareMint, refetch: refetchMintPrep } =
     usePrepareContractWrite({
       ...writeProps,

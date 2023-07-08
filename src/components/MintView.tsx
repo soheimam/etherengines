@@ -10,6 +10,7 @@ import { driverArray, teamArray } from "@/utils/NameToNumberMapper";
 function MintView({ walletAddress, isConnected }: any) {
   const [selectedDrivers, setSelectedDrivers] = useState<string[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<string>("");
+  const [selectedSellDriver, setSelectedSellDriver] = useState<string>("");
 
   const {
     mintTransaction,
@@ -25,7 +26,15 @@ function MintView({ walletAddress, isConnected }: any) {
     canvasSpendAllowance,
     approveCanvasContractPaymentTokenSpendLoading,
     approveLoading,
-  } = useTokenData(walletAddress, isConnected, activeRace, canvasData);
+    sellTransaction,
+    prepareSellRefetch,
+  } = useTokenData(
+    walletAddress,
+    isConnected,
+    activeRace,
+    canvasData,
+    selectedSellDriver
+  );
 
   const handleDriverSelect = (id: string) => {
     if (selectedDrivers.includes(id)) {
@@ -56,11 +65,17 @@ function MintView({ walletAddress, isConnected }: any) {
       </div>
       <LargeDriver
         driverImg={selectedDrivers[0]}
+        sellHandler={setSelectedSellDriver}
+        sellTransaction={sellTransaction}
+        prepareSellRefetch={prepareSellRefetch}
         price={getDriverCost(selectedDrivers[0]).toString()}
         key={"1"}
       />
       <LargeDriver
         driverImg={selectedDrivers[1]}
+        sellHandler={setSelectedSellDriver}
+        sellTransaction={sellTransaction}
+        prepareSellRefetch={prepareSellRefetch}
         price={getDriverCost(selectedDrivers[1]).toString()}
         key={"2"}
       />

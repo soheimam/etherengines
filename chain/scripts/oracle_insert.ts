@@ -7,7 +7,7 @@ async function main() {
   // Deploy the Oracle contract
   const contract = await ethers.getContractFactory("Oracle");
   const oracle = await contract.attach(
-    "0x86e233079243aaF1aBe14B6714562B5C33623683"
+    "0x6ECe3928B56d6a8A3EF9B557c2A9c50427e0C8a2"
   );
 
   // Connect to the contract with the owner account

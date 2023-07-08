@@ -66,7 +66,7 @@ contract Token is ERC20, Ownable {
         _mint(_receiver, _amount); 
     }
 
-    function sell(uint8 _driverNumber, uint8 _tokenId, uint8 _driverSecondary, uint8 _teamNumber) public {
+    function sell(uint8 _driverNumber, uint256 _tokenId, uint8 _driverSecondary, uint8 _teamNumber) public {
         require(canvasContract.getOwnerOf(_tokenId) == msg.sender, "Caller is not the owner of this token");
 
         uint256 driverCost = oracle.getDriverCost(_driverNumber);

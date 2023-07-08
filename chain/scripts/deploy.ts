@@ -26,7 +26,7 @@ async function main() {
   canvas = await Canvas.deploy(
     oracle.address,
     token.address,
-    "https://api.example.com/token/"
+    "https://api.metafuse.me/assets/3ac14127-abd6-43ef-be99-c9fc635088cf/"
   );
   await canvas.deployed();
   console.log(`Canvas Deployed to -> ${canvas.address}`);
