@@ -6,7 +6,6 @@ interface ICarCard {
 }
 
 function CarCard({ carImg }: ICarCard) {
-  console.log(carImg);
   return (
     <article className="carousel-item h-full w-full relative">
       <div className="absolute top-10 right-10 badge badge-neutral z-10 font-bold drop-shadow-sm">

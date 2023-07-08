@@ -28,6 +28,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  font-family: "Teko", sans-serif;
 }
 .red-border {
   border: 2px solid red;
@@ -47,6 +48,10 @@ body {
   width: 75vw;
   background-clip: text;
   color: transparent;
+  text-shadow: 2px 2px 3px rgba(109, 109, 109, 0.119);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
   /* text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5); */

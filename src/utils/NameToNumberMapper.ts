@@ -5,11 +5,27 @@ TrackMap.set(3, { name: "Austria", country: "XX", filename: "track_3" });
 TrackMap.set(4, { name: "Miami", country: "US", filename: "track_4" });
 TrackMap.set(5, { name: "Abu Dhabi", country: "XX", filename: "track_5" });
 TrackMap.set(6, { name: "Canada", country: "CA", filename: "track_6" });
-TrackMap.set(7, { name: "The Netherlands", country: "NL", filename: "track_7" });
+TrackMap.set(7, {
+  name: "The Netherlands",
+  country: "NL",
+  filename: "track_7",
+});
 TrackMap.set(8, { name: "France", country: "FR", filename: "track_8" });
 TrackMap.set(9, { name: "Spain", country: "ES", filename: "track_9" });
-TrackMap.set(10,{ name:  "Silverstone", country: "GB", filename: "track_10" });
-TrackMap.set(11,{ name:  "Azerbaijan", country: "XX", filename: "track_11" });
+TrackMap.set(10, { name: "Silverstone", country: "GB", filename: "track_10" });
+TrackMap.set(11, { name: "Azerbaijan", country: "XX", filename: "track_11" });
+
+interface APIPayload {
+  tokenId: string;
+  visibility: string;
+  projectId: string;
+  traits: Trait[];
+}
+
+interface Trait {
+  trait_type: string;
+  value: string;
+}
 
 export const trackFetcher = (trackNumber: number) => {
   return TrackMap.get(trackNumber);
@@ -58,6 +74,16 @@ export const teamArray = () => {
   return cars;
 };
 
+export const getDriverNameFromNumber = (driverNumber: number) => {
+  const drivers = driverArray();
+  return drivers[driverNumber];
+};
+
+export const getTeamNameFromNumber = (teamNumber: number) => {
+  const teams = teamArray();
+  return teams[teamNumber];
+};
+
 export const toMetafuseUrl = (id: string) => {
   const url = `https://api.metafuse.me/assets/metafuse/${id}.png`;
   return url;
@@ -75,7 +101,7 @@ interface MetafuseCreatePayload {
   team: string;
 }
 
-export const createDigitalAsset = async (payload: MetafuseCreatePayload) => {
+export const createDigitalAsset = async (payload: APIPayload) => {
   let metafuseHeaders = new Headers({
     Authorization: process.env.METAFUSE_API_KEY as string,
   });
@@ -85,7 +111,6 @@ export const createDigitalAsset = async (payload: MetafuseCreatePayload) => {
     body: JSON.stringify(payload),
   });
   const data = await res.json();
-  console.log(data);
   return data;
 };
 
@@ -94,11 +119,11 @@ export const createMetafuseCreatePayload = ({
   mainDriver,
   secondaryDriver,
   team,
-}: MetafuseCreatePayload) => {
+}: MetafuseCreatePayload): APIPayload => {
   return {
-    tokenId: tokenId,
+    tokenId: tokenId.toString(),
     visibility: "PUBLIC",
-    projectId: process.env.METAFUSE_PROJECT_ID,
+    projectId: process.env.METAFUSE_PROJECT_ID as string,
     traits: [
       {
         trait_type: "Main Driver",
@@ -122,4 +147,11 @@ export const createMetafuseCreatePayload = ({
       },
     ],
   };
+};
+
+import { CloudIcon, SunIcon } from "@heroicons/react/24/solid";
+
+export const weatherArray = () => {
+  const weather = ["Cloudy", "Sunny", "Cloudy", "Storm"];
+  return weather;
 };

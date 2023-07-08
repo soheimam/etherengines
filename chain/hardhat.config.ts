@@ -17,8 +17,8 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
-    xdcTestnet: {
-      url: process.env.XINFIN_NETWORK_URL || "",
+    xdc: {
+      url: process.env.XDC_NETWORK_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },

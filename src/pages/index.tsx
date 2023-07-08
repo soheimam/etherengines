@@ -28,8 +28,6 @@ export default function Home() {
     !tokenBalanceOf ? Pages.START : Pages.DASHBOARD
   );
 
-  console.log(tokenBalanceOf);
-
   if (mintTokensPending) return <h1>LOADING"</h1>;
 
   return (
@@ -44,7 +42,9 @@ export default function Home() {
               className="btn"
               onClick={() => setCurrentPage(Pages.TEAMSELECT)}
             >
-              Shop / Balance: ${tokenBalanceOf}
+              Shop
+              <br />
+              Balance: EE {tokenBalanceOf}
             </button>
           ) : (
             <button
@@ -75,7 +75,9 @@ export default function Home() {
                 />
               );
             case Pages.TEAMSELECT:
-              return <MintView />;
+              return (
+                <MintView walletAddress={address} isConnected={isConnected} />
+              );
             default:
               return null; // or some default component
           }
