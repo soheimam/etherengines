@@ -58,7 +58,7 @@ contract Token is ERC20, Ownable {
         return pendingTokens;
     }
 
-    function mint(uint8 _amount, address _receiver) public {
+    function mint(uint256 _amount, address _receiver) public {
         require(_amount <= maxMintAmount, "Amount is over max amount allowed");
         require(addressToSeasonMintedMapping[_receiver][currentSeason] + _amount <= maxMintAmount, "Exceeds max mint amount for the season");
 
