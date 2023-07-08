@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Image from "next/image";
 import Grid from "@/components/Layout/Grid";
 import RaceCard from "@/components/RaceCard";
@@ -14,10 +14,16 @@ import { useAccount } from "wagmi";
 
 const Dashboard = () => {
   const { address, isConnected } = useAccount();
-  const { activeRace } = useCanvasData();
-  const { currentPendingTokenAmount } = useTokenData(address as `0x${string}`);
+  const { activeRace, isLoading } = useCanvasData(address as `0x${string}`);
+  const { currentPendingTokenAmount, claimAllTokens } = useTokenData(
+    address as `0x${string}`
+  );
 
   const isPlaying = true;
+
+  if (isLoading) {
+    return <h1>Loading..</h1>;
+  }
 
   const StartButton = () => {
     return (
@@ -59,12 +65,16 @@ const Dashboard = () => {
             </div>
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
               {`Active: ${activeRace}`}
-              <RaceCard />
+              <RaceCard track={activeRace} />
             </div>
             <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1 className=" text-7xl pb-8">{currentPendingTokenAmount}</h1>
               <p className="text-3xl">Available to Claim</p>
-              <button className="btn btn-primary" onClick={() => {}}>
+              <button
+                disabled={currentPendingTokenAmount === 0}
+                className="btn btn-primary"
+                onClick={() => claimAllTokens!()}
+              >
                 Claim
               </button>
             </div>
@@ -76,7 +86,7 @@ const Dashboard = () => {
           <h1>Previous Games</h1>
         </div>
         <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-          <RaceCard />
+          <RaceCard track={activeRace} />
         </div>
       </Grid>
     </>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { toMetafuseUrl } from "@/utils/NameToNumberMapper";
 
 const RaceCard = (props: any) => {
-    console.log(toMetafuseUrl(props.track))
+  console.log(toMetafuseUrl(props.track));
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-row w-full justify-between">
