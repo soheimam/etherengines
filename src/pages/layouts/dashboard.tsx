@@ -135,7 +135,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               <button
                 disabled={currentPendingTokenAmount === 0}
                 className="btn btn-primary"
-                onClick={() => claimAllTokens()}
+                onClick={() => claimAllTokens!()}
               >
                 Claim
               </button>

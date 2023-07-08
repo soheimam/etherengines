@@ -25,6 +25,10 @@ function LargeDriver({ driverImg, price }: ILargeDriver) {
         blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJibHVyIj48ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMzAiLz48L2ZpbHRlcj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2JsdXIpIi8+PC9zdmc+Cg=="
       />
 
+      <button className="btn" onClick={() => alert(`${driverImg} SOLD`)}>
+        Sell
+      </button>
+
       <div className="w-full py-4">
         <h3 className="text-secondary font-bold"> {driverImg}</h3>
         <h3 className="text-secondary"> {price} Tokens</h3>
