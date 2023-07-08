@@ -6,9 +6,7 @@ import Gameview from "./layouts/gameview";
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import {
-  xdcTestnet,
-} from "wagmi/chains";
+import { xdcTestnet } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import Homeview from "./layouts/homeview";
@@ -48,24 +46,35 @@ export default function Home() {
       <WagmiConfig config={wagmiConfig}>
         <RainbowKitProvider chains={chains}>
           <main
-            className={`flex w-full justify-evenly flex-col overflow-hidden min-h-screen px-20`}
+            className={`flex w-full items-center justify-evenly flex-col overflow-hidden min-h-screen px-20`}
           >
-            <div className="flex w-full justify-end">
+            {/* <div className="flex w-full justify-end">
               <Homeview />
-            </div>
+            </div> */}
 
-            {(() => {
+            {/* {(() => {
               switch (currentPage) {
                 case Pages.START:
-                  return <Dashboard currentPage={currentPage} setCurrentPage={setCurrentPage} />;
+                  return (
+                    <Dashboard
+                      currentPage={currentPage}
+                      setCurrentPage={setCurrentPage}
+                    />
+                  );
                 case Pages.DASHBOARD:
-                  return <Dashboard currentPage={currentPage} setCurrentPage={setCurrentPage}/>;
+                  return (
+                    <Dashboard
+                      currentPage={currentPage}
+                      setCurrentPage={setCurrentPage}
+                    />
+                  );
                 case Pages.TEAMSELECT:
                   return <MintView />;
                 default:
                   return null; // or some default component
               }
-            })()}
+            })()} */}
+            <MintView />
             {/*<Gameview />
               <Teamcreator />*/}
           </main>
