@@ -27,8 +27,8 @@ function MintView({ walletAddress, isConnected }: any) {
 
   return (
     <Grid>
-      <LargeDriver driverImg={selectedDrivers[0]} key={"1"} />
-      <LargeDriver driverImg={selectedDrivers[1]} key={"2"} />
+      <LargeDriver driverImg={selectedDrivers[0]} price="12" key={"1"} />
+      <LargeDriver driverImg={selectedDrivers[1]} price="6" key={"2"} />
       <div className="col-start-6 col-span-2 place-self-center">
         <h3 className="text-primary"> Total Spent</h3>
         <button
@@ -60,7 +60,7 @@ function MintView({ walletAddress, isConnected }: any) {
           />
         ))}
       </section>
-      <div className="col-start-7 col-span-full carousel  carousel-center  p-4 space-x-4 bg-neutral rounded-box">
+      <div className="col-start-7 col-span-full carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
         {teamArray().map((car) => (
           <CarCard carImg={car} key={car} />
         ))}

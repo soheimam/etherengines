@@ -15,7 +15,7 @@ async function main() {
   const oracleWithOwner = token.connect(owner);
 
   // uint256 _raceNumber, uint256 _amount, uint256 _tokenId
-  await oracleWithOwner.setClaimableTokens(1, parseEther("10"), 2);
+  await oracleWithOwner.setClaimableTokens(1, parseEther("10"), 13);
   console.log(`Claimable amount set`);
 }
 

@@ -95,8 +95,8 @@ export function useCanvasData(
     enabled: true,
     onSuccess: async (data: any) => {
       const h = await refetchTokensOfOwner();
+      console.log(`refetchTokensOfOwner data`, h.data);
       if (Array.isArray(selectedDrivers)) {
-        console.log(selectedDrivers);
         const [firstDriver, secondDriver] = selectedDrivers;
         const tokenId = (h.data as any[])[(h.data as any[]).length - 1];
         const _payload = createMetafuseCreatePayload({
@@ -123,9 +123,12 @@ export function useCanvasData(
         return;
       }
       const lastToken = _tokens[_tokens.length - 1];
-      const _fetch = await fetch(toTokenUri(lastToken));
-      if (_fetch.ok) {
-        setCanvasData(await _fetch.json());
+      if (lastToken) {
+        console.log(`Fetching with token ${lastToken}`);
+        const _fetch = await fetch(toTokenUri(lastToken));
+        if (_fetch.ok) {
+          setCanvasData(await _fetch.json());
+        }
       }
     },
     onError(err) {

@@ -14,6 +14,7 @@ import {
 import { useAccount } from "wagmi";
 import { Pages } from "..";
 import * as crypto from "crypto";
+import { formatUnits, parseUnits } from "ethers";
 
 interface IDashboard {
   currentPage: Pages;
@@ -122,12 +123,19 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               )}
             </div>
             <div className="col-span-3 flex items-center flex-col gap-6 justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
-              <h1 className=" text-7xl pb-8">{currentPendingTokenAmount}</h1>
-              <p className="text-3xl">Available to Claim</p>
+              <p className="text-2xl">Tokens to claim</p>
+
+              <h1 className=" text-7xl pb-8">
+                <span>
+                  {Math.floor(
+                    +formatUnits(currentPendingTokenAmount.toString(), "ether")
+                  )}
+                </span>
+              </h1>
               <button
                 disabled={currentPendingTokenAmount === 0}
                 className="btn btn-primary"
-                onClick={() => claimAllTokens!()}
+                onClick={() => claimAllTokens()}
               >
                 Claim
               </button>

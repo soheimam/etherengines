@@ -131,8 +131,13 @@ export function useTokenData(
   console.log(canvasData?.edition);
   const { refetch: refetchGetPendingTokensForAllRaces } = useContractRead({
     onSuccess(data) {
-      console.log(`pending amount!`, data);
-      setCurrentPendingTokenAmount(data as number);
+      const _data = data as any[];
+      let numAmount = 0;
+      for (const _amount of _data) {
+        console.log(_amount);
+        numAmount += +_amount.toString();
+      }
+      setCurrentPendingTokenAmount(numAmount);
     },
     ...props,
     functionName: "getPendingTokensForAllRaces",
