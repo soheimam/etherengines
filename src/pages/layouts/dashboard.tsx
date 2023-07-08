@@ -36,19 +36,13 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
   const { address, isConnected } = useAccount();
   const {
     activeRace,
-    isLoading,
     tokensOfOwner,
     trackDataActive,
     trackDataPrevious,
     canvasData,
   } = useCanvasData(address as `0x${string}`, isConnected);
 
-  const {
-    currentPendingTokenAmount,
-    claimAllTokens,
-    mintWrite,
-    tokenBalanceOf,
-  } = useTokenData(
+  const { currentPendingTokenAmount, claimAllTokens } = useTokenData(
     address as `0x${string}`,
     isConnected,
     activeRace,
@@ -56,14 +50,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
   );
 
   console.log("Canvas", canvasData);
-
   console.log(`Your Tokens: `, tokensOfOwner);
-
-  const isPlaying = true;
-
-  if (isLoading) {
-    return <h1>Loading..</h1>;
-  }
 
   const _tokensOfOwner = ["Win"];
 

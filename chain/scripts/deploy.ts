@@ -18,7 +18,7 @@ async function main() {
   console.log(`Oracle Deployed to -> ${oracle.address}`);
 
   const Token = await ethers.getContractFactory("Token");
-  token = await Token.deploy();
+  token = await Token.deploy(oracle.address);
   await token.deployed();
   console.log(`Token Deployed to -> ${token.address}`);
 
@@ -30,6 +30,7 @@ async function main() {
   );
   await canvas.deployed();
   console.log(`Canvas Deployed to -> ${canvas.address}`);
+  token.setCanvasContract(canvas.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

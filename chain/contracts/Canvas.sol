@@ -27,6 +27,7 @@ contract Canvas is ERC721A, ERC721AQueryable, Ownable {
     uint8 public activeRace;
     string public baseURI;
     string public URISuffix = ".json";
+    address public tokenContract;
 
     struct DriverData {
         uint8 driverMain;
@@ -38,13 +39,36 @@ contract Canvas is ERC721A, ERC721AQueryable, Ownable {
     
     constructor(address _oracle, address _token, string memory _baseURI) ERC721A("Canvas", "CANVAS") {
         oracle = IOracle(_oracle);
+        tokenContract = _token;
         token = IERC20(_token);
         setBaseURI(_baseURI);
         setActiveRace(1);
     }
 
+    modifier onlyToken() {
+        require(msg.sender == tokenContract, "Caller is not the token contract");
+        _;
+    }
+
     function setBaseURI(string memory _baseURI) public onlyOwner {
         baseURI = _baseURI;
+    }
+
+    function storeDriverData(
+        address _address, 
+        uint8 _tokenId, 
+        uint8 driverMain, 
+        uint8 driverSecondary, 
+        uint8 teamNumber
+    ) public onlyToken {
+        DriverData storage driverData = tokenIdToDriverMapping[_address][_tokenId];
+        driverData.driverMain = driverMain;
+        driverData.driverSecondary = driverSecondary;
+        driverData.teamNumber = teamNumber;
+    }
+
+    function getOwnerOf(uint256 tokenId) external view returns (address) {
+        return ownerOf(tokenId);
     }
 
     function mint(uint8 _driverMain, uint8 _driverSecondary, uint8 _teamNumber) external {
