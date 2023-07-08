@@ -7,7 +7,7 @@ import {
   UseContractReadConfig,
   useContractReads,
 } from "wagmi";
-import { MaxUint256, parseUnits } from "ethers";
+import { MaxUint256, parseUnits, formatUnits } from "ethers";
 
 import { useState } from "react";
 import { abiFetcher } from "@/utils/ABIFetcher";
@@ -23,7 +23,7 @@ export function useTokenData(
   const tokenContractAddress = process.env.TOKEN_ADDRESS as `0x${string}`;
 
   const [currentPendingTokenAmount, setCurrentPendingTokenAmount] = useState(0);
-  const [tokenBalanceOf, setTokenBalanceOf] = useState<number>(0);
+  const [tokenBalanceOf, setTokenBalanceOf] = useState<string>("0");
   const [canvasSpendAllowance, setCanvasSpendAllowance] = useState<number>(0);
 
   const abi = abiFetcher("Token");
@@ -38,7 +38,7 @@ export function useTokenData(
   const { refetch: refetchContractReads } = useContractReads({
     onSuccess: async (data: any) => {
       const [balanceOf, allowance] = data;
-      setTokenBalanceOf(balanceOf.result); // Do converting here if we need to
+      setTokenBalanceOf(formatUnits(balanceOf.result, "ether")); // Do converting here if we need to
       setCanvasSpendAllowance(allowance);
     },
     enabled: true,
