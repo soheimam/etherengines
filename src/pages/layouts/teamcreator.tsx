@@ -1,5 +1,6 @@
 import LargeDriver from "@/components/LargeDriver";
 import Grid from "@/components/Layout/Grid";
+import SmallDriver from "@/components/SmallDriver";
 import React from "react";
 
 const Teamcreator = () => {
@@ -7,7 +8,7 @@ const Teamcreator = () => {
     <>
       <Grid>
         <LargeDriver />
-        <div className="col-start-6 col-span-2">
+        <div className="col-start-7 col-span-2">
           <h3 className="text-primary"> Coins left</h3>
           <h3 className="text-primary"> Total Spent</h3>
         </div>
