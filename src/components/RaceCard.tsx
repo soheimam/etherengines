@@ -1,7 +1,9 @@
 import React from "react";
 import Image from "next/image";
+import { toMetafuseUrl } from "@/utils/NameToNumberMapper";
 
-const RaceCard = () => {
+const RaceCard = (props: any) => {
+    console.log(toMetafuseUrl(props.track))
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-row w-full justify-between">
@@ -19,7 +21,7 @@ const RaceCard = () => {
         alt="car"
         width="200"
         height="200"
-        src={"https://api.metafuse.me/assets/metafuse/track_1.png"}
+        src={toMetafuseUrl(props.track)}
       />
     </div>
   );
