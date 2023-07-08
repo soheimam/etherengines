@@ -66,6 +66,7 @@ export function useCanvasData(
     },
   });
 
+  console.log(driverMain, driverSecondary, teamNumber);
   const { config: prepareMint, refetch: refetchMintPrep } =
     usePrepareContractWrite({
       ...writeProps,
