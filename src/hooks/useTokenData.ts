@@ -39,7 +39,7 @@ export function useTokenData(
   const { refetch: refetchContractReads } = useContractReads({
     onSuccess: async (data: any) => {
       const [balanceOf, allowance] = data;
-      setTokenBalanceOf(formatUnits(balanceOf.result, "ether")); // Do converting here if we need to
+      setTokenBalanceOf(isConnected ? formatUnits(balanceOf.result, "ether") : "0"); // Do converting here if we need to
       setCanvasSpendAllowance(allowance);
     },
     enabled: isConnected,
