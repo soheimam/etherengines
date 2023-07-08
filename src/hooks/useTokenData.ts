@@ -18,7 +18,7 @@ export function useTokenData(
   usersWalletAddress: `0x${string}`,
   isConnected: boolean,
   raceNumber?: number,
-  tokenId?: number
+  canvasData?: any
 ) {
   const canvasContractAddress = process.env.CANVAS_ADDRESS as `0x${string}`;
   const tokenContractAddress = process.env.TOKEN_ADDRESS as `0x${string}`;
@@ -64,9 +64,12 @@ export function useTokenData(
     address: tokenContractAddress,
     functionName: "claimTokens",
     enabled: Boolean(
-      isConnected && currentPendingTokenAmount > 0 && raceNumber && tokenId
+      isConnected &&
+        currentPendingTokenAmount > 0 &&
+        raceNumber &&
+        canvasData?.edition
     ),
-    args: [raceNumber, tokenId], // The race you are claiming from and your canvas id
+    args: [raceNumber, canvasData?.edition], // The race you are claiming from and your canvas id
   });
 
   const { data: prepareClaimData, write: claimAllTokens } =
@@ -124,14 +127,22 @@ export function useTokenData(
     },
   });
 
+  console.log(`Canvas data `, canvasData);
+  console.log(canvasData?.edition);
   const { refetch: refetchGetPendingTokensForAllRaces } = useContractRead({
     onSuccess(data) {
-      setCurrentPendingTokenAmount(data as number);
+      const _data = data as any[];
+      let numAmount = 0;
+      for (const _amount of _data) {
+        console.log(_amount);
+        numAmount += +_amount.toString();
+      }
+      setCurrentPendingTokenAmount(numAmount);
     },
     ...props,
     functionName: "getPendingTokensForAllRaces",
-    enabled: Boolean(isConnected && tokenId),
-    args: [NUM_RACES_PER_SEASON, tokenId],
+    enabled: Boolean(isConnected && canvasData?.edition),
+    args: [NUM_RACES_PER_SEASON, canvasData?.edition],
   });
 
   return {

@@ -7,72 +7,15 @@ import { useCanvasData } from "@/hooks/useCanvasData";
 import { useTokenData } from "@/hooks/useTokenData";
 import { driverArray, teamArray } from "@/utils/NameToNumberMapper";
 
-// const drivers = [
-//   "Verstappen",
-//   "Checo",
-//   "Hamilton",
-//   "Russel",
-//   "Leclerc",
-//   "Sainz",
-//   "Alsonso",
-//   "Stroll",
-//   "Tsunoda",
-//   "Devries",
-//   "Sargent",
-//   "Albon",
-//   "Bottas",
-//   "Zhou",
-//   "Piastri",
-//   "Norris",
-//   "Gasly",
-//   "Ocon",
-//   "Hulkenberg",
-//   "Magnussen",
-// ];
-
-// const cars = [
-//   "Red Bull",
-//   "Mercedes",
-//   "Mclaren",
-//   "Ferrari",
-//   "Williams",
-//   "Alpha Tauri",
-//   "Alfa Romeo",
-//   "Aston Martin",
-//   "Alpine",
-//   "Haas",
-// ];
-
 function MintView({ walletAddress, isConnected }: any) {
   const [selectedDrivers, setSelectedDrivers] = useState<string[]>([]);
-  const [selectedTeam, setSelectedTeam] = useState("Haas");
-  // const [selectedFirstDriver, setSelectedFirstDriver] = useState(0);
-  // const [selectedSecondDriver, setSelectedSecondDriver] = useState(0);
+  const [selectedTeam, setSelectedTeam] = useState("Red Bull");
+
+  const { mintTransaction, refetchMintPrep, activeRace, canvasData } =
+    useCanvasData(walletAddress, isConnected, selectedDrivers, selectedTeam);
 
   const { approveCanvasContractPaymentTokenSpend, canvasSpendAllowance } =
-    useTokenData(walletAddress, isConnected);
-  const { mintTransaction, refetchMintPrep } = useCanvasData(
-    walletAddress,
-    isConnected,
-    selectedDrivers,
-    selectedTeam
-  );
-
-  // useEffect(() => {
-  //   console.log(selectedDrivers);
-  //   const [firstDriver, secondDriver] = selectedDrivers;
-  //   console.log(`firstDriver ${firstDriver}`);
-  //   console.log(`second Driver ${secondDriver}`);
-
-  //   const driverId = driverArray().indexOf(firstDriver) + 1);
-  //   setSelectedSecondDriver(driverArray().indexOf(secondDriver) + 1);
-  //   console.log(`firstDriver ${firstDriver}`);
-  //   console.log(`second Driver ${secondDriver}`);
-
-  //   if (selectedDrivers.length === 2) {
-  //     refetchMintPrep();
-  //   }
-  // }, [selectedDrivers]);
+    useTokenData(walletAddress, isConnected, activeRace, canvasData);
 
   const handleDriverSelect = (id: string) => {
     if (selectedDrivers.includes(id)) {
@@ -82,28 +25,44 @@ function MintView({ walletAddress, isConnected }: any) {
     }
   };
 
+  useEffect(() => {
+    if (canvasData) {
+      //console.log("CANVASSSS", canvasData.attributes);
+      setSelectedDrivers([
+        canvasData.attributes[0].value,
+        canvasData.attributes[1].value,
+      ]);
+      setSelectedTeam(canvasData.attributes[2].value);
+    }
+  }, [canvasData]);
+
   return (
     <Grid>
-      {selectedDrivers.map((driver, index) => (
-        <LargeDriver driverImg={driver} key={index} />
-      ))}
+      <LargeDriver driverImg={selectedDrivers[0]} price="12" key={"1"} />
+      <LargeDriver driverImg={selectedDrivers[1]} price="6" key={"2"} />
       <div className="col-start-6 col-span-2 place-self-center">
-        <h3 className="text-primary"> Total Spent</h3>
-        <button
-          onClick={async () => {
-            if ((canvasSpendAllowance as unknown as bigint) == 0n) {
-              approveCanvasContractPaymentTokenSpend!();
-              return;
-            }
-            await refetchMintPrep();
-            mintTransaction!();
-          }}
-          className="btn btn-primary"
-        >
-          {(canvasSpendAllowance as unknown as bigint) == 0n
-            ? "Approve"
-            : "Mint"}
-        </button>
+        {!canvasData ? (
+          <>
+            <h3 className="text-primary"> Total Spent</h3>
+            <button
+              onClick={async () => {
+                if ((canvasSpendAllowance as unknown as bigint) == 0n) {
+                  approveCanvasContractPaymentTokenSpend!();
+                  return;
+                }
+                await refetchMintPrep();
+                if (mintTransaction) {
+                  mintTransaction();
+                }
+              }}
+              className="btn btn-primary"
+            >
+              {(canvasSpendAllowance as unknown as bigint) == 0n
+                ? "Approve"
+                : "Mint"}
+            </button>
+          </>
+        ) : null}
       </div>
       <section className="col-start-1 col-span-6 grid grid-cols-5 bg-neutral rounded-box">
         {driverArray().map((driver) => (
@@ -117,9 +76,23 @@ function MintView({ walletAddress, isConnected }: any) {
         ))}
       </section>
       <div className="col-start-7 col-span-full carousel  carousel-center  p-4 space-x-4 bg-neutral rounded-box">
-        {teamArray().map((car) => (
-          <CarCard carImg={car} key={car} />
-        ))}
+        {!selectedTeam ? (
+          teamArray().map((car) => (
+            <CarCard
+              carImg={car}
+              selectedTeam={selectedTeam}
+              setSelectedTeam={setSelectedTeam}
+              key={car}
+            />
+          ))
+        ) : (
+          <CarCard
+            carImg={selectedTeam}
+            selectedTeam={selectedTeam}
+            setSelectedTeam={setSelectedTeam}
+            key={selectedTeam}
+          />
+        )}
       </div>
     </Grid>
   );

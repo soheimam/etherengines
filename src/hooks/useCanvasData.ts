@@ -45,7 +45,7 @@ export function useCanvasData(
 ) {
   const [activeRace, setActiveRace] = useState<number>(1);
   const [tokensOfOwner, setTokensOfOwner] = useState<number[]>([]);
-  const [canvasData, setCanvasData] = useState<(null | CanvasData)[]>();
+  const [canvasData, setCanvasData] = useState<null | CanvasData>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const canvasContractAddress = process.env.CANVAS_ADDRESS as `0x${string}`;
   const abi = abiFetcher("Canvas");
@@ -66,7 +66,7 @@ export function useCanvasData(
     functionName: "activeRace",
     enabled: isConnected,
     onSuccess(data) {
-      setActiveRace(1); //data as number);
+      setActiveRace(data as number);
       setIsLoading(false); // Move this to be global over all state in here
     },
     onError(err) {
@@ -95,8 +95,8 @@ export function useCanvasData(
     enabled: true,
     onSuccess: async (data: any) => {
       const h = await refetchTokensOfOwner();
+      console.log(`refetchTokensOfOwner data`, h.data);
       if (Array.isArray(selectedDrivers)) {
-        console.log(selectedDrivers);
         const [firstDriver, secondDriver] = selectedDrivers;
         const tokenId = (h.data as any[])[(h.data as any[]).length - 1];
         const _payload = createMetafuseCreatePayload({
@@ -118,15 +118,18 @@ export function useCanvasData(
     args: [usersWalletAddress],
     onSuccess: async (data) => {
       const _tokens = data as number[];
-      //setTokensOfOwner(data as number[]);
-      const canvasData = [];
-      for (const _token of _tokens) {
-        // const _fetch = await fetch(toTokenUri(_token));
-        // if (_fetch.ok) {
-        //   canvasData.push(await _fetch.json());
-        // }
+      if (_tokens.length === 0) {
+        setCanvasData(null);
+        return;
       }
-      // setCanvasData(canvasData);
+      const lastToken = _tokens[_tokens.length - 1];
+      if (lastToken) {
+        console.log(`Fetching with token ${lastToken}`);
+        const _fetch = await fetch(toTokenUri(lastToken));
+        if (_fetch.ok) {
+          setCanvasData(await _fetch.json());
+        }
+      }
     },
     onError(err) {
       console.log(err);
@@ -188,11 +191,10 @@ export function useCanvasData(
   };
 }
 function generateMintArgs(selectedDrivers: string[], team: string): any {
-  console.log(selectedDrivers);
   const [firstDriver, secondDriver] = selectedDrivers;
   return [
     driverArray().indexOf(firstDriver),
     driverArray().indexOf(secondDriver),
-    teamArray().indexOf(team),
+    teamArray().indexOf(team) + 1,
   ];
 }

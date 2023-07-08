@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useMemo } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Grid from "@/components/Layout/Grid";
 import RaceCard from "@/components/RaceCard";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
@@ -14,6 +14,7 @@ import {
 import { useAccount } from "wagmi";
 import { Pages } from "..";
 import * as crypto from "crypto";
+import { formatUnits, parseUnits } from "ethers";
 
 interface IDashboard {
   currentPage: Pages;
@@ -39,19 +40,22 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
     tokensOfOwner,
     trackDataActive,
     trackDataPrevious,
-    canvasRating,
-    canvasValue,
     canvasData,
-  } = useCanvasData(address as `0x${string}`, isConnected, 1, 2, 3);
+  } = useCanvasData(address as `0x${string}`, isConnected);
 
   const {
     currentPendingTokenAmount,
     claimAllTokens,
     mintWrite,
     tokenBalanceOf,
-  } = useTokenData(address as `0x${string}`, isConnected);
+  } = useTokenData(
+    address as `0x${string}`,
+    isConnected,
+    activeRace,
+    canvasData
+  );
 
-  console.log("Canvas", canvasRating, canvasValue, canvasData);
+  console.log("Canvas", canvasData);
 
   console.log(`Your Tokens: `, tokensOfOwner);
 
@@ -61,7 +65,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
     return <h1>Loading..</h1>;
   }
 
-  const _tokensOfOwner = ["Win", "Loss", "Loss", "Win"];
+  const _tokensOfOwner = ["Win"];
 
   return (
     <>
@@ -73,20 +77,18 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
           <>
             <div className="col-span-8 flex justify-between bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1>Welcome!</h1>
-              <div className="carousel rounded-box w-3/4">
+              <div className="carousel rounded-box">
                 {_tokensOfOwner.map((token, idx) => {
                   return (
                     <div className="carousel-item flex flex-col">
                       <Image
                         alt="nft"
                         className="rounded-3xl"
+                        priority={true}
                         width={200}
                         height={200}
-                        src={`https://api.metafuse.me/assets/3ac14127-abd6-43ef-be99-c9fc635088cf/${
-                          idx + 1
-                        }.png`}
+                        src={canvasData?.image as string | StaticImageData}
                       />
-                      <div className="w-full text-center">{token}</div>
                     </div>
                   );
                 })}
@@ -108,7 +110,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               </div>
             </div>
             <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
-              <h1 className=" text-7xl pb-8">999</h1>
+              <h1 className=" text-7xl pb-8">17</h1>
               <p className="text-3xl">Total Wins</p>
             </div>
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
@@ -121,12 +123,19 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               )}
             </div>
             <div className="col-span-3 flex items-center flex-col gap-6 justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
-              <h1 className=" text-7xl pb-8">{currentPendingTokenAmount}</h1>
-              <p className="text-3xl">Available to Claim</p>
+              <p className="text-2xl">Tokens to claim</p>
+
+              <h1 className=" text-7xl pb-8">
+                <span>
+                  {Math.floor(
+                    +formatUnits(currentPendingTokenAmount.toString(), "ether")
+                  )}
+                </span>
+              </h1>
               <button
                 disabled={currentPendingTokenAmount === 0}
                 className="btn btn-primary"
-                onClick={() => claimAllTokens!()}
+                onClick={() => claimAllTokens()}
               >
                 Claim
               </button>

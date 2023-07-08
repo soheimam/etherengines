@@ -32,6 +32,16 @@ function Homepage() {
       >
         PITSTOP PROTOCOL
       </h1>
+      <div className="col-start-3 col-span-5 ">
+        <div className="flex">
+          <button className="btn btn-outline btn-primary btn-wide mx-4 text-2xl">
+            Get Tokens
+          </button>
+          <button className="btn  btn-wide btn-secondary text-2xl">
+            Start Game
+          </button>
+        </div>
+      </div>
     </Grid>
   );
 }
