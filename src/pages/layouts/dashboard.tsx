@@ -145,7 +145,6 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
           <button
             className="btn col-span-12 h-72 flex justify-center items-center flex-row border border-secondary rounded-3xl bg-accent/70"
             onClick={() => {
-              mintWrite!();
               setCurrentPage(Pages.TEAMSELECT);
             }}
           >

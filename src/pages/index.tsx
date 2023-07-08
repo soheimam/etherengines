@@ -28,7 +28,7 @@ export default function Home() {
     !tokenBalanceOf ? Pages.START : Pages.DASHBOARD
   );
 
-  if (mintTokensPending) return <h1>LOADING"</h1>;
+  if (mintTokensPending) return <h1>LOADING!</h1>;
 
   return (
     <>

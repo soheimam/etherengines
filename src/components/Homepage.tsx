@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import Grid from "./Layout/Grid";
+import { useTokenData } from "@/hooks/useTokenData";
+import { useAccount } from "wagmi";
 
 function Homepage() {
   const titleRef = useRef(null);
+  const { address, isConnected } = useAccount();
+  const { mintWrite } = useTokenData(address as `0x${string}`, isConnected);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -11,10 +15,10 @@ function Homepage() {
       let moveX = (offsetX / width) * 100 - 50;
       let moveY = (offsetY / height) * 100 - 50;
 
-      titleRef.current.style.backgroundPosition = `${moveX}% ${moveY}%`;
+      titleRef.current!.style.backgroundPosition = `${moveX}% ${moveY}%`;
     };
 
-    titleRef.current.addEventListener("mousemove", handleMouseMove);
+    titleRef.current!.addEventListener("mousemove", handleMouseMove);
 
     // Clean up the event listener on unmount
     return () => {
@@ -34,8 +38,11 @@ function Homepage() {
       </h1>
       <div className="col-start-3 col-span-5 ">
         <div className="flex">
-          <button className="btn btn-outline btn-primary btn-wide mx-4 text-2xl">
-            Get Tokens
+          <button
+            onClick={() => mintWrite!()}
+            className="btn btn-outline btn-primary btn-wide mx-4 text-2xl"
+          >
+            Get Season Tokens
           </button>
           <button className="btn  btn-wide btn-secondary text-2xl">
             Start Game
