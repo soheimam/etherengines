@@ -4,12 +4,12 @@ import { useTokenData } from "@/hooks/useTokenData";
 import { useAccount } from "wagmi";
 
 function Homepage() {
-  const titleRef = useRef(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const { address, isConnected } = useAccount();
   const { mintWrite } = useTokenData(address as `0x${string}`, isConnected);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: any) => {
       const { offsetX, offsetY, target } = e;
       const { offsetWidth: width, offsetHeight: height } = target;
       let moveX = (offsetX / width) * 100 - 50;
