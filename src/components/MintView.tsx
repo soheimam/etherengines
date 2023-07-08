@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "./Layout/Grid";
 import LargeDriver from "./LargeDriver";
 import SmallDriver from "./SmallDriver";
+import CarCard from "./CarCard";
 
 const drivers = [
   "Verstappen",
@@ -28,7 +29,7 @@ const drivers = [
 
 const cars = [
   "Red Bull",
-  "Mercades",
+  "Mercedes",
   "Mclaren",
   "Ferrari",
   "Williams",
@@ -54,19 +55,10 @@ function MintView() {
           <SmallDriver img={driver} key={driver} />
         ))}
       </section>
-      <div className="col-start-8 col-span-4 carousel  carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box">
-        <div className="carousel-item h-full w-full ">
-          <span className="bg-primary p-12 w-full"></span>
-        </div>
-        <div className="carousel-item h-full w-full ">
-          <span className="bg-blue-100 p-12 w-full"></span>
-        </div>
-        <div className="carousel-item h-full w-full ">
-          <span className="bg-green-200 p-12 w-full"></span>
-        </div>
-        <div className="carousel-item h-full w-full ">
-          <span className="bg-orange-200 p-12 w-full"></span>
-        </div>
+      <div className="col-start-8 col-span-full carousel  carousel-center  p-4 space-x-4 bg-neutral rounded-box">
+        {cars.map((car) => (
+          <CarCard carImg={car} key={car} />
+        ))}
       </div>
     </Grid>
   );
