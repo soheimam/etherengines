@@ -3,14 +3,19 @@ import Image from "next/image";
 import { toMetafuseUrl, trackFetcher } from "@/utils/NameToNumberMapper";
 import CountdownTimer from "./CountdownTimer";
 
-const RaceCard = (props: any) => {
+export interface IRaceCard {
+  track: number;
+  trackData?: { conditions: number; temperature: number };
+  active: boolean;
+}
 
-  const track = trackFetcher(props.track);
+const RaceCard = ({ track, trackData, active }: IRaceCard) => {
+  const _track = trackFetcher(track);
 
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-row w-full justify-between">
-        {!props.active ? (
+        {!active ? (
           <div className="flex flex-col text-left text-2xl pl-6 pt-6">
             <h1>Race Over</h1>
             <h1>Position: 1st</h1>
@@ -23,9 +28,13 @@ const RaceCard = (props: any) => {
           </div>
         )}
         <div className="flex flex-col text-right pr-4 pt-2">
-          <h1>Cloud</h1>
+          {trackData ? (
+            <h1>
+              {trackData.conditions}, {trackData.temperature}℃
+            </h1>
+          ) : null}
           <h1>
-            {track.name}, {track.country}
+            {_track.name}, {_track.country}
           </h1>
         </div>
       </div>
@@ -33,7 +42,7 @@ const RaceCard = (props: any) => {
         alt="car"
         width="200"
         height="200"
-        src={toMetafuseUrl(track.filename)}
+        src={toMetafuseUrl(_track.filename)}
       />
     </div>
   );
