@@ -1,13 +1,20 @@
 import Image from "next/image";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 interface ICarCard {
   carImg: string;
+  selectedTeam: string;
+  setSelectedTeam: Dispatch<SetStateAction<string>>;
 }
 
-function CarCard({ carImg }: ICarCard) {
+function CarCard({ carImg, selectedTeam, setSelectedTeam }: ICarCard) {
   return (
-    <article className="carousel-item h-full w-full relative">
+    <article
+      className={`carousel-item h-full w-full relative ${
+        selectedTeam === carImg ? "border border-red-500 rounded-2xl" : ""
+      }`}
+      onClick={() => setSelectedTeam(carImg)}
+    >
       <div className="absolute top-10 right-10 badge badge-neutral z-10 font-bold drop-shadow-sm">
         20 coins
       </div>

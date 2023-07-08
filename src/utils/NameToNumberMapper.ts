@@ -61,7 +61,7 @@ export const driverArray = () => {
 export const teamArray = () => {
   const cars = [
     "Red Bull",
-    "Mercades",
+    "Mercedes",
     "Mclaren",
     "Ferrari",
     "Williams",
