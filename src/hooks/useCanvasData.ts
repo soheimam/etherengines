@@ -192,6 +192,6 @@ function generateMintArgs(selectedDrivers: string[], team: string): any {
   return [
     driverArray().indexOf(firstDriver),
     driverArray().indexOf(secondDriver),
-    teamArray().indexOf(team),
+    teamArray().indexOf(team) + 1,
   ];
 }

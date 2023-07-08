@@ -18,6 +18,7 @@ function LargeDriver({ driverImg }: ILargeDriver) {
         priority={true}
         width={300}
         height={300}
+        blurDataURL={`https://api.metafuse.me/assets/metafuse/Verstappen.png`}
       />
 
       <div className="w-full py-4">
