@@ -39,7 +39,6 @@ const Dashboard = () => {
             <div className="col-span-8 flex justify-between bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1>Welcome Sohei</h1>
               <Image
-                className="rounded-3xl"
                 alt="nft"
                 width="200"
                 height="200"
@@ -48,10 +47,10 @@ const Dashboard = () => {
             </div>
             <div className="col-span-4 bg-accent/70 border border-secondary rounded-3xl">
               <div className="text-center p-2">Top 10</div>
-              <div className="flex flex-col w-full pl-12">
-                <div>1. Max Verstappen</div>
-                <div>2. Lando Norris</div>
-                <div>3. Fernando Alonso</div>
+              <div className="flex flex-col pl-4 pb-2">
+                <div>1.</div>
+                <div>2.</div>
+                <div>3.</div>
               </div>
             </div>
             <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
@@ -60,7 +59,7 @@ const Dashboard = () => {
             </div>
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
               {`Active: ${activeRace}`}
-              <RaceCard track={activeRace} />
+              <RaceCard />
             </div>
             <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1 className=" text-7xl pb-8">{currentPendingTokenAmount}</h1>
@@ -77,7 +76,7 @@ const Dashboard = () => {
           <h1>Previous Games</h1>
         </div>
         <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-          <RaceCard track={activeRace} />
+          <RaceCard />
         </div>
       </Grid>
     </>

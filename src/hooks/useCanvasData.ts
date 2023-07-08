@@ -33,6 +33,18 @@ export function useCanvasData(
     abi,
   };
 
+  const { refetch: refrechActiveRace } = useContractRead({
+    ...readProps,
+    functionName: "activeRace",
+    enabled: true,
+    onSuccess(data) {
+      setActiveRace(data as number);
+    },
+    onError(err) {
+      console.log(err);
+    },
+  });
+
   const { config: prepareMint, refetch: refetchMintPrep } =
     usePrepareContractWrite({
       ...writeProps,
@@ -51,17 +63,17 @@ export function useCanvasData(
     },
   });
 
-  const { refetch: refrechActiveRace } = useContractRead({
-    ...readProps,
-    functionName: "activeRace",
-    enabled: true,
-    onSuccess(data) {
-      setActiveRace(data as number);
-    },
-    onError(err) {
-      console.log(err);
-    },
-  });
+  // const { refetch: refrechActiveRace } = useContractRead({
+  //   ...readProps,
+  //   functionName: "activeRace",
+  //   enabled: true,
+  //   onSuccess(data) {
+  //     setActiveRace(data as number);
+  //   },
+  //   onError(err) {
+  //     console.log(err);
+  //   },
+  // });
 
   const { refetch: refrechTrackData, data: trackData } = useContractRead({
     ...readProps,
