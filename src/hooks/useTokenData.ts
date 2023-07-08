@@ -113,15 +113,18 @@ export function useTokenData(
     onSuccess: async (data: any) => {
       await refetchContractReads();
     },
-    enabled: isConnected && tokenBalanceOf === "0",
-    args: [parseUnits("30", "ether")],
+    onError(err) {
+      console.log(err);
+    },
+    enabled: true,
+    args: [parseUnits("30", "ether"), usersWalletAddress],
   });
 
   const { data: mintData, write: mintWrite } = useContractWrite(prepareMint);
 
   const { isLoading: mintTokensPending } = useWaitForTransaction({
     hash: mintData?.hash,
-    enabled: isConnected,
+    enabled: true,
     onSuccess: async (data: any) => {
       await refetchContractReads();
     },

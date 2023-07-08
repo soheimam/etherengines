@@ -501,6 +501,25 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getOwnerOf",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint8",
         "name": "teamNumber",
         "type": "uint8"
@@ -777,6 +796,39 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_address",
+        "type": "address"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_tokenId",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "driverMain",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "driverSecondary",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "teamNumber",
+        "type": "uint8"
+      }
+    ],
+    "name": "storeDriverData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes4",
         "name": "interfaceId",
         "type": "bytes4"
@@ -820,7 +872,25 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "tokenContract",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
       {
         "internalType": "uint256",
         "name": "",
@@ -830,9 +900,19 @@
     "name": "tokenIdToDriverMapping",
     "outputs": [
       {
-        "internalType": "uint24",
-        "name": "",
-        "type": "uint24"
+        "internalType": "uint8",
+        "name": "driverMain",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "driverSecondary",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "teamNumber",
+        "type": "uint8"
       }
     ],
     "stateMutability": "view",
