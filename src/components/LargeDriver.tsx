@@ -7,7 +7,7 @@ import silhouteImg from "public/Images/silhoute.png";
 
 function LargeDriver({ driverImg }: ILargeDriver) {
   return (
-    <article className="pose  col-span-5 bg-neutral flex items-center flex-col bg-gradient-to-b from-gray-800 00 to-black">
+    <article className="pose  col-span-6 bg-neutral flex items-center flex-col bg-gradient-to-b from-gray-800 00 to-black">
       <Image
         alt={"non descript driver"}
         src={
