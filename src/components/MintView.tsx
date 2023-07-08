@@ -26,6 +26,19 @@ const drivers = [
   "Magnussen",
 ];
 
+const cars = [
+  "Red Bull",
+  "Mercades",
+  "Mclaren",
+  "Ferrari",
+  "Williams",
+  "Alpha Tauri",
+  "Alfa Romeo",
+  "Aston Martin",
+  "Alpine",
+  "Haas",
+];
+
 function MintView() {
   return (
     <Grid>
@@ -40,7 +53,7 @@ function MintView() {
           <SmallDriver img={driver} key={driver} />
         ))}
       </section>
-      <div className="col-start-5 col-span-4 h-96 carousel carousel-vertical rounded-box">
+      <div className="col-start-4 col-span-6 h-72 carousel carousel-vertical rounded-box space-y-4">
         <div className="carousel-item h-full w-full">
           <span className="bg-primary p-12 w-full"></span>
         </div>
