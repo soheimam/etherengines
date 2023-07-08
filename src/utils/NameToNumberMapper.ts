@@ -128,7 +128,9 @@ export const createMetafuseCreatePayload = ({
   };
 };
 
+import { CloudIcon, SunIcon } from "@heroicons/react/24/solid";
+
 export const weatherArray = () => {
-  const weather = ["Cloudy", "Sunny", "Rain", "Storm"];
+  const weather = ["Cloudy", "Sunny", "Cloudy", "Storm"];
   return weather;
 };
