@@ -11,8 +11,13 @@ function MintView({ walletAddress, isConnected }: any) {
   const [selectedDrivers, setSelectedDrivers] = useState<string[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<string>("");
 
-  const { mintTransaction, refetchMintPrep, activeRace, canvasData } =
-    useCanvasData(walletAddress, isConnected, selectedDrivers, selectedTeam);
+  const {
+    mintTransaction,
+    refetchMintPrep,
+    activeRace,
+    canvasData,
+    getDriverCost,
+  } = useCanvasData(walletAddress, isConnected, selectedDrivers, selectedTeam);
 
   const { approveCanvasContractPaymentTokenSpend, canvasSpendAllowance } =
     useTokenData(walletAddress, isConnected, activeRace, canvasData);
@@ -27,19 +32,28 @@ function MintView({ walletAddress, isConnected }: any) {
 
   useEffect(() => {
     if (canvasData) {
-      //console.log("CANVASSSS", canvasData.attributes);
+      console.log("CANVASSSS", canvasData.attributes);
       setSelectedDrivers([
         canvasData.attributes[0].value,
         canvasData.attributes[1].value,
       ]);
+
       setSelectedTeam(canvasData.attributes[2].value);
     }
   }, [canvasData]);
 
   return (
     <Grid>
-      <LargeDriver driverImg={selectedDrivers[0]} price="12" key={"1"} />
-      <LargeDriver driverImg={selectedDrivers[1]} price="6" key={"2"} />
+      <LargeDriver
+        driverImg={selectedDrivers[0]}
+        price={getDriverCost(selectedDrivers[0]).toString()}
+        key={"1"}
+      />
+      <LargeDriver
+        driverImg={selectedDrivers[1]}
+        price={getDriverCost(selectedDrivers[1]).toString()}
+        key={"2"}
+      />
       <div className="col-start-6 col-span-2 place-self-center">
         {!canvasData ? (
           <>
@@ -76,7 +90,7 @@ function MintView({ walletAddress, isConnected }: any) {
         ))}
       </section>
       <div className="col-start-7 col-span-full carousel  carousel-center  p-4 space-x-4 bg-neutral rounded-box">
-        {!selectedTeam ? (
+        {selectedTeam === "" ? (
           teamArray().map((car) => (
             <CarCard
               carImg={car}

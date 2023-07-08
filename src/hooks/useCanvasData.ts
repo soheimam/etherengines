@@ -21,6 +21,7 @@ import {
   UseContractReadConfig,
   useContractReads,
 } from "wagmi";
+import { BigNumberish, formatUnits } from "ethers";
 
 interface CanvasData {
   name: string;
@@ -152,6 +153,32 @@ export function useCanvasData(
       args: [activeRace - 1],
     });
 
+  // const { refetch: refreshDriverCost, data: driverCost } = useContractRead({
+  //   ...readProps,
+  //   functionName: "getDriverCost",
+  //   enabled: true, //Boolean(isConnected),
+  //   args: [driverArray().indexOf("Verstappen") + 1],
+  // });
+
+  // console.log("DRIVER COST: ", driverCost);
+
+  const getDriverCost = (driver: string) => {
+    const _driver = driverArray().indexOf(driver);
+
+    const { refetch: refreshDriverCost, data: driverCost } = useContractRead({
+      ...readProps,
+      functionName: "getDriverCost",
+      enabled: true, //Boolean(isConnected),
+      args: [driverArray().indexOf(driver) + 1],
+    });
+
+    console.log(driverCost, typeof driverCost);
+
+    if (!driverCost) return 0;
+
+    return formatUnits(driverCost as any, "ether");
+  };
+
   // const { refetch: refreshCanvasRating, data: canvasRating } = useContractRead({
   //   ...readProps,
   //   functionName: "getCanvasRating",
@@ -175,6 +202,7 @@ export function useCanvasData(
     trackDataPrevious,
     refreshTrackDataActive,
     refreshTrackDataPrevious,
+    getDriverCost,
     // refreshCanvasValue,
     // refreshCanvasRating,
     refreshActiveRace,

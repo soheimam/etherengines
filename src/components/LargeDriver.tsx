@@ -24,6 +24,10 @@ function LargeDriver({ driverImg, price }: ILargeDriver) {
         blurDataURL={`https://api.metafuse.me/assets/metafuse/Verstappen.png`}
       />
 
+      <button className="btn" onClick={() => alert(`${driverImg} SOLD`)}>
+        Sell
+      </button>
+
       <div className="w-full py-4">
         <h3 className="text-secondary font-bold"> {driverImg}</h3>
         <h3 className="text-secondary"> {price} Tokens</h3>
