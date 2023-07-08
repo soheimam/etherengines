@@ -14,11 +14,14 @@ import { useAccount } from "wagmi";
 
 const Dashboard = () => {
   const { address, isConnected } = useAccount();
-  const { activeRace, isLoading } = useCanvasData(address as `0x${string}`);
+  const { activeRace, isLoading, tokensOfOwner } = useCanvasData(
+    address as `0x${string}`
+  );
   const { currentPendingTokenAmount, claimAllTokens } = useTokenData(
     address as `0x${string}`
   );
 
+  console.log(`Your Tokens: `, tokensOfOwner);
   const isPlaying = true;
 
   if (isLoading) {

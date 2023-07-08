@@ -1,4 +1,5 @@
 import { abiFetcher } from "@/utils/ABIFetcher";
+import { toMetafuseUrl, toTokenUri } from "@/utils/NameToNumberMapper";
 import { useState } from "react";
 import {
   useContractRead,
@@ -12,6 +13,20 @@ import {
   useContractReads,
 } from "wagmi";
 
+interface CanvasData {
+  name: string;
+  description: string;
+  image: string;
+  edition: number;
+  compiler: string;
+  attributes: Attribute[];
+}
+
+interface Attribute {
+  trait_type: string;
+  value: string;
+}
+
 export function useCanvasData(
   usersWalletAddress: `0x${string}`,
   trackNumber?: number,
@@ -21,6 +36,7 @@ export function useCanvasData(
 ) {
   const [activeRace, setActiveRace] = useState<number>(1);
   const [tokensOfOwner, setTokensOfOwner] = useState<number[]>([]);
+  const [canvasData, setCanvasData] = useState<(null | CanvasData)[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const canvasContractAddress = process.env.CANVAS_ADDRESS as `0x${string}`;
   const abi = abiFetcher("Canvas");
@@ -72,8 +88,17 @@ export function useCanvasData(
     functionName: "tokensOfOwner",
     enabled: Boolean(usersWalletAddress),
     args: [usersWalletAddress],
-    onSuccess(data) {
+    onSuccess: async (data) => {
+      const _tokens = data as number[];
       setTokensOfOwner(data as number[]);
+      const canvasData = [];
+      for (const _token of _tokens) {
+        const _fetch = await fetch(toTokenUri(_token));
+        if (_fetch.ok) {
+          canvasData.push(await _fetch.json());
+        }
+      }
+      setCanvasData(canvasData);
     },
     onError(err) {
       console.log(err);
@@ -110,6 +135,7 @@ export function useCanvasData(
     isLoading,
     refrechTokensOfOwner,
     tokensOfOwner,
+    canvasData,
     refetchMintPrep,
     mintTransaction,
     activeRace,
