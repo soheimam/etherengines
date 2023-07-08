@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useTokenData } from "@/hooks/useTokenData";
 import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Homepage from "@/components/Homepage";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -55,7 +56,9 @@ export default function Home() {
           )}
         </div>
 
-        {(() => {
+        <Homepage />
+
+        {/* {(() => {
           switch (currentPage) {
             case Pages.START:
               return (
@@ -78,7 +81,7 @@ export default function Home() {
             default:
               return null; // or some default component
           }
-        })()}
+        })()} */}
         {/*<Gameview />
               <Teamcreator />*/}
       </main>

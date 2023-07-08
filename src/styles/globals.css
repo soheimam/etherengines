@@ -1,6 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Teko:wght@600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* styles/globals.css */
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -18,14 +22,34 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8)),
+    url("/Images/bg_pattern.jpg") center;
+  background-size: cover;
+  font-family: "Teko", sans-serif;
 }
 .red-border {
   border: 2px solid red;
   border-radius: 50% / 25%;
+}
+/* knock out text effect */
+
+.knockout {
+  font-family: "Teko", sans-serif;
+  font-size: 12.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 83%;
+  background: url("/Images/scene_2.jpeg") center;
+  background-size: cover;
+  margin: auto;
+  width: 75vw;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 2px 2px 3px rgba(109, 109, 109, 0.119);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  /* text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5); */
 }
