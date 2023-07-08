@@ -4,8 +4,8 @@ import Grid from "./Layout/Grid";
 function Homepage() {
   return (
     <Grid>
-      <h1 className="text-6xl font-bold font-teko text-primary">
-        Pit stop protocol
+      <h1 className="knockout bg-primary col-start-3 col-span-5 font-bold   text-primary text-wrap">
+        PITSTOP PROTOCOL
       </h1>
     </Grid>
   );

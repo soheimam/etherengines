@@ -4,8 +4,6 @@
 
 /* styles/globals.css */
 
-@import url("https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap");
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -32,4 +30,17 @@ body {
 .red-border {
   border: 2px solid red;
   border-radius: 50% / 25%;
+}
+/* knock out text effect */
+
+.knockout {
+  font-family: "Teko", sans-serif;
+
+  font-size: 12.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 83%;
+  background: url("/Images/scene.jpeg") center;
+  background-clip: text;
+  color: transparent;
 }
