@@ -38,7 +38,10 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
     tokensOfOwner,
     trackDataActive,
     trackDataPrevious,
-  } = useCanvasData(address as `0x${string}`, isConnected);
+    canvasRating,
+    canvasValue,
+    canvasData,
+  } = useCanvasData(address as `0x${string}`, isConnected, 1, 2, 3);
 
   const {
     currentPendingTokenAmount,
@@ -46,6 +49,8 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
     mintWrite,
     tokenBalanceOf,
   } = useTokenData(address as `0x${string}`, isConnected);
+
+  console.log("Canvas", canvasRating, canvasValue, canvasData);
 
   console.log(`Your Tokens: `, tokensOfOwner);
 
@@ -74,7 +79,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               />
             </div>
             <div className="col-span-4 bg-accent/70 border border-secondary rounded-3xl">
-              <div className="text-center p-2">Top 10</div>
+              <div className="text-center p-4">Leaderboard - Top 10</div>
               <div className="flex flex-col pl-12 pb-2">
                 <div>1. {generateFakeWallet()}</div>
                 <div>2. {generateFakeWallet()}</div>
