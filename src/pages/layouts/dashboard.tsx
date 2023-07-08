@@ -39,10 +39,8 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
     tokensOfOwner,
     trackDataActive,
     trackDataPrevious,
-    canvasRating,
-    canvasValue,
     canvasData,
-  } = useCanvasData(address as `0x${string}`, isConnected, 1, 2, 3);
+  } = useCanvasData(address as `0x${string}`, isConnected);
 
   const {
     currentPendingTokenAmount,
@@ -51,7 +49,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
     tokenBalanceOf,
   } = useTokenData(address as `0x${string}`, isConnected);
 
-  console.log("Canvas", canvasRating, canvasValue, canvasData);
+  console.log("Canvas", canvasData);
 
   console.log(`Your Tokens: `, tokensOfOwner);
 
