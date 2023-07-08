@@ -56,7 +56,7 @@ contract Canvas is ERC721A, ERC721AQueryable, Ownable {
 
     function storeDriverData(
         address _address, 
-        uint8 _tokenId, 
+        uint256 _tokenId, 
         uint8 driverMain, 
         uint8 driverSecondary, 
         uint8 teamNumber

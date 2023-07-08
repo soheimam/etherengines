@@ -4,11 +4,20 @@ import React from "react";
 interface ILargeDriver {
   driverImg: string;
   price: string;
+  sellHandler: any;
+  sellTransaction: any;
+  prepareSellRefetch: any; // Its late..
 }
 
 import silhouteImg from "public/Images/silhoute.png";
 
-function LargeDriver({ driverImg, price }: ILargeDriver) {
+function LargeDriver({
+  driverImg,
+  price,
+  sellHandler,
+  sellTransaction,
+  prepareSellRefetch,
+}: ILargeDriver) {
   return (
     <article className="pose  col-span-6 bg-neutral flex items-center flex-col bg-gradient-to-b from-gray-800 00 to-black rounded-3xl">
       <Image
@@ -26,7 +35,17 @@ function LargeDriver({ driverImg, price }: ILargeDriver) {
         blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJibHVyIj48ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMzAiLz48L2ZpbHRlcj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2JsdXIpIi8+PC9zdmc+Cg=="
       />
 
-      <button className="btn" onClick={() => alert(`${driverImg} SOLD`)}>
+      <button
+        className="btn"
+        onClick={async () => {
+          console.log("awdadawd");
+          sellHandler(driverImg);
+          console.log(driverImg);
+          const x = await prepareSellRefetch();
+          console.log(x);
+          // sellTransaction();
+        }}
+      >
         Sell
       </button>
 

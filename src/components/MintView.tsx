@@ -10,6 +10,7 @@ import { driverArray, teamArray } from "@/utils/NameToNumberMapper";
 function MintView({ walletAddress, isConnected }: any) {
   const [selectedDrivers, setSelectedDrivers] = useState<string[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<string>("");
+  const [selectedSellDriver, setSelectedSellDriver] = useState<number>(0);
 
   const {
     mintTransaction,
@@ -19,8 +20,18 @@ function MintView({ walletAddress, isConnected }: any) {
     getDriverCost,
   } = useCanvasData(walletAddress, isConnected, selectedDrivers, selectedTeam);
 
-  const { approveCanvasContractPaymentTokenSpend, canvasSpendAllowance } =
-    useTokenData(walletAddress, isConnected, activeRace, canvasData);
+  const {
+    approveCanvasContractPaymentTokenSpend,
+    sellTransaction,
+    canvasSpendAllowance,
+    prepareSellRefetch,
+  } = useTokenData(
+    walletAddress,
+    isConnected,
+    activeRace,
+    canvasData,
+    selectedSellDriver
+  );
 
   const handleDriverSelect = (id: string) => {
     if (selectedDrivers.includes(id)) {
@@ -51,11 +62,17 @@ function MintView({ walletAddress, isConnected }: any) {
       </div>
       <LargeDriver
         driverImg={selectedDrivers[0]}
+        sellHandler={setSelectedSellDriver}
+        sellTransaction={sellTransaction}
+        prepareSellRefetch={prepareSellRefetch}
         price={getDriverCost(selectedDrivers[0]).toString()}
         key={"1"}
       />
       <LargeDriver
         driverImg={selectedDrivers[1]}
+        sellHandler={setSelectedSellDriver}
+        sellTransaction={sellTransaction}
+        prepareSellRefetch={prepareSellRefetch}
         price={getDriverCost(selectedDrivers[1]).toString()}
         key={"2"}
       />
