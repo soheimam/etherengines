@@ -38,7 +38,27 @@ const wagmiConfig = createConfig({
   publicClient,
 });
 
+export enum Pages {
+  START,
+  DASHBOARD,
+  TEAMSELECT,
+}
+
 export default function Home() {
+  const [currentPage, setCurrentPage] = useState<Pages>(Pages.START);
+
+  const StartButton = () => {
+    return (
+      <button
+        className="btn col-span-12 h-72 flex justify-center items-center flex-row border border-secondary rounded-3xl bg-accent/70"
+        onClick={() => setCurrentPage(Pages.TEAMSELECT)}
+      >
+        <PlusCircleIcon className="h-16 w-16 text-accent pr-5" />
+        <h1 className="text-5xl">START NEW GAME</h1>
+      </button>
+    );
+  };
+
   return (
     <>
       <main
