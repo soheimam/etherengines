@@ -10,9 +10,10 @@ import silhouteImg from "public/Images/silhoute.png";
 
 function LargeDriver({ driverImg, price }: ILargeDriver) {
   return (
-    <article className="pose  col-span-6 bg-neutral flex items-center flex-col bg-gradient-to-b from-gray-800 00 to-black">
+    <article className="pose  col-span-6 bg-neutral flex items-center flex-col bg-gradient-to-b from-gray-800 00 to-black rounded-3xl">
       <Image
         alt={"non descript driver"}
+        className="rounded-b-3xl"
         src={
           driverImg
             ? `https://api.metafuse.me/assets/metafuse/${driverImg}.png`
