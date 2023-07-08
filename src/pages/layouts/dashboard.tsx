@@ -53,10 +53,10 @@ const Dashboard = () => {
             </div>
             <div className="col-span-4 bg-accent/70 border border-secondary rounded-3xl">
               <div className="text-center p-2">Top 10</div>
-              <div className="flex flex-col pl-4 pb-2">
-                <div>1.</div>
-                <div>2.</div>
-                <div>3.</div>
+              <div className="flex flex-col pl-12 pb-2">
+                <div>1. 0xFFFF....9f30</div>
+                <div>2. 0xFFFF....9f30</div>
+                <div>3. 0xFFFF....9f30</div>
               </div>
             </div>
             <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
@@ -66,7 +66,7 @@ const Dashboard = () => {
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
               { activeRace && <RaceCard track={activeRace} active={true} /> }
             </div>
-            <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
+            <div className="col-span-3 flex items-center flex-col gap-6 justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1 className=" text-7xl pb-8">{currentPendingTokenAmount}</h1>
               <p className="text-3xl">Available to Claim</p>
               <button
@@ -85,7 +85,7 @@ const Dashboard = () => {
           <h1>Previous Games</h1>
         </div>
         <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-          { activeRace && <RaceCard track={activeRace} active={false} /> }
+          { activeRace && <RaceCard track={activeRace - 1} active={false} /> }
         </div>
       </Grid>
     </>
