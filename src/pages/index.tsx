@@ -6,14 +6,22 @@ import Gameview from "./layouts/gameview";
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { mainnet, polygon, optimism, arbitrum, zora } from "wagmi/chains";
+import {
+  mainnet,
+  polygon,
+  optimism,
+  arbitrum,
+  zora,
+  xdcTestnet,
+} from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import Homeview from "./layouts/homeview";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const { chains, publicClient } = configureChains(
-  [mainnet, polygon, optimism, arbitrum, zora],
+  [xdcTestnet],
   [publicProvider()]
 );
 
@@ -42,7 +50,7 @@ export default function Home() {
             </div>
             <Dashboard />
             {/*<Gameview />
-        <Teamcreator />*/}
+              <Teamcreator />*/}
           </main>
         </RainbowKitProvider>
       </WagmiConfig>
