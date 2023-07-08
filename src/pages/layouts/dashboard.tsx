@@ -57,7 +57,7 @@ const Dashboard = () => {
             </div>
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
               {`Active: ${activeRace}`}
-              <RaceCard track={"track_1"} />
+              <RaceCard track={activeRace} />
             </div>
             <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1 className=" text-7xl pb-8">25</h1>
@@ -71,7 +71,7 @@ const Dashboard = () => {
           <h1>Previous Games</h1>
         </div>
         <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-          <RaceCard track={"track_1"} />
+          <RaceCard track={activeRace} />
         </div>
       </Grid>
     </>

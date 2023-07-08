@@ -21,7 +21,7 @@ const RaceCard = (props: any) => {
         alt="car"
         width="200"
         height="200"
-        src={toMetafuseUrl(props.track)}
+        src={toMetafuseUrl(`track_${props.track}`)}
       />
     </div>
   );
