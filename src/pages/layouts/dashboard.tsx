@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 import Image from "next/image";
 import Grid from "@/components/Layout/Grid";
 import RaceCard from "@/components/RaceCard";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { useCanvasData } from "@/hooks/useCanvasData";
 import { useTokenData } from "@/hooks/useTokenData";
 import {
@@ -27,15 +26,6 @@ const Dashboard = () => {
   if (isLoading) {
     return <h1>Loading..</h1>;
   }
-
-  const StartButton = () => {
-    return (
-      <div className="col-span-12 h-72 flex justify-center items-center flex-row border border-secondary rounded-3xl bg-accent/70">
-        <PlusCircleIcon className="h-16 w-16 text-accent pr-5" />
-        <h1 className="text-5xl">START NEW GAME</h1>
-      </div>
-    );
-  };
 
   return (
     <>
@@ -82,7 +72,7 @@ const Dashboard = () => {
             </div>
           </>
         ) : (
-          <StartButton />
+          null
         )}
         <div className="col-span-12 text-base-content">
           <h1>Previous Games</h1>
