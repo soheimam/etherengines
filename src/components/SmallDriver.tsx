@@ -1,10 +1,39 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-function SmallDriver({ img }: any) {
+interface ISmallDriver {
+  img: string;
+  onSelect: PropTypes.func.isRequired;
+  clickCount: number;
+  selectedDrivers: string[];
+}
+
+function SmallDriver({
+  img,
+  onSelect,
+  clickCount,
+  selectedDrivers,
+}: ISmallDriver) {
+  const [activeDriver, setActiveDriver] = useState<string | null>(null);
+
+  const handleClick = () => {
+    onSelect(img);
+    setActiveDriver((prev) => (prev === img ? null : img));
+  };
+
   return (
-    <article className=" m-4 avatar   cursor-pointer ">
-      <div className="w-24 mask mask-squircle ">
+    <div
+      className={`${activeDriver === img ? "grayscale" : ""} m-4 avatar ${
+        clickCount < 2 || selectedDrivers.includes(img) ? "cursor-pointer" : ""
+      } ${selectedDrivers.includes(img) ? "red-border " : ""}`}
+      onClick={
+        clickCount < 2 || selectedDrivers.includes(img)
+          ? handleClick
+          : undefined
+      }
+    >
+      <div className="w-24 mask mask-squircle">
         <Image
           alt={img}
           src={`https://api.metafuse.me/assets/metafuse/${img}.png`}
@@ -13,7 +42,7 @@ function SmallDriver({ img }: any) {
           objectPosition="center"
         />
       </div>
-    </article>
+    </div>
   );
 }
 
