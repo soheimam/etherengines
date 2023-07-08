@@ -27,8 +27,6 @@ export default function Home() {
     !tokenBalanceOf ? Pages.START : Pages.DASHBOARD
   );
 
-  console.log(tokenBalanceOf);
-
   if (mintTokensPending) return <h1>LOADING"</h1>;
 
   return (
