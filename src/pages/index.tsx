@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <>
       <main
-        className={`flex w-full pt-20 justify-end flex-col overflow-hidden min-h-screen px-20`}
+        className={`flex w-full pt-20 justify-center flex-col overflow-hidden min-h-screen px-20`}
       >
         <div className="flex w-full justify-end max-w-[1280px]">
           <div className="">{<ConnectButton />}</div>
