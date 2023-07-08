@@ -9,7 +9,7 @@ import { driverArray, teamArray } from "@/utils/NameToNumberMapper";
 
 function MintView({ walletAddress, isConnected }: any) {
   const [selectedDrivers, setSelectedDrivers] = useState<string[]>([]);
-  const [selectedTeam, setSelectedTeam] = useState("Red Bull");
+  const [selectedTeam, setSelectedTeam] = useState("");
 
   const { mintTransaction, refetchMintPrep, activeRace, canvasData } =
     useCanvasData(walletAddress, isConnected, selectedDrivers, selectedTeam);
@@ -43,7 +43,6 @@ function MintView({ walletAddress, isConnected }: any) {
       <div className="col-start-6 col-span-2 place-self-center">
         {!canvasData ? (
           <>
-            <h3 className="text-primary"> Total Spent</h3>
             <button
               onClick={async () => {
                 if ((canvasSpendAllowance as unknown as bigint) == 0n) {

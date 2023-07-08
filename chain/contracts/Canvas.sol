@@ -28,8 +28,14 @@ contract Canvas is ERC721A, ERC721AQueryable, Ownable {
     string public baseURI;
     string public URISuffix = ".json";
 
-    mapping(uint256 => uint24) public tokenIdToDriverMapping;
+    struct DriverData {
+        uint8 driverMain;
+        uint8 driverSecondary;
+        uint8 teamNumber;
+    }
 
+    mapping(address => mapping(uint256 => DriverData)) public tokenIdToDriverMapping;
+    
     constructor(address _oracle, address _token, string memory _baseURI) ERC721A("Canvas", "CANVAS") {
         oracle = IOracle(_oracle);
         token = IERC20(_token);
@@ -47,6 +53,12 @@ contract Canvas is ERC721A, ERC721AQueryable, Ownable {
         require(token.balanceOf(msg.sender) >= totalCost, "Not enough token balance.");
         require(token.allowance(msg.sender, address(this)) >= totalCost, "Check the token allowance");
         // TODO require the user cannot mint more than 1 canvas
+
+        uint256 nextToken = _nextTokenId();
+        DriverData storage driverData = tokenIdToDriverMapping[msg.sender][nextToken];
+        driverData.driverMain = _driverMain;
+        driverData.driverSecondary = _driverSecondary;
+        driverData.teamNumber = _teamNumber;
 
         token.transferFrom(msg.sender, address(this), totalCost);
         _safeMint(msg.sender, 1);

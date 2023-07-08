@@ -43,7 +43,7 @@ export default function Home() {
             >
               Shop
               <br />
-              Balance: EE {tokenBalanceOf}
+              Balance: {tokenBalanceOf}
             </button>
           ) : (
             <button

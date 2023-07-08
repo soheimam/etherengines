@@ -4,14 +4,20 @@ pragma solidity ^0.8.17;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+interface IOracle {
+    function getDriverCost(uint8 driverNumber) external view returns (uint256);
+}
+
 contract Token is ERC20, Ownable {
     mapping(uint256 => mapping(uint256 => uint256)) public claimableTokens;
     mapping(address => mapping(uint256 => uint256)) public addressToSeasonMintedMapping;
     uint256 public currentSeason;
     uint256 public maxMintAmount = 30 ether;
+    IOracle public oracle;
 
-    constructor() ERC20("EtherEngines", "EE") {
+    constructor(address _oracle) ERC20("PitstopProtocol", "PP") {
         setSeason(1); // Default to starting the first season
+        oracle = IOracle(_oracle);
     }
 
     function setClaimableTokens(uint256 _raceNumber, uint256 _amount, uint256 _tokenId) public onlyOwner {
@@ -39,10 +45,10 @@ contract Token is ERC20, Ownable {
         return pendingTokens;
     }
 
-    function mint(uint256 _amount) public {
+    function mint(uint256 _amount, address _receiver) public {
         require(_amount <= maxMintAmount, "Amount is over max amount allowed");
-        require(addressToSeasonMintedMapping[msg.sender][currentSeason] <= maxMintAmount, "Sender already at max mint amount for season");
-        addressToSeasonMintedMapping[msg.sender][currentSeason] += _amount;
+        require(addressToSeasonMintedMapping[_receiver][currentSeason] <= maxMintAmount, "Sender already at max mint amount for season");
+        addressToSeasonMintedMapping[_receiver][currentSeason] += _amount;
         _mint(msg.sender, _amount);
     }
 

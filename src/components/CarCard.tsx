@@ -16,7 +16,7 @@ function CarCard({ carImg, selectedTeam, setSelectedTeam }: ICarCard) {
       onClick={() => setSelectedTeam(carImg)}
     >
       <div className="absolute top-10 right-10 badge badge-neutral z-10 font-bold drop-shadow-sm">
-        20 coins
+        18 Tokens
       </div>
       <div className="flex flex-col justify-center w-full rounded-box bg-gradient-to-r from-gray-800 via-gray-900 to-black relative">
         <Image
