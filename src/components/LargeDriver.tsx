@@ -38,12 +38,19 @@ function LargeDriver({
       <button
         className="btn"
         onClick={async () => {
-          console.log("awdadawd");
           sellHandler(driverImg);
           console.log(driverImg);
           const x = await prepareSellRefetch();
           console.log(x);
           // sellTransaction();
+          // const _payload = createMetafuseCreatePayload({
+          //   tokenId: tokenId.toString(),
+          //   mainDriver: firstDriver,
+          //   secondaryDriver: secondDriver,
+          //   team: teamName ? teamName : "",
+          // });
+          // console.log(_payload);
+          // await createDigitalAsset(_payload);
         }}
       >
         Sell

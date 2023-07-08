@@ -58,16 +58,16 @@ async function main() {
   let nonce = 0;
 
   // Insert driver costs
-  for (let i = 0; i < drivers.length; i++) {
-    const driverNumber = i + 1;
-    const driverCost = ethers.utils.parseEther((drivers.length - i).toString());
-    console.log(`Inserting Driver: ${drivers[i].name} - Value: ${driverCost}`);
-    await oracleWithOwner.setDriverCost(driverNumber, driverCost);
-    await sleep(10000);
-    const getValue = await oracleWithOwner.getDriverCost(driverNumber);
-    console.log(getValue);
-  }
-  console.log("Inserted driver costs");
+  // for (let i = 0; i < drivers.length; i++) {
+  //   const driverNumber = i + 1;
+  //   const driverCost = ethers.utils.parseEther((drivers.length - i).toString());
+  //   console.log(`Inserting Driver: ${drivers[i].name} - Value: ${driverCost}`);
+  //   await oracleWithOwner.setDriverCost(driverNumber, driverCost);
+  //   await sleep(10000);
+  //   const getValue = await oracleWithOwner.getDriverCost(driverNumber);
+  //   console.log(getValue);
+  // }
+  // console.log("Inserted driver costs");
 
   // Insert team costs
   for (let i = 0; i < teams.length; i++) {
