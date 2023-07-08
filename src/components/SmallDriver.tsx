@@ -26,7 +26,7 @@ function SmallDriver({
     <div
       className={`${activeDriver === img ? "grayscale" : ""} m-4 avatar ${
         clickCount < 2 || selectedDrivers.includes(img) ? "cursor-pointer" : ""
-      }`}
+      } ${selectedDrivers.includes(img) ? "red-border " : ""}`}
       onClick={
         clickCount < 2 || selectedDrivers.includes(img)
           ? handleClick
