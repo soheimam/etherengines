@@ -60,4 +60,5 @@ export const teamArray = () => {
 
 export const toMetafuseUrl = (id: string) => {
   const url = `https://api.metafuse.me/assets/metafuse/${id}.png`
+  return url
 }

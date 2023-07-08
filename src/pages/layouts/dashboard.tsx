@@ -1,10 +1,15 @@
 import React from "react";
+import Image from "next/image";
 import Grid from "@/components/Layout/Grid";
 import RaceCard from "@/components/RaceCard";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { useCanvasData } from "@/hooks/useCanvasData";
 import { useTokenData } from "@/hooks/useTokenData";
-import { driverArray, teamArray, toMetafuseUrl } from "@/utils/NameToNumberMapper";
+import {
+  driverArray,
+  teamArray,
+  toMetafuseUrl,
+} from "@/utils/NameToNumberMapper";
 
 const Dashboard = () => {
   const { activeRace } = useCanvasData();
@@ -28,8 +33,14 @@ const Dashboard = () => {
         </div>
         {isPlaying ? (
           <>
-            <div className="col-span-8 h-96 bg-accent/70 border border-secondary rounded-3xl p-4">
+            <div className="col-span-8 flex justify-between bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1>Welcome Sohei</h1>
+              <Image
+                alt="nft"
+                width="200"
+                height="200"
+                src={toMetafuseUrl("Verstappen")}
+              />
             </div>
             <div className="col-span-4 bg-accent/70 border border-secondary rounded-3xl">
               <div className="text-center p-2">Top 10</div>
