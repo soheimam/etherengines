@@ -4,6 +4,7 @@ import RaceCard from "@/components/RaceCard";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { useCanvasData } from "@/hooks/useCanvasData";
 import { useTokenData } from "@/hooks/useTokenData";
+import { driverArray, teamArray, toMetafuseUrl } from "@/utils/NameToNumberMapper";
 
 const Dashboard = () => {
   const { activeRace } = useCanvasData();

@@ -14,3 +14,50 @@ TrackMap.set(11, "Azerbaijan");
 export const trackFetcher = (trackNumber: number) => {
   return TrackMap.get(trackNumber);
 };
+
+export const driverArray = () => {
+  const drivers = [
+    'Verstappen',
+    'Checo',
+    'Hamilton',
+    'Russel',
+    'Leclerc',
+    'Sainz',
+    'Alsonso',
+    'Stroll',
+    'Tsunoda',
+    'Devries',
+    'Sargent',
+    'Albon',
+    'Bottas',
+    'Zhou',
+    'Piastri',
+    'Norris',
+    'Gasly',
+    'Ocon',
+    'Hulkenberg',
+    'Magnussen' 
+  ]
+
+  return drivers
+}
+
+export const teamArray = () => {
+  const cars = [
+    "Red Bull",
+    "Mercades",
+    "Mclaren",
+    "Ferrari",
+    "Williams",
+    "Alpha Tauri",
+    "Alfa Romeo",
+    "Aston Martin",
+    "Alpine",
+    "Haas"
+  ]
+  return cars
+}
+
+export const toMetafuseUrl = (id: string) => {
+  const url = `https://api.metafuse.me/assets/metafuse/${id}.png`
+}
