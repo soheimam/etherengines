@@ -124,8 +124,11 @@ export function useCanvasData(
         : [], // User can only ever mint 1
     });
 
-  const { data: mintData, write: mintTransaction } =
-    useContractWrite(prepareMint);
+  const {
+    data: mintData,
+    write: mintTransaction,
+    isLoading: mintLoading,
+  } = useContractWrite(prepareMint);
 
   const { isLoading: mintTransactionPending } = useWaitForTransaction({
     hash: mintData?.hash,
@@ -148,35 +151,36 @@ export function useCanvasData(
     },
   });
 
-  const { refetch: refetchTokensOfOwner } = useContractRead({
-    ...readProps,
-    functionName: "tokensOfOwner",
-    enabled: Boolean(isConnected && usersWalletAddress),
-    args: [usersWalletAddress],
-    onSuccess: async (data) => {
-      const _tokens = data as number[];
-      setTokensOfOwner(_tokens);
-      if (_tokens.length === 0) {
-        setCanvasData(null);
-        return;
-      }
-      const lastToken = _tokens[_tokens.length - 1];
-      if (lastToken) {
-        try {
-          console.log(`Fetching with token ${lastToken}`);
-          const _fetch = await fetch(toTokenUri(lastToken));
-          if (_fetch.ok) {
-            setCanvasData(await _fetch.json());
-          }
-        } catch (error) {
-          console.log(error);
+  const { refetch: refetchTokensOfOwner, isLoading: tokenOwnerLoading } =
+    useContractRead({
+      ...readProps,
+      functionName: "tokensOfOwner",
+      enabled: Boolean(isConnected && usersWalletAddress),
+      args: [usersWalletAddress],
+      onSuccess: async (data) => {
+        const _tokens = data as number[];
+        setTokensOfOwner(_tokens);
+        if (_tokens.length === 0) {
+          setCanvasData(null);
+          return;
         }
-      }
-    },
-    onError(err) {
-      console.log(err);
-    },
-  });
+        const lastToken = _tokens[_tokens.length - 1];
+        if (lastToken) {
+          try {
+            console.log(`Fetching with token ${lastToken}`);
+            const _fetch = await fetch(toTokenUri(lastToken));
+            if (_fetch.ok) {
+              setCanvasData(await _fetch.json());
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      },
+      onError(err) {
+        console.log(err);
+      },
+    });
 
   const { refetch: refreshTrackDataActive, data: trackDataActive } =
     useContractRead({
@@ -248,9 +252,11 @@ export function useCanvasData(
     isLoading,
     refetchTokensOfOwner,
     tokensOfOwner,
+    tokenOwnerLoading,
     canvasData,
     refetchMintPrep,
     mintTransaction,
+    mintLoading,
     activeRace,
     // canvasValue,
     // canvasRating,

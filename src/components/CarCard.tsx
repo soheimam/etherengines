@@ -10,13 +10,20 @@ interface ICarCard {
 function CarCard({ carImg, selectedTeam, setSelectedTeam }: ICarCard) {
   return (
     <article
-      className={`carousel-item h-full w-full relative ${
+      className={`carousel-item h-full w-full cursor-pointer relative ${
         selectedTeam === carImg ? "border border-red-500 rounded-2xl" : ""
       }`}
       onClick={() =>
         selectedTeam.length ? setSelectedTeam("") : setSelectedTeam(carImg)
       }
     >
+      <div
+        className={`absolute bottom-10  left-1/2 -translate-x-1/2 z-10 text-5xl font-bold ${
+          selectedTeam.length ? "text-red-500" : ""
+        }`}
+      >
+        {!selectedTeam.length ? "Click to Select" : "Selected"}
+      </div>
       <div className="absolute top-10 right-10 badge badge-neutral z-10 font-bold drop-shadow-sm">
         18 Tokens
       </div>

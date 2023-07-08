@@ -15,6 +15,7 @@ export enum Pages {
   START,
   DASHBOARD,
   TEAMSELECT,
+  LOADING,
 }
 
 export default function Home() {
@@ -23,7 +24,7 @@ export default function Home() {
     address as `0x${string}`,
     isConnected
   );
-  const { tokensOfOwner } = useCanvasData(
+  const { tokensOfOwner, tokenOwnerLoading } = useCanvasData(
     address as `0x${string}`,
     isConnected
   );
@@ -31,7 +32,9 @@ export default function Home() {
 
   useEffect(() => {
     console.log("TOKEN BALANCE", tokenBalanceOf);
-    if (tokenBalanceOf !== "0.0") {
+    if (tokenOwnerLoading) {
+      setCurrentPage(Pages.LOADING);
+    } else if (tokenBalanceOf !== "0.0") {
       if (tokensOfOwner.length) {
         setCurrentPage(Pages.DASHBOARD);
       } else {
@@ -40,7 +43,7 @@ export default function Home() {
     } else {
       setCurrentPage(Pages.START);
     }
-  }, [isConnected, tokenBalanceOf]);
+  }, [isConnected, tokenBalanceOf, tokenOwnerLoading]);
 
   if (mintTokensPending) return <h1>LOADING!</h1>;
 
@@ -81,6 +84,9 @@ export default function Home() {
           <MintView walletAddress={address} isConnected={isConnected} />
         )}
         {currentPage === Pages.START && <Homepage />}
+        {currentPage === Pages.LOADING && (
+          <span className="loading loading-ring loading-lg"></span>
+        )}
       </main>
     </>
   );

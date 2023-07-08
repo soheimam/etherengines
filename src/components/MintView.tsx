@@ -13,14 +13,19 @@ function MintView({ walletAddress, isConnected }: any) {
 
   const {
     mintTransaction,
+    mintLoading,
     refetchMintPrep,
     activeRace,
     canvasData,
     getDriverCost,
   } = useCanvasData(walletAddress, isConnected, selectedDrivers, selectedTeam);
 
-  const { approveCanvasContractPaymentTokenSpend, canvasSpendAllowance } =
-    useTokenData(walletAddress, isConnected, activeRace, canvasData);
+  const {
+    approveCanvasContractPaymentTokenSpend,
+    canvasSpendAllowance,
+    approveCanvasContractPaymentTokenSpendLoading,
+    approveLoading,
+  } = useTokenData(walletAddress, isConnected, activeRace, canvasData);
 
   const handleDriverSelect = (id: string) => {
     if (selectedDrivers.includes(id)) {
@@ -75,9 +80,17 @@ function MintView({ walletAddress, isConnected }: any) {
               }}
               className="btn btn-primary"
             >
-              {(canvasSpendAllowance as unknown as bigint) == 0n
-                ? "Approve"
-                : "Mint"}
+              {!mintLoading &&
+              !approveCanvasContractPaymentTokenSpendLoading &&
+              !approveLoading ? (
+                (canvasSpendAllowance as unknown as bigint) == 0n ? (
+                  "Approve"
+                ) : (
+                  "Mint"
+                )
+              ) : (
+                <span className="loading loading-ring loading-lg"></span>
+              )}
             </button>
           </>
         ) : null}

@@ -95,6 +95,7 @@ export function useTokenData(
   const {
     data: approvePaymentTokenSpendData,
     write: approveCanvasContractPaymentTokenSpend,
+    isLoading: approveLoading,
   } = useContractWrite(prepareApproveOfPaymentToken);
 
   const { isLoading: approveCanvasContractPaymentTokenSpendLoading } =
@@ -120,7 +121,11 @@ export function useTokenData(
     args: [parseUnits("30", "ether"), usersWalletAddress],
   });
 
-  const { data: mintData, write: mintWrite } = useContractWrite(prepareMint);
+  const {
+    data: mintData,
+    write: mintWrite,
+    isLoading: mintLoading,
+  } = useContractWrite(prepareMint);
 
   const { isLoading: mintTokensPending } = useWaitForTransaction({
     hash: mintData?.hash,
@@ -153,10 +158,12 @@ export function useTokenData(
     refetchGetPendingTokensForAllRaces,
     claimAllTokens,
     mintWrite,
+    mintLoading,
     mintTokensPending,
     claimTransactionPending,
     currentPendingTokenAmount,
     approveCanvasContractPaymentTokenSpendLoading,
+    approveLoading,
     canvasSpendAllowance,
     tokenBalanceOf,
   };

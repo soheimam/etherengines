@@ -6,7 +6,10 @@ import { useAccount } from "wagmi";
 function Homepage() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const { address, isConnected } = useAccount();
-  const { mintWrite } = useTokenData(address as `0x${string}`, isConnected);
+  const { mintWrite, mintLoading } = useTokenData(
+    address as `0x${string}`,
+    isConnected
+  );
 
   useEffect(() => {
     const handleMouseMove = (e: any) => {
@@ -42,11 +45,15 @@ function Homepage() {
             onClick={() => mintWrite!()}
             className="btn btn-outline btn-primary btn-wide mx-4 text-2xl"
           >
-            Get Season Tokens
+            {!mintLoading ? (
+              "Get Season Tokens"
+            ) : (
+              <span className="loading loading-ring loading-lg"></span>
+            )}
           </button>
-          <button className="btn  btn-wide btn-secondary text-2xl">
+          {/*<button className="btn  btn-wide btn-secondary text-2xl">
             Start Game
-          </button>
+  </button>*/}
         </div>
       </div>
     </Grid>
