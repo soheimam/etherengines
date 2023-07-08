@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Teko:wght@600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,12 +37,17 @@ body {
 
 .knockout {
   font-family: "Teko", sans-serif;
-
   font-size: 12.5rem;
   font-style: normal;
   font-weight: 600;
   line-height: 83%;
-  background: url("/Images/scene.jpeg") center;
+  background: url("/Images/scene2.jpeg") center;
+  background-size: cover;
+  margin: auto;
+  width: 75vw;
   background-clip: text;
   color: transparent;
+  /* text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5); */
 }
