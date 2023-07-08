@@ -57,33 +57,6 @@ export default function Home() {
         </div>
 
         <Homepage />
-
-        {/* {(() => {
-          switch (currentPage) {
-            case Pages.START:
-              return (
-                <Dashboard
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                />
-              );
-            case Pages.DASHBOARD:
-              return (
-                <Dashboard
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                />
-              );
-            case Pages.TEAMSELECT:
-              return (
-                <MintView walletAddress={address} isConnected={isConnected} />
-              );
-            default:
-              return null; // or some default component
-          }
-        })()} */}
-        {/*<Gameview />
-              <Teamcreator />*/}
       </main>
     </>
   );
