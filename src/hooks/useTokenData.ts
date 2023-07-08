@@ -7,7 +7,7 @@ import {
   UseContractReadConfig,
   useContractReads,
 } from "wagmi";
-import { MaxUint256 } from "ethers";
+import { MaxUint256, parseUnits } from "ethers";
 
 import { useState } from "react";
 import { abiFetcher } from "@/utils/ABIFetcher";
@@ -103,7 +103,7 @@ export function useTokenData(
     address: tokenContractAddress,
     functionName: "mint",
     enabled: true,
-    args: [30],
+    args: [parseUnits("30", "ether")],
   });
 
   const { data: mintData, write: mintWrite } = useContractWrite(prepareMint);
