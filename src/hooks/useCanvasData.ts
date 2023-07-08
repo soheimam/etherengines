@@ -118,15 +118,17 @@ export function useCanvasData(
     args: [usersWalletAddress],
     onSuccess: async (data) => {
       const _tokens = data as number[];
+      const lastToken = _tokens[_tokens.length - 1];
       //setTokensOfOwner(data as number[]);
       const canvasData = [];
-      for (const _token of _tokens) {
-        // const _fetch = await fetch(toTokenUri(_token));
-        // if (_fetch.ok) {
-        //   canvasData.push(await _fetch.json());
-        // }
+      for (const _token of [lastToken]) {
+        const _fetch = await fetch(toTokenUri(_token));
+        console.log(_fetch);
+        if (_fetch.ok) {
+          canvasData.push(await _fetch.json());
+        }
       }
-      // setCanvasData(canvasData);
+      setCanvasData(canvasData);
     },
     onError(err) {
       console.log(err);

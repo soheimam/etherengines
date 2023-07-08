@@ -78,11 +78,10 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
                       <Image
                         alt="nft"
                         className="rounded-3xl"
+                        priority={true}
                         width={200}
                         height={200}
-                        src={`https://api.metafuse.me/assets/3ac14127-abd6-43ef-be99-c9fc635088cf/${
-                          idx + 1
-                        }.png`}
+                        src={canvasData?.find((h) => h)?.image as any}
                       />
                     </div>
                   );
