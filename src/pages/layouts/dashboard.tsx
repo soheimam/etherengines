@@ -21,10 +21,12 @@ interface IDashboard {
 const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
   const { address, isConnected } = useAccount();
   const { activeRace, isLoading, tokensOfOwner } = useCanvasData(
-    address as `0x${string}`
+    address as `0x${string}`,
+    isConnected
   );
   const { currentPendingTokenAmount, claimAllTokens, mintWrite, tokenBalanceOf } = useTokenData(
-    address as `0x${string}`
+    address as `0x${string}`,
+    isConnected
   );
 
   console.log(`Your Tokens: `, tokensOfOwner);

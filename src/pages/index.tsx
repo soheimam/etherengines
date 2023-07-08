@@ -18,12 +18,16 @@ export enum Pages {
 }
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState<Pages>(Pages.START);
   const { address, isConnected } = useAccount();
   const { mintTokensPending, tokenBalanceOf } = useTokenData(
     address as `0x${string}`,
     isConnected
   );
+  const [currentPage, setCurrentPage] = useState<Pages>(
+    !tokenBalanceOf ? Pages.START : Pages.DASHBOARD
+  );
+
+  console.log(tokenBalanceOf);
 
   if (mintTokensPending) return <h1>LOADING"</h1>;
 
