@@ -55,7 +55,7 @@ function MintView() {
           <SmallDriver img={driver} key={driver} />
         ))}
       </section>
-      <div className="col-start-8 col-span-full carousel  carousel-center  p-4 space-x-4 bg-neutral rounded-box">
+      <div className="col-start-7 col-span-full carousel  carousel-center  p-4 space-x-4 bg-neutral rounded-box">
         {cars.map((car) => (
           <CarCard carImg={car} key={car} />
         ))}
