@@ -29,7 +29,7 @@ function LargeDriver({ driverImg, price }: ILargeDriver) {
         Sell
       </button>
 
-      <div className="w-full py-4">
+      <div className="w-full py-4 px-4">
         <h3 className="text-secondary font-bold"> {driverImg}</h3>
         <h3 className="text-secondary"> {price} Tokens</h3>
       </div>

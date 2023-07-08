@@ -163,8 +163,6 @@ export function useCanvasData(
   // console.log("DRIVER COST: ", driverCost);
 
   const getDriverCost = (driver: string) => {
-    const _driver = driverArray().indexOf(driver);
-
     const { refetch: refreshDriverCost, data: driverCost } = useContractRead({
       ...readProps,
       functionName: "getDriverCost",

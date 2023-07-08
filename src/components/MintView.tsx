@@ -31,8 +31,8 @@ function MintView({ walletAddress, isConnected }: any) {
   };
 
   useEffect(() => {
+    console.log("CANVASSSS", canvasData?.attributes);
     if (canvasData) {
-      console.log("CANVASSSS", canvasData.attributes);
       setSelectedDrivers([
         canvasData.attributes[0].value,
         canvasData.attributes[1].value,
@@ -41,6 +41,8 @@ function MintView({ walletAddress, isConnected }: any) {
       setSelectedTeam(canvasData.attributes[2].value);
     }
   }, [canvasData]);
+
+  console.log("SELECTED", selectedDrivers, canvasData);
 
   return (
     <Grid>

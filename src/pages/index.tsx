@@ -1,14 +1,13 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Dashboard from "./layouts/dashboard";
-import Teamcreator from "./layouts/teamcreator";
-import Gameview from "./layouts/gameview";
 import MintView from "@/components/MintView";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTokenData } from "@/hooks/useTokenData";
 import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Homepage from "@/components/Homepage";
+import { useCanvasData } from "@/hooks/useCanvasData";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,9 +23,17 @@ export default function Home() {
     address as `0x${string}`,
     isConnected
   );
-  const [currentPage, setCurrentPage] = useState<Pages>(
-    !tokenBalanceOf ? Pages.START : Pages.DASHBOARD
-  );
+  const {} = useCanvasData(address as `0x${string}`, isConnected);
+  const [currentPage, setCurrentPage] = useState<Pages>(Pages.START);
+
+  useEffect(() => {
+    console.log("TOKEN BALANCE", tokenBalanceOf);
+    if (tokenBalanceOf !== "0.0") {
+      setCurrentPage(Pages.DASHBOARD);
+    } else {
+      setCurrentPage(Pages.START);
+    }
+  }, [isConnected, tokenBalanceOf]);
 
   if (mintTokensPending) return <h1>LOADING!</h1>;
 
@@ -55,8 +62,16 @@ export default function Home() {
             </button>
           )}
         </div>
-
-        <Homepage />
+        {currentPage === Pages.DASHBOARD && (
+          <Dashboard
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
+        {currentPage === Pages.TEAMSELECT && (
+          <MintView walletAddress={address} isConnected={isConnected} />
+        )}
+        {currentPage === Pages.START && <Homepage />}
       </main>
     </>
   );
