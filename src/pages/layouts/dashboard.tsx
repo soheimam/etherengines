@@ -23,7 +23,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
   const { activeRace, isLoading, tokensOfOwner } = useCanvasData(
     address as `0x${string}`
   );
-  const { currentPendingTokenAmount, claimAllTokens } = useTokenData(
+  const { currentPendingTokenAmount, claimAllTokens, mintWrite, tokenBalanceOf } = useTokenData(
     address as `0x${string}`
   );
 
@@ -40,10 +40,10 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
         <div className="col-span-12 text-base-content">
           <h1>DASHBOARD</h1>
         </div>
-        {currentPage === Pages.START ? (
+        {currentPage === Pages.DASHBOARD ? (
           <>
             <div className="col-span-8 flex justify-between bg-accent/70 border border-secondary rounded-3xl p-4">
-              <h1>Welcome Sohei</h1>
+              <h1>Welcome {address}</h1>
               <Image
                 alt="nft"
                 width="200"
@@ -81,18 +81,25 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
         ) : (
           <button
             className="btn col-span-12 h-72 flex justify-center items-center flex-row border border-secondary rounded-3xl bg-accent/70"
-            onClick={() => setCurrentPage(Pages.TEAMSELECT)}
+            onClick={() => {
+              mintWrite!()
+              setCurrentPage(Pages.TEAMSELECT)
+            }}
           >
             <PlusCircleIcon className="h-16 w-16 text-accent pr-5" />
             <h1 className="text-5xl">START NEW GAME</h1>
           </button>
         )}
-        <div className="col-span-12 text-base-content">
-          <h1>Previous Games</h1>
-        </div>
-        <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-          {activeRace && <RaceCard track={activeRace - 1} active={false} />}
-        </div>
+        {activeRace - 1 ? (
+          <>
+            <div className="col-span-12 text-base-content">
+              <h1>Previous Games</h1>
+            </div>
+            <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
+              {activeRace && <RaceCard track={activeRace - 1} active={false} />}
+            </div>
+          </>
+        ) : null}
       </Grid>
     </>
   );

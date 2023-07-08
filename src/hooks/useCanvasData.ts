@@ -57,7 +57,7 @@ export function useCanvasData(
     functionName: "activeRace",
     enabled: true,
     onSuccess(data) {
-      setActiveRace(data as number);
+      setActiveRace(10);//data as number);
       setIsLoading(false); // Move this to be global over all state in here
     },
     onError(err) {

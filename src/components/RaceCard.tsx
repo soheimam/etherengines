@@ -5,7 +5,6 @@ import CountdownTimer from "./CountdownTimer";
 
 const RaceCard = (props: any) => {
 
-  if (!props.track) return null
   const track = trackFetcher(props.track);
 
   return (
