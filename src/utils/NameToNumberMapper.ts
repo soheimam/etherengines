@@ -104,7 +104,6 @@ interface MetafuseCreatePayload {
 export const createDigitalAsset = async (payload: APIPayload) => {
   let metafuseHeaders = new Headers({
     Authorization: process.env.METAFUSE_API_KEY as string,
-    "Access-Control-Allow-Origin": "*",
   });
   const res = await fetch(process.env.METAFUSE_ITEMS_GATEWAY as string, {
     method: "POST",
@@ -112,7 +111,6 @@ export const createDigitalAsset = async (payload: APIPayload) => {
     body: JSON.stringify(payload),
   });
   const data = await res.json();
-  console.log(data);
   return data;
 };
 
