@@ -43,7 +43,9 @@ export default function Home() {
               className="btn"
               onClick={() => setCurrentPage(Pages.TEAMSELECT)}
             >
-              Shop / Balance: ${tokenBalanceOf}
+              Shop
+              <br />
+              Balance: EE {tokenBalanceOf}
             </button>
           ) : (
             <button
