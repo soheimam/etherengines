@@ -23,7 +23,10 @@ export default function Home() {
     address as `0x${string}`,
     isConnected
   );
-  const {} = useCanvasData(address as `0x${string}`, isConnected);
+  const { tokensOfOwner } = useCanvasData(
+    address as `0x${string}`,
+    isConnected
+  );
   const [currentPage, setCurrentPage] = useState<Pages>(Pages.START);
 
   useEffect(() => {
