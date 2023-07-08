@@ -17,8 +17,12 @@ import {
 import { publicProvider } from "wagmi/providers/public";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import Homeview from "./layouts/homeview";
+<<<<<<< HEAD
 import { useState } from "react";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
+=======
+import MintView from "@/components/MintView";
+>>>>>>> b0e455d0 (added carousel)
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -65,7 +69,7 @@ export default function Home() {
       <WagmiConfig config={wagmiConfig}>
         <RainbowKitProvider chains={chains}>
           <main
-            className={`flex w-full justify-evenly flex-col overflow-hidden min-h-screen px-20`}
+            className={`flex w-full flex-1 flex-col justify-center  overflow-hidden  min-h-screen  p-24`}
           >
             <div className="flex w-full justify-end">
               <Homeview />
