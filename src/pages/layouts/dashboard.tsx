@@ -1,7 +1,8 @@
-import React, { useMemo } from "react";
+import React, { Dispatch, SetStateAction, useMemo } from "react";
 import Image from "next/image";
 import Grid from "@/components/Layout/Grid";
 import RaceCard from "@/components/RaceCard";
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { useCanvasData } from "@/hooks/useCanvasData";
 import { useTokenData } from "@/hooks/useTokenData";
 import {
@@ -10,8 +11,14 @@ import {
   toMetafuseUrl,
 } from "@/utils/NameToNumberMapper";
 import { useAccount } from "wagmi";
+import { Pages } from "..";
 
-const Dashboard = () => {
+interface IDashboard {
+  currentPage: Pages;
+  setCurrentPage: Dispatch<SetStateAction<Pages>>;
+}
+
+const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
   const { address, isConnected } = useAccount();
   const { activeRace, isLoading, tokensOfOwner } = useCanvasData(
     address as `0x${string}`
@@ -33,7 +40,7 @@ const Dashboard = () => {
         <div className="col-span-12 text-base-content">
           <h1>DASHBOARD</h1>
         </div>
-        {isPlaying ? (
+        {currentPage === Pages.START ? (
           <>
             <div className="col-span-8 flex justify-between bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1>Welcome Sohei</h1>
@@ -57,7 +64,7 @@ const Dashboard = () => {
               <p className="text-3xl">Total Wins</p>
             </div>
             <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-              { activeRace && <RaceCard track={activeRace} active={true} /> }
+              {activeRace && <RaceCard track={activeRace} active={true} />}
             </div>
             <div className="col-span-3 flex items-center flex-col gap-6 justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
               <h1 className=" text-7xl pb-8">{currentPendingTokenAmount}</h1>
@@ -72,13 +79,19 @@ const Dashboard = () => {
             </div>
           </>
         ) : (
-          null
+          <button
+            className="btn col-span-12 h-72 flex justify-center items-center flex-row border border-secondary rounded-3xl bg-accent/70"
+            onClick={() => setCurrentPage(Pages.TEAMSELECT)}
+          >
+            <PlusCircleIcon className="h-16 w-16 text-accent pr-5" />
+            <h1 className="text-5xl">START NEW GAME</h1>
+          </button>
         )}
         <div className="col-span-12 text-base-content">
           <h1>Previous Games</h1>
         </div>
         <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
-          { activeRace && <RaceCard track={activeRace - 1} active={false} /> }
+          {activeRace && <RaceCard track={activeRace - 1} active={false} />}
         </div>
       </Grid>
     </>
