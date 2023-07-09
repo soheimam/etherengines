@@ -61,7 +61,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
           <h1>DASHBOARD</h1>
         </div>
         <>
-          <div className="col-span-8 flex justify-between bg-neutral/70 border border-secondary rounded-3xl p-4">
+          <div className="col-span-8 flex justify-between bg-neutral/70 border border-base-content rounded-3xl p-4">
             <h1 className="w-3/5">
               Welcome to Pitstop Protocol, where every decision counts. As team
               principal, you'll face challenges like pit-stop strategies and
@@ -87,7 +87,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               })}
             </div>
           </div>
-          <div className="col-span-4 bg-neutral/70 border border-secondary rounded-3xl">
+          <div className="col-span-4 bg-neutral/70 border border-base-content rounded-3xl">
             <div className="text-center p-4">Leaderboard - Top 10</div>
             <div className="flex flex-col pl-12 pb-2">
               <div>1. {generateFakeWallet()}</div>
@@ -102,7 +102,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               <div>10. {generateFakeWallet()}</div>
             </div>
           </div>
-          <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-neutral/70 border border-secondary rounded-3xl p-4">
+          <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-neutral/70 border border-base-content rounded-3xl p-4">
             <h1 className=" text-7xl pb-8">17</h1>
             <p className="text-3xl">Total Wins</p>
           </div>
@@ -115,7 +115,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               />
             )}
           </div>
-          <div className="col-span-3 flex items-center flex-col gap-6 justify-center h-72 bg-neutral/70 border border-secondary rounded-3xl p-4">
+          <div className="col-span-3 flex items-center flex-col gap-6 justify-center h-72 bg-neutral/70 border border-base-content rounded-3xl p-4">
             <p className="text-xl">Tokens to claim</p>
 
             <h1 className=" text-7xl pb-8">
@@ -139,7 +139,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
             <div className="col-span-12 text-base-content">
               <h1>PREVIOUS RACE</h1>
             </div>
-            <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
+            <div className="col-span-6 h-72 border border-base-content rounded-3xl bg-accent/70 text-center">
               {activeRace && (
                 <RaceCard
                   track={activeRace - 1}
