@@ -61,16 +61,13 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
           <h1>DASHBOARD</h1>
         </div>
         <>
-          <div className="col-span-8 flex justify-between bg-accent/70 border border-secondary rounded-3xl p-4">
+          <div className="col-span-8 flex justify-between bg-neutral/70 border border-base-content rounded-3xl p-4">
             <h1 className="w-3/5">
-              Welcome to Formula 1 management, a thrilling world where every
-              second and decision matters. As a team principal, your challenges
-              span from strategizing pit-stops to high-stakes negotiations.
-              Balancing risk and caution, speed and control, innovation and
-              reliability will be crucial. Prepare for the roar of engines, the
-              grid's glamour, and a chance to shape racing history. The track is
-              calling and the championship awaits - welcome to your F1 Manager
-              journey!
+              Welcome to Pitstop Protocol, where every decision counts. As team
+              principal, you'll face challenges like pit-stop strategies and
+              negotiations. Balancing risk, speed, and innovation is key. Get
+              ready for the roar of engines, the grid's glamour, and a chance to
+              make history. Join the F1 Manager journey now!
             </h1>
             <div className="carousel rounded-box">
               {_tokensOfOwner.map((token, idx) => {
@@ -90,7 +87,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               })}
             </div>
           </div>
-          <div className="col-span-4 bg-accent/70 border border-secondary rounded-3xl">
+          <div className="col-span-4 bg-neutral/70 border border-base-content rounded-3xl">
             <div className="text-center p-4">Leaderboard - Top 10</div>
             <div className="flex flex-col pl-12 pb-2">
               <div>1. {generateFakeWallet()}</div>
@@ -105,11 +102,11 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               <div>10. {generateFakeWallet()}</div>
             </div>
           </div>
-          <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
+          <div className="col-span-3 flex items-center flex-col justify-center h-72 bg-neutral/70 border border-base-content rounded-3xl p-4">
             <h1 className=" text-7xl pb-8">17</h1>
             <p className="text-3xl">Total Wins</p>
           </div>
-          <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
+          <div className="col-span-6 h-72 border border-primary rounded-3xl bg-neutral/70 text-center">
             {activeRace && (
               <RaceCard
                 track={activeRace}
@@ -118,8 +115,8 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
               />
             )}
           </div>
-          <div className="col-span-3 flex items-center flex-col gap-6 justify-center h-72 bg-accent/70 border border-secondary rounded-3xl p-4">
-            <p className="text-2xl">Tokens to claim</p>
+          <div className="col-span-3 flex items-center flex-col gap-6 justify-center h-72 bg-neutral/70 border border-base-content rounded-3xl p-4">
+            <p className="text-xl">Tokens to claim</p>
 
             <h1 className=" text-7xl pb-8">
               <span>
@@ -130,7 +127,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
             </h1>
             <button
               disabled={currentPendingTokenAmount === 0}
-              className="btn btn-primary"
+              className="btn btn-active btn-secondary"
               onClick={() => claimAllTokens!()}
             >
               Claim
@@ -142,7 +139,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
             <div className="col-span-12 text-base-content">
               <h1>PREVIOUS RACE</h1>
             </div>
-            <div className="col-span-6 h-72 border border-secondary rounded-3xl bg-accent/70 text-center">
+            <div className="col-span-6 h-72 border border-base-content rounded-3xl bg-accent/70 text-center">
               {activeRace && (
                 <RaceCard
                   track={activeRace - 1}

@@ -20,7 +20,7 @@ function LargeDriver({
   canvas,
 }: ILargeDriver) {
   return (
-    <article className="pose  col-span-6 bg-neutral flex items-center flex-col bg-gradient-to-b from-gray-800 00 to-black rounded-3xl">
+    <article className="pose  col-span-6 bg-neutral flex items-center flex-col bg-neutral/70 rounded-3xl">
       <Image
         alt={"non descript driver"}
         className="rounded-b-3xl"
@@ -37,7 +37,7 @@ function LargeDriver({
       />
 
       <button
-        className="btn"
+        className="btn btn-active btn-secondary btn-wide mt-4"
         onClick={async () => {
           // sellHandler(driverImg);
           // console.log(driverImg);

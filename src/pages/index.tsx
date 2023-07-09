@@ -9,8 +9,6 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Homepage from "@/components/Homepage";
 import { useCanvasData } from "@/hooks/useCanvasData";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export enum Pages {
   START,
   DASHBOARD,
@@ -54,17 +52,35 @@ export default function Home() {
         className={`flex w-full justify-start flex-col overflow-hidden min-h-screen px-20`}
       >
         <div className="flex w-full justify-end max-w-[1280px] pt-10 pb-4">
-          <div className="">{<ConnectButton />}</div>
-          {currentPage === Pages.DASHBOARD && (
-            <button
-              className="btn w-40"
-              onClick={() => setCurrentPage(Pages.TEAMSELECT)}
-            >
-              Shop
-              <br />
-              Balance: {tokenBalanceOf}
-            </button>
-          )}
+          <div className="flex w-full items-center justify-between space-y-4">
+            <div className="avatar">
+              <div className="w-14 rounded-xl">
+                <Image
+                  src="/images/pstop.svg"
+                  layout="fill"
+                  objectFit="scale-down"
+                  objectPosition="center"
+                  alt="Pitstop Logo"
+                />
+              </div>
+            </div>
+
+            <div className="flex">
+              <div className="btn">
+                Balance:
+                <div className="badge badge-secondary">{tokenBalanceOf}</div>
+              </div>
+              {currentPage === Pages.DASHBOARD && (
+                <button
+                  className=" mx-4 btn btn-ghost "
+                  onClick={() => setCurrentPage(Pages.TEAMSELECT)}
+                >
+                  Shop
+                </button>
+              )}
+              <div className="">{<ConnectButton />}</div>
+            </div>
+          </div>
           {currentPage === Pages.TEAMSELECT && tokensOfOwner.length !== 0 && (
             <button
               className="btn w-40"
