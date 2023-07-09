@@ -12,7 +12,7 @@ async function main() {
   const owner = (await ethers.getSigners())[0];
   const oracleWithOwner = canvas.connect(owner);
 
-  await oracleWithOwner.setActiveRace(2);
+  await oracleWithOwner.setActiveRace(1);
   console.log(`Race is set`);
 }
 
