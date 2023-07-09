@@ -7,7 +7,7 @@ async function main() {
   // Deploy the Oracle contract
   const contract = await ethers.getContractFactory("Oracle");
   const oracle = await contract.attach(
-    "0x6ECe3928B56d6a8A3EF9B557c2A9c50427e0C8a2"
+    "0xB34cFc9dBfc555290B8345978992B6A4f7B14aF3"
   );
 
   // Connect to the contract with the owner account
@@ -55,19 +55,17 @@ async function main() {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  let nonce = 0;
-
   // Insert driver costs
-  // for (let i = 0; i < drivers.length; i++) {
-  //   const driverNumber = i + 1;
-  //   const driverCost = ethers.utils.parseEther((drivers.length - i).toString());
-  //   console.log(`Inserting Driver: ${drivers[i].name} - Value: ${driverCost}`);
-  //   await oracleWithOwner.setDriverCost(driverNumber, driverCost);
-  //   await sleep(10000);
-  //   const getValue = await oracleWithOwner.getDriverCost(driverNumber);
-  //   console.log(getValue);
-  // }
-  // console.log("Inserted driver costs");
+  for (let i = 0; i < drivers.length; i++) {
+    const driverNumber = i + 1;
+    const driverCost = ethers.utils.parseEther((drivers.length - i).toString());
+    console.log(`Inserting Driver: ${drivers[i].name} - Value: ${driverCost}`);
+    await oracleWithOwner.setDriverCost(driverNumber, driverCost);
+    await sleep(10000);
+    const getValue = await oracleWithOwner.getDriverCost(driverNumber);
+    console.log(getValue);
+  }
+  console.log("Inserted driver costs");
 
   // Insert team costs
   for (let i = 0; i < teams.length; i++) {

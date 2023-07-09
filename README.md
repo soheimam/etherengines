@@ -45,3 +45,11 @@ One of the significant hurdles we faced was handling a multitude of variables in
 This idea around Fantasy sports styled web3 gaming is poised to serve as a paradigm shift in the gaming industry, demonstrating the tangible benefits of Web3 integration. Our project paves the way for broader applications across various fantasy sports. We believe our efforts will inspire and guide future innovation in this intersection, leading to a richer, more immersive gaming experience.
 
 As we continue to refine and expand Pitstop Protocol, we eagerly anticipate how it will reshape the landscape of fantasy gaming. In the face of rapid technological advances, we remain committed to pushing the boundaries of what's possible at the crossroads of gaming and blockchain technology.
+
+# Deployed Chains
+
+## XDC (Mainnet)
+
+Oracle Deployed to -> 0xB34cFc9dBfc555290B8345978992B6A4f7B14aF3
+Token Deployed to -> 0xc21A904117530E34D44cca524496EfDf41022B22
+Canvas Deployed to -> 0x407794B377c13E7242c77053c18FfB196a481132
