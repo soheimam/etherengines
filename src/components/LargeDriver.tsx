@@ -4,19 +4,20 @@ import React from "react";
 interface ILargeDriver {
   driverImg: string;
   price: string;
-  sellHandler: any;
-  sellTransaction: any;
-  prepareSellRefetch: any; // Its late..
+  canvas: any;
 }
 
 import silhouteImg from "public/Images/silhoute.png";
+import {
+  createDigitalAsset,
+  createMetafuseCreatePayload,
+} from "@/utils/NameToNumberMapper";
 
 function LargeDriver({
   driverImg,
   price,
-  sellHandler,
-  sellTransaction,
-  prepareSellRefetch,
+  // sellHandler,
+  canvas,
 }: ILargeDriver) {
   return (
     <article className="pose  col-span-6 bg-neutral flex items-center flex-col bg-neutral/70 rounded-3xl">
@@ -38,19 +39,19 @@ function LargeDriver({
       <button
         className="btn btn-active btn-secondary btn-wide mt-4"
         onClick={async () => {
-          sellHandler(driverImg);
-          console.log(driverImg);
-          const x = await prepareSellRefetch();
-          console.log(x);
+          // sellHandler(driverImg);
+          // console.log(driverImg);
+          // const x = await prepareSellRefetch();
+          // console.log(x);
           // sellTransaction();
-          // const _payload = createMetafuseCreatePayload({
-          //   tokenId: tokenId.toString(),
-          //   mainDriver: firstDriver,
-          //   secondaryDriver: secondDriver,
-          //   team: teamName ? teamName : "",
-          // });
-          // console.log(_payload);
-          // await createDigitalAsset(_payload);
+          const _payload = createMetafuseCreatePayload({
+            tokenId: canvas?.edition,
+            mainDriver: canvas.attributes[0].value,
+            secondaryDriver: "",
+            team: canvas.attributes[3].value,
+          });
+          console.log(_payload);
+          await createDigitalAsset(_payload);
         }}
       >
         Sell
