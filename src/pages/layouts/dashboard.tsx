@@ -116,7 +116,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
             )}
           </div>
           <div className="col-span-3 flex items-center flex-col gap-6 justify-center h-72 bg-neutral/70 border border-secondary rounded-3xl p-4">
-            <p className="text-2xl">Tokens to claim</p>
+            <p className="text-xl">Tokens to claim</p>
 
             <h1 className=" text-7xl pb-8">
               <span>
@@ -127,7 +127,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
             </h1>
             <button
               disabled={currentPendingTokenAmount === 0}
-              className="btn btn-primary"
+              className="btn btn-active btn-secondary"
               onClick={() => claimAllTokens!()}
             >
               Claim
