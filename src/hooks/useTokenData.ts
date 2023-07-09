@@ -38,16 +38,16 @@ export function useTokenData(
   };
 
   // _driverNumber, uint8 _tokenId, uint8 _driverSecondary, uint8 _teamNumber
-  const createSellInput = (canvas: any, sellingDriverName: string) => {
-    const result = [
-      driverArray().indexOf(sellingDriverName),
-      +canvas?.edition,
-      driverArray().indexOf(canvas?.attributes[1].value),
-      teamArray().indexOf(canvas?.attributes[2].value),
-    ];
-    console.log(`Result! `, result);
-    return result;
-  };
+  // const createSellInput = (canvas: any, sellingDriverName: string) => {
+  //   const result = [
+  //     driverArray().indexOf(sellingDriverName),
+  //     +canvas?.edition,
+  //     driverArray().indexOf(canvas?.attributes[1].value),
+  //     teamArray().indexOf(canvas?.attributes[2].value),
+  //   ];
+  //   console.log(`Result! `, result);
+  //   return result;
+  // };
 
   // Token Contract Reads
   const { refetch: refetchContractReads } = useContractReads({
@@ -150,25 +150,25 @@ export function useTokenData(
   });
 
   // uint8 _driverNumber, uint8 _tokenId, uint8 _driverSecondary, uint8 _teamNumber
-  const { config: prepareSell, refetch: prepareSellRefetch } =
-    usePrepareContractWrite({
-      abi,
-      address: tokenContractAddress,
-      functionName: "sell",
-      enabled: true,
-      onSuccess(data) {
-        console.log(data);
-      },
-      args: createSellInput(canvasData, selectedSellDriver!),
-    });
+  // const { config: prepareSell, refetch: prepareSellRefetch } =
+  //   usePrepareContractWrite({
+  //     abi,
+  //     address: tokenContractAddress,
+  //     functionName: "sell",
+  //     enabled: true,
+  //     onSuccess(data) {
+  //       console.log(data);
+  //     },
+  //     args: createSellInput(canvasData, selectedSellDriver!),
+  //   });
 
-  const { data: sellData, write: sellTransaction } =
-    useContractWrite(prepareSell);
+  // const { data: sellData, write: sellTransaction } =
+  //   useContractWrite(prepareSell);
 
-  useWaitForTransaction({
-    hash: sellData?.hash,
-    enabled: true,
-  });
+  // useWaitForTransaction({
+  //   hash: sellData?.hash,
+  //   enabled: true,
+  // });
 
   console.log(`Canvas data `, canvasData);
   console.log(canvasData?.edition);
@@ -195,8 +195,8 @@ export function useTokenData(
     mintWrite,
     mintLoading,
     mintTokensPending,
-    sellTransaction,
-    prepareSellRefetch,
+    // sellTransaction,
+    // prepareSellRefetch,
     claimTransactionPending,
     currentPendingTokenAmount,
     approveCanvasContractPaymentTokenSpendLoading,

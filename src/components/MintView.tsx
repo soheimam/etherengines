@@ -27,8 +27,6 @@ function MintView({ walletAddress, isConnected }: any) {
     canvasSpendAllowance,
     approveCanvasContractPaymentTokenSpendLoading,
     approveLoading,
-    sellTransaction,
-    prepareSellRefetch,
   } = useTokenData(
     walletAddress,
     isConnected,
@@ -48,12 +46,27 @@ function MintView({ walletAddress, isConnected }: any) {
   useEffect(() => {
     console.log("CANVASSSS", canvasData?.attributes);
     if (canvasData) {
-      setSelectedDrivers([
-        canvasData.attributes[0].value,
-        canvasData.attributes[1].value,
-      ]);
+      const defaultList = [];
+      const mainDriver = canvasData.attributes.find(
+        (h) => h.trait_type == "Main Driver"
+      )?.value;
+      const secondaryDriver = canvasData.attributes.find(
+        (h) => h.trait_type == "Secondary Driver"
+      )?.value;
+      if (mainDriver) {
+        defaultList.push(mainDriver);
+      }
+      if (secondaryDriver) {
+        defaultList.push(secondaryDriver);
+      }
+      setSelectedDrivers(defaultList);
 
-      setSelectedTeam(canvasData.attributes[2].value);
+      const _team = canvasData.attributes.find(
+        (h) => h.trait_type == "Team"
+      )?.value;
+      if (_team) {
+        setSelectedTeam(_team);
+      }
     }
   }, [canvasData]);
 
@@ -66,17 +79,13 @@ function MintView({ walletAddress, isConnected }: any) {
       </div>
       <LargeDriver
         driverImg={selectedDrivers[0]}
-        sellHandler={setSelectedSellDriver}
-        sellTransaction={sellTransaction}
-        prepareSellRefetch={prepareSellRefetch}
+        canvas={canvasData}
         price={getDriverCost(selectedDrivers[0]).toString()}
         key={"1"}
       />
       <LargeDriver
         driverImg={selectedDrivers[1]}
-        sellHandler={setSelectedSellDriver}
-        sellTransaction={sellTransaction}
-        prepareSellRefetch={prepareSellRefetch}
+        canvas={canvasData}
         price={getDriverCost(selectedDrivers[1]).toString()}
         key={"2"}
       />
