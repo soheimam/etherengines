@@ -1,5 +1,3 @@
-import createLock from "./lock";
-
 const hre = require("hardhat");
 const ethers = hre.ethers;
 
@@ -7,7 +5,7 @@ async function main() {
   // Deploy the Oracle contract
   const contract = await ethers.getContractFactory("Oracle");
   const oracle = await contract.attach(
-    "0xB34cFc9dBfc555290B8345978992B6A4f7B14aF3"
+    "0xCb96Dca78689b5d2Cb9055576cA5FcC124F4BE4b"
   );
 
   // Connect to the contract with the owner account

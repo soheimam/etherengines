@@ -44,7 +44,7 @@ export function useCanvasData(
   selectedDrivers?: string[],
   teamName?: string
 ) {
-  const [activeRace, setActiveRace] = useState<number>(1);
+  const [activeRace, setActiveRace] = useState<number>(10);
   const [tokensOfOwner, setTokensOfOwner] = useState<number[]>([]);
   const [canvasData, setCanvasData] = useState<null | CanvasData>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -67,7 +67,7 @@ export function useCanvasData(
     functionName: "activeRace",
     enabled: isConnected,
     onSuccess(data) {
-      setActiveRace(data as number);
+      setActiveRace(10);
       setIsLoading(false); // Move this to be global over all state in here
     },
     onError(err) {

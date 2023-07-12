@@ -5,7 +5,7 @@ async function main() {
   // Deploy the Oracle contract
   const contract = await ethers.getContractFactory("Canvas");
   const canvas = await contract.attach(
-    "0x407794B377c13E7242c77053c18FfB196a481132"
+    "0x5Ce48f7832dD9CC53c099b70D86A4339cD8a8E9C"
   );
 
   // Connect to the contract with the owner account

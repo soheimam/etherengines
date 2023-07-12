@@ -35,24 +35,24 @@ export const driverArray = () => {
   const drivers = [
     "Verstappen",
     "Checo",
-    "Hamilton",
-    "Russel",
-    "Leclerc",
-    "Sainz",
     "Alsonso",
+    "Hamilton",
+    "Sainz",
+    "Leclerc",
+    "Russel",
     "Stroll",
-    "Tsunoda",
-    "Devries",
-    "Sargent",
-    "Albon",
-    "Bottas",
-    "Zhou",
-    "Piastri",
+    "Ocon",
     "Norris",
     "Gasly",
-    "Ocon",
     "Hulkenberg",
+    "Albon",
+    "Piastri",
+    "Bottas",
+    "Zhou",
+    "Tsunoda",
     "Magnussen",
+    "Sargent",
+    "Devries",
   ];
 
   return drivers;
@@ -61,15 +61,15 @@ export const driverArray = () => {
 export const teamArray = () => {
   const cars = [
     "Red Bull",
-    "Mercedes",
-    "Mclaren",
     "Ferrari",
-    "Williams",
-    "Alpha Tauri",
-    "Alfa Romeo",
     "Aston Martin",
+    "Mercedes",
     "Alpine",
+    "Mclaren",
     "Haas",
+    "Williams",
+    "Alfa Romeo",
+    "Alpha Tauri",
   ];
   return cars;
 };

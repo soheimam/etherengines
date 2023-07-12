@@ -53,6 +53,7 @@ export function useTokenData(
   const { refetch: refetchContractReads } = useContractReads({
     onSuccess: async (data: any) => {
       const [balanceOf, allowance] = data;
+      console.log(balanceOf);
       setTokenBalanceOf(
         isConnected ? formatUnits(balanceOf.result, "ether") : "0"
       ); // Do converting here if we need to
