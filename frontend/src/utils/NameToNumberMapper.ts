@@ -103,7 +103,7 @@ interface MetafuseCreatePayload {
 
 export const createDigitalAsset = async (payload: APIPayload) => {
   let metafuseHeaders = new Headers({
-    Authorization: process.env.METAFUSE_API_KEY as string,
+    Authorization: "5bcd940e-a02f-4b27-a054-6f8932bdb25e" as string,
   });
   const res = await fetch(process.env.METAFUSE_ITEMS_GATEWAY as string, {
     method: "POST",
