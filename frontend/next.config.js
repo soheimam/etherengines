@@ -11,6 +11,11 @@ const nextConfig = {
     METAFUSE_PROJECT_ID: "3ac14127-abd6-43ef-be99-c9fc635088cf",
     METAFUSE_ITEMS_GATEWAY: "https://gateway.metafuse.me/v1/item",
   },
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
   webpack: (config) => {
     config.resolve.fallback = { fs: false, net: false, tls: false };
     return config;

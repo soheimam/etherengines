@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 interface ISmallDriver {
   img: string;
-  onSelect: PropTypes.func.isRequired;
+  onSelect: any;
   clickCount: number;
   selectedDrivers: string[];
 }
