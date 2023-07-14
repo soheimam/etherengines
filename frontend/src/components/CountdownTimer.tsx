@@ -1,12 +1,12 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from "react";
 
 type TimeRemaining = {
-  total: number,
-  days: number,
-  hours: number,
-  minutes: number,
-  seconds: number
-}
+  total: number;
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
 
 const CountdownTimer = () => {
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
@@ -14,10 +14,10 @@ const CountdownTimer = () => {
     days: 0,
     hours: 0,
     minutes: 0,
-    seconds: 0
+    seconds: 0,
   });
 
-  const eventDate = new Date("July 9, 2023 16:00:00");
+  const eventDate = new Date("July 21, 2023 16:00:00");
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -34,7 +34,8 @@ const CountdownTimer = () => {
   }, []);
 
   const calculateTimeRemaining = (endtime: Date): TimeRemaining => {
-    const total = Date.parse(endtime.toString()) - Date.parse(new Date().toString());
+    const total =
+      Date.parse(endtime.toString()) - Date.parse(new Date().toString());
     const seconds = Math.floor((total / 1000) % 60);
     const minutes = Math.floor((total / 1000 / 60) % 60);
     const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
@@ -45,17 +46,22 @@ const CountdownTimer = () => {
       days,
       hours,
       minutes,
-      seconds
+      seconds,
     };
   };
 
   return (
     <span className="countdown font-mono text-2xl">
-    <span style={{ "--value": timeRemaining.days } as CSSProperties}></span>:
-    <span style={{ "--value": timeRemaining.hours } as CSSProperties}></span>:
-    <span style={{ "--value": timeRemaining.minutes } as CSSProperties}></span>:
-    <span style={{ "--value": timeRemaining.seconds } as CSSProperties}></span>
-  </span>
+      <span style={{ "--value": timeRemaining.days } as CSSProperties}></span>:
+      <span style={{ "--value": timeRemaining.hours } as CSSProperties}></span>:
+      <span
+        style={{ "--value": timeRemaining.minutes } as CSSProperties}
+      ></span>
+      :
+      <span
+        style={{ "--value": timeRemaining.seconds } as CSSProperties}
+      ></span>
+    </span>
   );
 };
 
