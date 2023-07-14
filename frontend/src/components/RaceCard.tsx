@@ -37,7 +37,7 @@ const RaceCard = ({ track, trackData, active }: IRaceCard) => {
               ) : (
                 <SunIcon />
               )}
-              {weatherArray()[trackData.conditions]}, {trackData.temperature}℃
+              {weatherArray()[trackData.conditions]}, {21}℃
             </h1>
           ) : null}
           <h1>
