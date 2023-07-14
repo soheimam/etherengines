@@ -35,7 +35,7 @@ function Homepage() {
     <Grid>
       <h1
         ref={titleRef}
-        className="knockout bg-primary col-start-3 col-span-5 font-bold text-primary text-wrap"
+        className="knockout bg-primary col-start-3 col-span-5 font-bold text-primary text-wra max-w-lg"
       >
         PITSTOP PROTOCOL
       </h1>

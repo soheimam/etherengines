@@ -139,7 +139,7 @@ const Dashboard = ({ currentPage, setCurrentPage }: IDashboard) => {
             <div className="col-span-12 text-base-content">
               <h1>PREVIOUS RACE</h1>
             </div>
-            <div className="col-span-6 h-72 border border-base-content rounded-3xl bg-accent/70 text-center">
+            <div className="col-span-6 h-72 border border-base-content rounded-3xl bg-neutral/70 text-center">
               {activeRace && (
                 <RaceCard
                   track={activeRace - 1}
