@@ -56,7 +56,7 @@ export default function Home() {
             <div className="avatar">
               <div className="w-14 rounded-xl">
                 <Image
-                  src="/images/pstop.svg"
+                  src="/images/pitstop_logo.png"
                   layout="fill"
                   objectFit="scale-down"
                   objectPosition="center"
