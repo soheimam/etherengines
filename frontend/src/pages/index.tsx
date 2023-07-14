@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <>
       <main
-        className={`flex w-full justify-start flex-col overflow-hidden min-h-screen px-20`}
+        className={`flex w-full justify-start items-center flex-col overflow-hidden min-h-screen px-20`}
       >
         <div className="flex w-full justify-end max-w-[1280px] pt-10 pb-4">
           <div className="flex w-full items-center justify-between space-y-4">
