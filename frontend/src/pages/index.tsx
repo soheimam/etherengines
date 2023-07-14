@@ -8,7 +8,7 @@ import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Homepage from "@/components/Homepage";
 import { useCanvasData } from "@/hooks/useCanvasData";
-import logo from "public/images/pitstop_logo.png";
+import logo from "public/Images/pitstop_logo.png";
 
 export enum Pages {
   START,
