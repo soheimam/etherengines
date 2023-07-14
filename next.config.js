@@ -9,7 +9,6 @@ const nextConfig = {
     ORACLE_ADDRESS: "0xCb96Dca78689b5d2Cb9055576cA5FcC124F4BE4b",
     TOKEN_ADDRESS: "0x5688eA561963b40558Ba24230Ee507AD01ED12e5",
     METAFUSE_PROJECT_ID: "3ac14127-abd6-43ef-be99-c9fc635088cf",
-    METAFUSE_API_KEY: "",
     METAFUSE_ITEMS_GATEWAY: "https://gateway.metafuse.me/v1/item",
   },
   webpack: (config) => {
