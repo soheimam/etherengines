@@ -1,4 +1,10 @@
+# Pitstop Protocol (EthBarcelona Hackathon)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## XDC Wallet Information
+
+xdc5664A51EcA6a9FdD0207487607F86E79dbe9b348
 
 ## Getting Started
 
